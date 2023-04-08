@@ -60,7 +60,7 @@ const RegisterForm: FC = () => {
       <Form className="forms" onSubmit={onSubmit}>
         <Form.Group className="d-flex flex-column justify-content-center align-items-center">
           <FormLabel htmlFor="avatar" id="avatar-p">
-            <Avatar round src={`${process.env.REACT_APP_API_URL}/uploads/Blank-Avatar.jpg`} alt="Avatar" />
+            <Avatar round src={`${process.env.REACT_APP_API_URL}/uploads/default_profile.png`} alt="Avatar" />
           </FormLabel>
         </Form.Group>
         <Controller

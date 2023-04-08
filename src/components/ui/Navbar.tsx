@@ -65,8 +65,8 @@ const Navbar: FC = () => {
                   <div>
                     <Link to={routes.HOME}>
                       <img
-                        src="/quotastic_red.png"
-                        alt="Quotastic red logo"
+                        src="/geotagger_logo.png"
+                        alt="Geotagger logo"
                         width={123}
                       />
                     </Link>
@@ -92,8 +92,8 @@ const Navbar: FC = () => {
                 <div className="container-xxl pb-0">
                   <Link className="navbar.brand" to={routes.HOME}>
                     <img
-                      src="/quotastic_red.png"
-                      alt="Quotastic red logo"
+                      src="/geotagger_logo.png"
+                      alt="Geotagger logo logo"
                       width={123}
                     />
                   </Link>
@@ -150,8 +150,8 @@ const Navbar: FC = () => {
                   <div>
                     <Link to={routes.HOME}>
                       <img
-                        src="/quotastic_red.png"
-                        alt="Quotastic red logo"
+                        src="/geotagger_logo.png"
+                        alt="Geotagger logo"
                         width={123}
                       />
                     </Link>
@@ -164,9 +164,7 @@ const Navbar: FC = () => {
                   <ul className='navbar-nav'>
                     <li className="nav-item mb-3">
                       <NavLink className="nav-link" to={routes.SIGNUP}>
-                        <Button className='btnRegisterHamb'>
-                          Sign up
-                        </Button>
+                        SIGN UP
                       </NavLink> 
                     </li>
                   </ul>
@@ -177,8 +175,8 @@ const Navbar: FC = () => {
                 <div className="container-xxl pb-0">
                   <Link className="navbar.brand" to={routes.HOME}>
                     <img
-                      src="quotastic_red.png"
-                      alt="Quotastic red logo"
+                      src="geotagger_logo.png"
+                      alt="Geotagger logo"
                       width={123}
                     />
                   </Link>
@@ -201,7 +199,7 @@ const Navbar: FC = () => {
                     <li className="nav-item">
                       <NavLink className="nav-link pe-0" to={routes.SIGNUP}>
                         <Button className='btnRegister'>
-                          Sign up
+                          SIGN UP
                         </Button>
                       </NavLink>
                     </li>
@@ -234,6 +232,45 @@ const Navbar: FC = () => {
           <nav className="navbar navbar-expand-lg bg-light">
             {authStore.user ? (
               <>
+              <div className="container-xxl d-flex justify-content-between align-items-center mb-3">
+                  <div>
+                    <Link to={routes.HOME}>
+                      <img
+                        src="/geotagger_logo.png"
+                        alt="Geotagger logo"
+                        width={123}
+                      />
+                    </Link>
+                  </div>
+                  <div>
+                    <span className="close-icon" onClick={toggleHamburger}>x</span>
+                  </div>
+                </div>
+                <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
+                  <ul className='navbar-nav'>
+                    <div>
+                      <div>
+                        <img src={`${process.env.REACT_APP_API_URL}/uploads/${authStore.user?.avatar}`} alt="User avatar" />
+                      </div>
+                      <div>{authStore.user.first_name + ' ' + authStore.user.last_name}</div>
+                    </div>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to={routes.HOME}>
+                        Home
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to={routes.SIGNUP}>
+                        Profile settings
+                      </NavLink>
+                    </li>
+                    <li className="nav-item mb-3">
+                      <NavLink className="nav-link btnLoginHamb" to={routes.HOME} onClick={signout}>
+                        Logout
+                      </NavLink> 
+                    </li>
+                  </ul>
+                </div>
               </>
             ):(
               <>
@@ -253,17 +290,24 @@ const Navbar: FC = () => {
                 </div>
                 <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
                   <ul className='navbar-nav'>
-                    <li className="nav-item mb-3">
-                      <NavLink className="nav-link btnLoginHamb" to={routes.SIGNUP}>
-                        Sign in
-                      </NavLink> 
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to={routes.HOME}>
+                        Home
+                      </NavLink>
                     </li>
                     <li className="nav-item">
-                      <NavLink className="nav-link" to={routes.LOGIN}>
+                      <NavLink className="nav-link" to={routes.SIGNUP}>
                         <Button className='btnRegisterHamb'>
                           SIGN UP
                         </Button>
                       </NavLink>
+                    </li>
+                    <li className="nav-item mb-3">
+                      <NavLink className="nav-link btnLoginHamb" to={routes.LOGIN}>
+                        <Button className="btnLoginHamb">
+                          Sign in
+                        </Button>
+                      </NavLink> 
                     </li>
                   </ul>
                 </div>
@@ -322,21 +366,23 @@ const Navbar: FC = () => {
                       </li>
                       <li className="nav-item pe-4">
                         <Link to={routes.ADDNEWLOCATION}>
-                        <img src='/addLocation.png' alt="Add location" width={40}/>
+                          <img src='/addLocation.png' alt="Add location" width={40}/>
                         </Link>
                       </li>
                     </>
                   ) : (
                     <>
                       <li className="nav-item pe-4">
-                        <NavLink className="nav-link" to={routes.SIGNUP}>
-                          Sign in
+                        <NavLink className="nav-link" to={routes.LOGIN}>
+                          <Button className="btnLogin">
+                            Sign in
+                          </Button>
                         </NavLink> 
                       </li>
                       <li className="nav-item">
-                        <NavLink className="nav-link pe-0" to={routes.LOGIN}>
+                        <NavLink className="nav-link pe-0" to={routes.SIGNUP}>
                           <Button className='btnRegister'>
-                            Sign up
+                            SIGN UP
                           </Button>
                         </NavLink>
                       </li>
