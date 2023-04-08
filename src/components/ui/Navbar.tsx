@@ -1,16 +1,15 @@
 import Button from 'react-bootstrap/Button'
-import { routes } from '../../constants/routesConstants'
+import { routes } from 'constants/routesConstants'
 import { FC, useState } from 'react'
 import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Toast from 'react-bootstrap/Toast'
-import authStore from '../../stores/auth.store'
+import authStore from 'stores/auth.store'
 import ToastContainer from 'react-bootstrap/ToastContainer'
-import { StatusCode } from '../../constants/errorConstants'
-import * as API from '../../api/Api'
+import { StatusCode } from 'constants/errorConstants'
+import * as API from 'api/Api'
 import { useQuery } from 'react-query'
-import useMediaQuery from '../../hooks/useMediaQuery'
-import React from 'react'
+import useMediaQuery from 'hooks/useMediaQuery'
 
 const Navbar: FC = () => {
   const location = useLocation()
@@ -235,44 +234,6 @@ const Navbar: FC = () => {
           <nav className="navbar navbar-expand-lg bg-light">
             {authStore.user ? (
               <>
-                <div className="container-xxl d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <Link to={routes.HOME}>
-                      <img
-                        src="/quotastic_red.png"
-                        alt="Quotastic red logo"
-                        width={123}
-                      />
-                    </Link>
-                  </div>
-                  <div>
-                    <span className="close-icon" onClick={toggleHamburger}>x</span>
-                  </div>
-                </div>
-                <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
-                  <ul className='navbar-nav text-center'>
-                    <li className="nav-item pe-4 mb-2">
-                      <Link to={routes.USERQUOTESINFO}>
-                        <img className='userAvatar' src={`${process.env.REACT_APP_API_URL}/uploads/${authStore.user?.avatar}`} alt="User avatar" width={40}/>
-                      </Link>
-                    </li>
-                    <li className="nav-item pe-4">
-                      <Link to={routes.ADDNEWQUOTE}>
-                      <img src='/plus.png' alt="Add quote" width={40}/>
-                      </Link>
-                    </li>
-                    <li className="nav-item pe-4">
-                      <a className="text-decoration-none textColor" onClick={signout}>
-                        Sign out
-                      </a>
-                    </li>
-                    <li className="nav-item pe-4 mb-2">
-                      <a className="text-decoration-none textColor" href={routes.USERINFO}>
-                        Setings
-                      </a>
-                    </li>
-                  </ul>
-                </div>
               </>
             ):(
               <>
@@ -357,12 +318,12 @@ const Navbar: FC = () => {
                         </a>
                       </li>
                       <li className="nav-item pe-4">
-                        <Link to={routes.USERQUOTESINFO}>
+                        <Link to={routes.USERLOCATIONSINFO}>
                           <img className='userAvatar' src={`${process.env.REACT_APP_API_URL}/uploads/${authStore.user?.avatar}`} alt="User avatar" width={40}/>
                         </Link>
                       </li>
                       <li className="nav-item pe-4">
-                        <Link to={routes.ADDNEWQUOTE}>
+                        <Link to={routes.ADDNEWLOCATION}>
                         <img src='/plus.png' alt="Add quote" width={40}/>
                         </Link>
                       </li>
