@@ -15,8 +15,6 @@ const MyLocationsInfo: FC = () => {
   
   const userId = (authStore.user?.id) as number
 
-  
-
   return (
     <Layout>
       <div>

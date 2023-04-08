@@ -8,3 +8,4 @@ const LocationsEditSuccess = (props:any) => {
     )
   } 
   export default LocationsEditSuccess
+  

@@ -241,8 +241,8 @@ const Navbar: FC = () => {
                   <div>
                     <Link to={routes.HOME}>
                       <img
-                        src="/quotastic_red.png"
-                        alt="Quotastic red logo"
+                        src="/geotagger_logo.png"
+                        alt="Geotagger logo"
                         width={123}
                       />
                     </Link>
@@ -254,16 +254,14 @@ const Navbar: FC = () => {
                 <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
                   <ul className='navbar-nav'>
                     <li className="nav-item mb-3">
-                      <NavLink className="nav-link" to={routes.SIGNUP}>
-                        <Button className='btnRegisterHamb'>
-                          Sign up
-                        </Button>
+                      <NavLink className="nav-link btnLoginHamb" to={routes.SIGNUP}>
+                        Sign in
                       </NavLink> 
                     </li>
                     <li className="nav-item">
                       <NavLink className="nav-link" to={routes.LOGIN}>
-                        <Button className='btnLoginHamb'>
-                          Login
+                        <Button className='btnRegisterHamb'>
+                          SIGN UP
                         </Button>
                       </NavLink>
                     </li>
@@ -277,8 +275,8 @@ const Navbar: FC = () => {
             <div className="container-xxl">
               <Link className="navbar.brand" to={routes.HOME}>
                 <img
-                  src="/quotastic_red.png"
-                  alt="Quotastic red logo"
+                  src="/geotagger_logo.png"
+                  alt="Geotagger logo"
                   width={123}
                 />
               </Link>
@@ -308,13 +306,13 @@ const Navbar: FC = () => {
                         </a>
                       </li>
                       <li className="nav-item pe-4">
-                        <a className="text-decoration-none textColor" onClick={signout}>
-                          Sign out
+                        <a className="text-decoration-none textColor" href={routes.USERINFO}>
+                          Profile settings
                         </a>
                       </li>
                       <li className="nav-item pe-4">
-                        <a className="text-decoration-none textColor" href={routes.USERINFO}>
-                          Setings
+                        <a className="text-decoration-none textColor" onClick={signout}>
+                          Logout
                         </a>
                       </li>
                       <li className="nav-item pe-4">
@@ -324,7 +322,7 @@ const Navbar: FC = () => {
                       </li>
                       <li className="nav-item pe-4">
                         <Link to={routes.ADDNEWLOCATION}>
-                        <img src='/plus.png' alt="Add quote" width={40}/>
+                        <img src='/addLocation.png' alt="Add location" width={40}/>
                         </Link>
                       </li>
                     </>
@@ -332,15 +330,13 @@ const Navbar: FC = () => {
                     <>
                       <li className="nav-item pe-4">
                         <NavLink className="nav-link" to={routes.SIGNUP}>
-                          <Button className='btnRegister'>
-                            Sign up
-                          </Button>
+                          Sign in
                         </NavLink> 
                       </li>
                       <li className="nav-item">
                         <NavLink className="nav-link pe-0" to={routes.LOGIN}>
-                          <Button className='btnLogin'>
-                            Login
+                          <Button className='btnRegister'>
+                            Sign up
                           </Button>
                         </NavLink>
                       </li>
