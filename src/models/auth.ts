@@ -7,17 +7,4 @@ export type UserType = {
   password:string
   confirm_password:string
   avatar: string
-  quotes:{
-    id:number
-    karma:number
-    quote:string
-    posted_when:string
-  }
-  votes:{
-    id:number
-    value:boolean
-    user:{
-      id:number
-    }
-  }
 }

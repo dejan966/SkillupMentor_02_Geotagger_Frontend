@@ -22,7 +22,7 @@ export const useRegisterForm = () => {
       )
       .required(),
     confirm_password: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords do not match')
+      .oneOf([Yup.ref('password')], 'Passwords do not match')
       .required('Passwords do not match'),
   })
 

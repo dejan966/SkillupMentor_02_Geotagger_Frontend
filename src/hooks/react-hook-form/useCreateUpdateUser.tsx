@@ -25,7 +25,7 @@ export const useCreateUpdateUserForm = ({ defaultValues }: Props) => {
     new_password: Yup.string().notRequired(),
     password: Yup.string().notRequired(),
     confirm_password: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords do not match')
+      .oneOf([Yup.ref('password')], 'Passwords do not match')
       .notRequired(),
     avatar: Yup.string().notRequired(),
   })

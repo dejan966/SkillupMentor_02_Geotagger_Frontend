@@ -1,8 +1,5 @@
 import { FC, lazy, Suspense } from 'react'
 import { Route, RouteProps, Routes as Switch } from 'react-router-dom'
-import QuotesMostLiked from '../pages/Quotes/most-liked'
-import QuotesMostRecent from '../pages/Quotes/most-recent'
-
 import PrivateRoute from './PrivateRoute'
 import RestrictedRoute from './RestrictedRoute'
 
@@ -28,11 +25,11 @@ const UserPasswordEdit = lazy(() => import('../pages/Me/Update-password'))
 const UserAvatarEdit = lazy(() => import('../pages/Me/Update-avatar'))
 const DeleteAcc = lazy(() => import('../pages/Me/Delete-account'))
 
-const QuotesAdd = lazy(() => import('../pages/Me/Myquote'))
+/* const QuotesAdd = lazy(() => import('../pages/Me/Myquote'))
 const QuotesEdit = lazy(() => import('../pages/Me/Myquote/Edit'))
 const QuotesDelete = lazy(() => import('../pages/Me/Myquote/Delete'))
 const QuotesEditSuccess = lazy(() => import('../pages/Me/Myquote/Edit/success'))
-
+ */
 /* Restricted routes */
 const Login = lazy(() => import('../pages/Login'))
 const Register = lazy(() => import('../pages/Register'))

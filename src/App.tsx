@@ -1,26 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
-import React from 'react';
+import { FC } from 'react'
+import Routes from './routes/Routes'
+import { usePageIdentification } from './hooks/usePageIdentification'
+import { observer } from 'mobx-react'
+import useAuth from './hooks/useAuth'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App: FC = () => {
+  usePageIdentification()
+  useAuth()
+
+  return <Routes />
 }
 
-export default App;
+export default observer(App)

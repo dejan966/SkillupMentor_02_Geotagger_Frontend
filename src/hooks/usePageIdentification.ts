@@ -6,7 +6,7 @@ const onDefault = () => {
   document.body.id = ''
 }
 const onHome = () => {
-  document.title = 'Home'
+  document.title = 'Geotagger'
   document.body.id = 'home-page'
 }
 const onLogin = () => {
