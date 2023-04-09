@@ -17,6 +17,10 @@
   color:$primary;
 }
 
+.blue{
+  color:$secondary;
+}
+
 .grid{
   display:grid;
   grid-template-columns: repeat(2, 2fr);
@@ -41,6 +45,7 @@
 
 .btnRegister{
   color: #fff;
+  text-transform: uppercase;
 }
 
 .btnLogin{
@@ -57,6 +62,7 @@
 
   .btnRegisterHamb {
     color: #fff;
+    text-transform: uppercase;
   }
 
   .btnLoginHamb {

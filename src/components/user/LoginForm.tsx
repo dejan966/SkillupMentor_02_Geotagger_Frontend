@@ -35,9 +35,9 @@ const LoginForm: FC = () => {
 
   return (
     <>
-      <div className="text-center text">
-        <h1 className="display-5">Welcome <span style={{color:'#DE8667'}}>back</span></h1>
-          <p className="fs-6">Thank you for coming back. Hope you have a good day and continue to inspire others</p>
+      <div className="text-center">
+        <h1 className="display-4 blue">Sign in</h1>
+          <p>Welcome back to Geotagger. We are glad that you are back.</p>
       </div>
       <Form className="forms" onSubmit={onSubmit}>
         <Controller
@@ -55,7 +55,6 @@ const LoginForm: FC = () => {
                 className={
                   errors.email ? 'form-control is-invalid' : 'form-control'
                 }
-                style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
               />
               {errors.email && (
                 <div className="invalid-feedback text-danger">
@@ -80,7 +79,6 @@ const LoginForm: FC = () => {
                 className={
                   errors.password ? 'form-control is-invalid' : 'form-control'
                 }
-                style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
               />
               {errors.password && (
                 <div className="invalid-feedback text-danger">
@@ -90,8 +88,8 @@ const LoginForm: FC = () => {
             </Form.Group>
           )}
         />
-        <Button className="w-100 btnLogin" style={{borderColor:'#DE8667'}} type="submit">
-          Login
+        <Button className="w-100 btnRegister" type="submit">
+          Sign in
         </Button>
         <div className="d-flex justify-content-between align-items-center mb-2">
           <p className="mb-0">Dont have an account yet?</p>

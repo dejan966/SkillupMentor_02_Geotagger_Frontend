@@ -53,9 +53,9 @@ const RegisterForm: FC = () => {
 
   return (
     <>
-      <div className="text-center text">
-        <h1 className="display-5">What is your <span style={{color:'#DE8667'}}>name?</span></h1>
-        <p className="fs-6">Your name will appear on quotes and your public profile</p>
+      <div className="text-center">
+        <h1 className="display-5 blue">Sign up</h1>
+        <p>Your name will appear on posts and your public profile.</p>
       </div>
       <Form className="forms" onSubmit={onSubmit}>
         <Form.Group className="d-flex flex-column justify-content-center align-items-center">
@@ -78,7 +78,7 @@ const RegisterForm: FC = () => {
                 className={
                   errors.email ? 'form-control is-invalid' : 'form-control'
                 }
-                style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
+                style={{borderBottomStyle:'solid', borderBottomColor:'#000000'}}
               />
               {errors.email && (
                 <div className="invalid-feedback text-danger">
@@ -191,7 +191,7 @@ const RegisterForm: FC = () => {
             </Form.Group> 
           )}
         />
-        <Button className="w-100 btnRegister" style={{borderColor:'#DE8667'}} type="submit">
+        <Button className="w-100 btnRegister" type="submit">
           Sign up
         </Button>
         <div className="d-flex justify-content-between align-items-center mb-2">
