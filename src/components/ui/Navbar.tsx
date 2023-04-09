@@ -8,7 +8,6 @@ import authStore from 'stores/auth.store'
 import ToastContainer from 'react-bootstrap/ToastContainer'
 import { StatusCode } from 'constants/errorConstants'
 import * as API from 'api/Api'
-import { useQuery } from 'react-query'
 import useMediaQuery from 'hooks/useMediaQuery'
 
 const Navbar: FC = () => {

@@ -57,7 +57,7 @@ const RegisterForm: FC = () => {
         <h1 className="display-5 blue">Sign up</h1>
         <p>Your name will appear on posts and your public profile.</p>
       </div>
-      <Form className="forms" onSubmit={onSubmit}>
+      <Form className="" onSubmit={onSubmit}>
         <Form.Group className="d-flex flex-column justify-content-center align-items-center">
           <FormLabel htmlFor="avatar" id="avatar-p">
             <Avatar round src={`${process.env.REACT_APP_API_URL}/uploads/default_profile.png`} alt="Avatar" />
