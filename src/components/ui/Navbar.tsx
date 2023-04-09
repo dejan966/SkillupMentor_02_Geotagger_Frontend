@@ -22,22 +22,6 @@ const Navbar: FC = () => {
   const {id} = useParams()
   const userId:number = parseInt(id!)
 
-  const currUser = useQuery(
-    ['currUserInfo'],
-    () => API.fetchCurrUser(),
-    {
-      refetchOnWindowFocus:false
-    }
-  )
-
-  const user = useQuery(
-    ['userInfo'],
-    () => API.fetchUser(userId),
-    {
-      refetchOnWindowFocus:false
-    }
-  )
-
   const toggleHamburger = () => {
     setShowMenu(showMenu => !showMenu)
   }
