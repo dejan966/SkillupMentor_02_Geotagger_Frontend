@@ -35,7 +35,7 @@ const LoginForm: FC = () => {
 
   return (
     <>
-      <div className='center left'>
+      <div className='verticalCenter left'>
         <div className="text-center">
           <h1 className="display-4 blue">Sign in</h1>
             <p>Welcome back to Geotagger. We are glad that you are back.</p>

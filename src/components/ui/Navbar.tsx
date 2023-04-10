@@ -63,7 +63,7 @@ const Navbar: FC = () => {
                     <li className="nav-item">
                       <NavLink className="nav-link" to={routes.LOGIN}>
                         <Button className='btnLoginHamb'>
-                          Login
+                          Sign in
                         </Button>
                       </NavLink>
                     </li>
@@ -99,7 +99,7 @@ const Navbar: FC = () => {
                     <li className="nav-item">
                       <NavLink className="nav-link pe-0" to={routes.LOGIN}>
                         <Button className='btnLogin'>
-                          Login
+                          Sign in
                         </Button>
                       </NavLink>
                     </li>

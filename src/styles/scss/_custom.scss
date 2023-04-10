@@ -12,13 +12,20 @@
 
 .right{
   position: absolute;
-  float: right;
-  right: 0px;
   top: 0px;
   left: 695px;
+  height: auto;
 }
 
-.center {
+.sidePicture{
+  position: absolute;
+  top: 0;
+  left: 695px;
+  width: 50%;
+  height:auto;
+}
+
+.verticalCenter {
   padding: 70px 0;
 }
 
@@ -77,10 +84,7 @@
   text-transform: uppercase;
 }
 
-.sidePicture{
-  position: absolute;
-  right: 150px;
-}
+
 
 .btnLogin{
   background-color: #fff;
