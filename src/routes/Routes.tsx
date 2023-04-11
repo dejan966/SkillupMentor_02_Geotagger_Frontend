@@ -14,28 +14,28 @@ type AppRoute = RouteProps & {
 }
 
 /* Public routes */
-const Home = lazy(() => import('../pages/Home'))
+const Home = lazy(() => import('pages/Home'))
 
 /* Private routes */
-const UserInfo = lazy(() => import('../pages/Me'))
-const UserEdit = lazy(() => import('../pages/Me/Edit'))
-const UsersQuotes = lazy(() => import('../pages/Users/Quotes'))
-const UserQuotes = lazy(() => import('../pages/Me/Quotes'))
-const UserPasswordEdit = lazy(() => import('../pages/Me/Update-password'))
-const UserAvatarEdit = lazy(() => import('../pages/Me/Update-avatar'))
-const DeleteAcc = lazy(() => import('../pages/Me/Delete-account'))
+const UserInfo = lazy(() => import('pages/Me'))
+const UserEdit = lazy(() => import('pages/Me/Edit'))
+const UsersLocations = lazy(() => import('pages/Users/Locations'))
+const UserLocations = lazy(() => import('pages/Me/Locations'))
+const UserPasswordEdit = lazy(() => import('pages/Me/Update-password'))
+const UserAvatarEdit = lazy(() => import('pages/Me/Update-avatar'))
+const DeleteAcc = lazy(() => import('pages/Me/Delete-account'))
 
-/* const QuotesAdd = lazy(() => import('../pages/Me/Myquote'))
-const QuotesEdit = lazy(() => import('../pages/Me/Myquote/Edit'))
-const QuotesDelete = lazy(() => import('../pages/Me/Myquote/Delete'))
-const QuotesEditSuccess = lazy(() => import('../pages/Me/Myquote/Edit/success'))
- */
+const LocationsAdd = lazy(() => import('pages/Me/Mylocation'))
+const LocationsEdit = lazy(() => import('pages/Me/Mylocation/Edit'))
+const LocationsDelete = lazy(() => import('pages/Me/Mylocation/Delete'))
+const LocationsEditSuccess = lazy(() => import('pages/Me/Mylocation/Edit/success'))
+ 
 /* Restricted routes */
-const Login = lazy(() => import('../pages/Login'))
-const Register = lazy(() => import('../pages/Register'))
+const Login = lazy(() => import('pages/Login'))
+const Register = lazy(() => import('pages/Register'))
 
 /* Error routes */
-const Page404 = lazy(() => import('../pages/Page404'))
+const Page404 = lazy(() => import('pages/Page404'))
 
 export const AppRoutes: AppRoute[] = [
   // Restricted Routes
@@ -57,13 +57,13 @@ export const AppRoutes: AppRoute[] = [
   },
   {
     type: RouteType.PRIVATE,
-    path: '/me/quotes',
-    children: <UserQuotes />,
+    path: '/me/locations',
+    children: <UserLocations />,
   },
   {
     type: RouteType.PRIVATE,
-    path: '/users/:id/quotes',
-    children: <UsersQuotes />,
+    path: '/users/:id/Locations',
+    children: <UsersLocations />,
   },
   {
     type: RouteType.PRIVATE,
@@ -87,34 +87,25 @@ export const AppRoutes: AppRoute[] = [
   },
   {
     type: RouteType.PRIVATE,
-    path: '/me/myquote',
-    children: <QuotesAdd />,
+    path: '/me/mylocation',
+    children: <LocationsAdd />,
   },
   {
     type: RouteType.PRIVATE,
-    path: '/me/myquote/edit/:id',
-    children: <QuotesEdit />,
+    path: '/me/mylocation/edit/:id',
+    children: <LocationsEdit />,
   },
   {
     type: RouteType.PRIVATE,
-    path: '/me/myquote/delete/:id',
-    children: <QuotesDelete />,
+    path: '/me/mylocation/delete/:id',
+    children: <LocationsDelete />,
   },
   {
     type: RouteType.PRIVATE,
-    path: '/me/myquote/edit/success',
-    children: <QuotesEditSuccess />,
+    path: '/me/mylocation/edit/success',
+    children: <LocationsEditSuccess />,
   },
-  {
-    type: RouteType.PRIVATE,
-    path: '/quotes/most-liked',
-    children: <QuotesMostLiked />,
-  },
-  {
-    type: RouteType.PRIVATE,
-    path: '/quotes/most-recent',
-    children: <QuotesMostRecent />,
-  },
+ 
   // Public Routes
   {
     type: RouteType.PUBLIC,

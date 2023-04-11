@@ -16,9 +16,11 @@ import { StatusCode } from 'constants/errorConstants'
 import authStore from 'stores/auth.store'
 import Avatar from 'react-avatar'
 import { observer } from 'mobx-react'
+import useMediaQuery from 'hooks/useMediaQuery'
 
 const RegisterForm: FC = () => {
   const navigate = useNavigate()
+  const { isMobile } = useMediaQuery(1038)
   const { handleSubmit, errors, control } = useRegisterForm()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
@@ -53,14 +55,15 @@ const RegisterForm: FC = () => {
 
   return (
     <>
-      <div className="text-center text">
-        <h1 className="display-5">What is your <span style={{color:'#DE8667'}}>name?</span></h1>
-        <p className="fs-6">Your name will appear on quotes and your public profile</p>
+    <div className='verticalCenter left'>
+      <div className="text-center">
+        <h1 className="display-5 blue">Sign up</h1>
+        <p>Your name will appear on posts and your public profile.</p>
       </div>
-      <Form className="forms" onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <Form.Group className="d-flex flex-column justify-content-center align-items-center">
           <FormLabel htmlFor="avatar" id="avatar-p">
-            <Avatar round src={`${process.env.REACT_APP_API_URL}/uploads/Blank-Avatar.jpg`} alt="Avatar" />
+            <Avatar round src={`${process.env.REACT_APP_API_URL}/uploads/default_profile.png`} alt="Avatar" />
           </FormLabel>
         </Form.Group>
         <Controller
@@ -78,7 +81,7 @@ const RegisterForm: FC = () => {
                 className={
                   errors.email ? 'form-control is-invalid' : 'form-control'
                 }
-                style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
+                style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
               />
               {errors.email && (
                 <div className="invalid-feedback text-danger">
@@ -104,7 +107,7 @@ const RegisterForm: FC = () => {
                   className={
                     errors.first_name ? 'form-control is-invalid' : 'form-control'
                   }
-                  style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
+                  style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
                 />
                 {errors.first_name && (
                   <div className="invalid-feedback text-danger">
@@ -130,8 +133,8 @@ const RegisterForm: FC = () => {
                   className={
                     errors.last_name ? 'form-control is-invalid' : 'form-control'
                   }
-                  style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
-                />
+                  style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
+                 />
                 {errors.last_name && (
                   <div className="invalid-feedback text-danger">
                     {errors.last_name.message}
@@ -157,7 +160,7 @@ const RegisterForm: FC = () => {
                 className={
                   errors.password ? 'form-control is-invalid' : 'form-control'
                 }
-                style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
+                style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
               />
               {errors.password && (
                 <div className="invalid-feedback text-danger">
@@ -174,14 +177,14 @@ const RegisterForm: FC = () => {
             <Form.Group className="mb-3">
               <FormLabel htmlFor="confirm_password">Confirm password</FormLabel>
               <input
-              {...field}
+                {...field}
                 type="password"
                 aria-label="Confirm password"
                 aria-describedby="confirm_password"
                 className={
                   errors.confirm_password ? 'form-control is-invalid' : 'form-control'
                 }
-                style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
+                style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
               />
               {errors.confirm_password && (
                 <div className="invalid-feedback text-danger">
@@ -191,7 +194,7 @@ const RegisterForm: FC = () => {
             </Form.Group> 
           )}
         />
-        <Button className="w-100 btnRegister" style={{borderColor:'#DE8667'}} type="submit">
+        <Button className="w-100 btnRegister" type="submit">
           Sign up
         </Button>
         <div className="d-flex justify-content-between align-items-center mb-2">
@@ -201,7 +204,15 @@ const RegisterForm: FC = () => {
           </Link>
         </div>
       </Form>
-      {showError && (
+    </div>
+    {!isMobile ? (
+      <div className='right'>
+        <img src="/location-signup.png" alt="location img" width="824"/>
+      </div>
+    ):(
+      null
+    )}
+    {showError && (
         <ToastContainer className="p-3" position="top-end">
           <Toast onClose={() => setShowError(false)} show={showError}>
             <Toast.Header>

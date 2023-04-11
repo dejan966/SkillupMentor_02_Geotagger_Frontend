@@ -7,8 +7,10 @@ import { useQuery } from 'react-query'
 import * as API from 'api/Api'
 import { Link, useNavigate } from 'react-router-dom'
 import { StatusCode } from 'constants/errorConstants'
+import useMediaQuery from 'hooks/useMediaQuery'
 
 const Home: FC = () => {
+  const { isMobile } = useMediaQuery(1038)
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
   
@@ -32,35 +34,35 @@ const Home: FC = () => {
       {authStore.user ? (
         <>
           <div className='mb-5'>
-            <div className='text-center'>
-              <h2 className='red'>Personal best guesses</h2>
-              <p className='quoteText'>Your personal best guesses appear here. Go on and try to beat your personal records or set a new one!</p>
+            <div className='text-start'>
+              <h2 className='green'>Personal best guesses</h2>
+              <p>Your personal best guesses appear here. Go on and try to beat your personal records or set a new one!</p>
+              {/*Locations - personal best in the middle of the pic*/}
             </div>
             <div className='mb-5 text-center mx-auto'>
-              <Button href={'/'} className='btnLogin'>Load more</Button>
+              <Button href='/' className='btnLogin'>Load more</Button>
             </div>
           </div>
           <div className='mb-5'>
-            <div className='text-center mx-auto' style={{width:420}}>
-              <h2 className='red'>New locations</h2>
-              <p className='quoteText'>Most upvoted quotes on the platform. Give a like to the ones you like to keep them saved in your profile.</p>
+            <div className='text-start' style={{width:420}}>
+              <h2 className='green'>New locations</h2>
+              <p>New uploads from users. Try to guess all the locations by pressing on a picture.</p>
+              {/*Locations - personal best in the middle of the pic*/}
             </div>
-            
             <div className='text-center'>
               <Button href={'/'} className='btnLogin'>Load more</Button>
             </div>
           </div>
-          
         </>
       ):(
         <>
-          <div className="py-4 grid mb-5 text-center">
-            <div className="text-start">
-              <div className="text">
-                <h1 className="display-1">Welcome to <span style={{color:'#DE8667'}}>Quotastic</span></h1>
-                <p className="col-md-8 fs-4">
-                  Quotastic is a free online tool for you to explore the quips, quotes and proverbs.
-                  Sign up and express yourself. 
+        { isMobile ? (
+          <>
+            <div className="py-4 grid mb-5 text-center">
+              <div>
+                <h1 className="display-2 green">Explore the world with Geotagger!</h1>
+                <p className="col-md-8">
+                  Geotagger is website that allows you to post pictures and tag it on the map. Other users than try to locate it via Google Maps.
                 </p>
                 <p className="fs-4">
                   <Button className="btnRegister" href={routes.SIGNUP}>
@@ -68,34 +70,70 @@ const Home: FC = () => {
                   </Button>
                 </p>
               </div>
+              <div><img src="homepage_background.png" width={456} alt="Location background"/></div>
             </div>
-            <div><img src="example_quote.png" width={456} alt="example quote" /></div>
-          </div>
-          <div className='text-center mx-auto mb-5' style={{width:400}}>
-            <h1 className='display-6'>Explore the world of <span style={{color:'#DE8667'}}>fantastic quotes</span></h1>
-          </div>
-          <div className='mb-5'>
-            <div className='text-center mx-auto' style={{width:420}}>
-              <h2 className='red'>Most upvoted quotes</h2>
-              <p className='quoteText'>Most upvoted quotes on the platform. Sign up or login to like the quotes and keep them saved in your profile.</p>
+            <div className='mb-5 text-center'>
+              <div style={{width:420}}>
+                <h2 className='green'>Try yourself at Geotagger!</h2>
+                <p>
+                  Try to guess the location of the images by selecting a position on the map.
+                  When you make a guess, it gives you the error distance.
+                </p>
+              </div>
+              <div className='mb-3'>
+                Locations
+              </div>
+              <div className='mb-3 text-center mx-auto'>
+                <a href={routes.SIGNUP}>
+                  <Button className='btnRegister'>Sign up</Button>
+                </a>
+              </div>
             </div>
-            
-            <div className='mb-5 text-center mx-auto text'>
-              <a href={routes.LOGIN}>
-                <Button className='btnSeeMore'>Sign up to see more</Button>
-              </a>
+          </>
+        ):(
+          <>
+            <div className="py-4 grid mb-5 text-center">
+              <div className="text-start">
+                <h1 className="display-2 green">Explore the world with Geotagger!</h1>
+                <p className="col-md-8">
+                  Geotagger is website that allows you to post pictures and tag it on the map. Other users than try to locate it via Google Maps.
+                </p>
+                <p className="fs-4">
+                  <Button className="btnRegister" href={routes.SIGNUP}>
+                    Sign up
+                  </Button>
+                </p>
+              </div>
+              <div><img src="homepage_background.png" width={456} alt="Location background"/></div>
             </div>
-          </div>
-          {showError && (
-            <ToastContainer className="p-3" position="top-end">
-              <Toast onClose={() => setShowError(false)} show={showError}>
-                <Toast.Header>
-                  <strong className="me-suto text-danger">Error</strong>
-                </Toast.Header>
-                <Toast.Body className="text-danger bg-light">{apiError}</Toast.Body>
-              </Toast>
-            </ToastContainer>
-          )}
+            <div className='mb-5'>
+              <div className='text-center mx-auto' style={{width:420}}>
+                <h2 className='green'>Try yourself at Geotagger!</h2>
+                <p>
+                  Try to guess the location of the images by selecting a position on the map.
+                  When you make a guess, it gives you the error distance.              </p>
+              </div>
+              <div className='mb-3'>
+                Locations
+              </div>
+              <div className='mb-3 text-center mx-auto'>
+                <a href={routes.SIGNUP}>
+                  <Button className='btnRegister'>Sign up</Button>
+                </a>
+              </div>
+            </div>
+          </>
+        )}
+        {showError && (
+          <ToastContainer className="p-3" position="top-end">
+            <Toast onClose={() => setShowError(false)} show={showError}>
+              <Toast.Header>
+                <strong className="me-suto text-danger">Error</strong>
+              </Toast.Header>
+              <Toast.Body className="text-danger bg-light">{apiError}</Toast.Body>
+            </Toast>
+          </ToastContainer>
+        )}
         </>
       )}
     </Layout>

@@ -6,7 +6,7 @@ import * as API from 'api/Api'
 import { useCreateUpdateUserForm, UpdateUserFields } from 'hooks/react-hook-form/useCreateUpdateUser'
 import authStore from 'stores/auth.store'
 import { UserType } from 'models/auth'
-import { Button, FormLabel, Form } from 'react-bootstrap'
+import { Button, FormLabel, Form, Toast, ToastContainer } from 'react-bootstrap'
 import { routes } from 'constants/routesConstants'
 import Avatar from 'react-avatar'
 import { useQuery } from 'react-query'
@@ -28,7 +28,7 @@ const UpdateAvatarForm: FC<Props> = ({ defaultValues }) =>{
   const [preview, setPreview] = useState<string|null>(null)
   const [fileError, setFileError] = useState(false)
 
-  const { data, isLoading, error } = useQuery(
+  const { data, isLoading } = useQuery(
     ['userAvatar'],
     () => API.fetchCurrUser(),
   )
@@ -128,10 +128,22 @@ const UpdateAvatarForm: FC<Props> = ({ defaultValues }) =>{
               <a className="text-decoration-none col-md-3" style={{ color: '#000000' }} href={routes.USEREDIT}>Cancel</a>
             </div>
           </Form>
-        ):null
+        ):(
+          <div>Unable to retrieve user data</div>
+        )
       }
     </>
     }
+    {showError && (
+        <ToastContainer className="p-3" position="top-end">
+          <Toast onClose={() => setShowError(false)} show={showError}>
+            <Toast.Header>
+              <strong className="me-suto text-danger">Error</strong>
+            </Toast.Header>
+            <Toast.Body className="text-danger bg-light">{apiError}</Toast.Body>
+          </Toast>
+        </ToastContainer>
+      )}
     </>
   )
 }

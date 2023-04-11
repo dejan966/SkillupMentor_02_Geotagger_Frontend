@@ -12,9 +12,11 @@ import { StatusCode } from 'constants/errorConstants'
 import authStore from 'stores/auth.store'
 import { observer } from 'mobx-react'
 import { Controller } from 'react-hook-form'
+import useMediaQuery from 'hooks/useMediaQuery'
 
 const LoginForm: FC = () => {
   const navigate = useNavigate()
+  const { isMobile } = useMediaQuery(1038)
   const { handleSubmit, errors, control } = useLoginForm()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
@@ -35,71 +37,78 @@ const LoginForm: FC = () => {
 
   return (
     <>
-      <div className="text-center text">
-        <h1 className="display-5">Welcome <span style={{color:'#DE8667'}}>back</span></h1>
-          <p className="fs-6">Thank you for coming back. Hope you have a good day and continue to inspire others</p>
-      </div>
-      <Form className="forms" onSubmit={onSubmit}>
-        <Controller
-          control={control}
-          name="email"
-          render={({field})=>(
-            <Form.Group className="mb-3">
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <input
-                {...field}
-                type="email"
-                placeholder="example@gmail.com"
-                aria-label="Email"
-                aria-describedby="email"
-                className={
-                  errors.email ? 'form-control is-invalid' : 'form-control'
-                }
-                style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
-              />
-              {errors.email && (
-                <div className="invalid-feedback text-danger">
-                  {errors.email.message}
-                </div>
-              )}
-            </Form.Group>
-          )}
-        />
-        <Controller
-          control={control}
-          name="password"
-          render={({field})=>(
-            <Form.Group className="mb-3">
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <input
-                {...field}
-                type="password"
-                placeholder="******"
-                aria-label="Password"
-                aria-describedby="password"
-                className={
-                  errors.password ? 'form-control is-invalid' : 'form-control'
-                }
-                style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
-              />
-              {errors.password && (
-                <div className="invalid-feedback text-danger">
-                  {errors.password.message}
-                </div>
-              )}
-            </Form.Group>
-          )}
-        />
-        <Button className="w-100 btnLogin" style={{borderColor:'#DE8667'}} type="submit">
-          Login
-        </Button>
-        <div className="d-flex justify-content-between align-items-center mb-2">
-          <p className="mb-0">Dont have an account yet?</p>
-          <Link className="text-decoration-none text-end signUpText" to={routes.SIGNUP}>
-            Sign up
-          </Link>
+      <div className='verticalCenter left'>
+        <div className="text-center">
+          <h1 className="display-4 blue">Sign in</h1>
+            <p>Welcome back to Geotagger. We are glad that you are back.</p>
         </div>
-      </Form>
+        <Form onSubmit={onSubmit}>
+          <Controller
+            control={control}
+            name="email"
+            render={({field})=>(
+              <Form.Group className="mb-3">
+                <FormLabel htmlFor="email">Email</FormLabel>
+                <input
+                  {...field}
+                  type="email"
+                  placeholder="example@gmail.com"
+                  aria-label="Email"
+                  aria-describedby="email"
+                  className={
+                    errors.email ? 'form-control is-invalid' : 'form-control'
+                  }
+                />
+                {errors.email && (
+                  <div className="invalid-feedback text-danger">
+                    {errors.email.message}
+                  </div>
+                )}
+              </Form.Group>
+            )}
+          />
+          <Controller
+            control={control}
+            name="password"
+            render={({field})=>(
+              <Form.Group className="mb-3">
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <input
+                  {...field}
+                  type="password"
+                  placeholder="******"
+                  aria-label="Password"
+                  aria-describedby="password"
+                  className={
+                    errors.password ? 'form-control is-invalid' : 'form-control'
+                  }
+                />
+                {errors.password && (
+                  <div className="invalid-feedback text-danger">
+                    {errors.password.message}
+                  </div>
+                )}
+              </Form.Group>
+            )}
+          />
+          <Button className="w-100 btnRegister" type="submit">
+            Sign in
+          </Button>
+          <div className="d-flex justify-content-between align-items-center mb-2">
+            <p className="mb-0">Dont have an account yet?</p>
+            <Link className="text-decoration-none text-end signUpText" to={routes.SIGNUP}>
+              Sign up
+            </Link>
+          </div>
+        </Form>
+      </div>
+      {!isMobile ? (
+        <div className='right'>
+          <img src="/location-signup.png" alt="location img" height="721" width="840"/>
+        </div>
+      ):(
+        null
+      )}
       {showError && (
         <ToastContainer className="p-3" position="top-end">
           <Toast onClose={() => setShowError(false)} show={showError}>
