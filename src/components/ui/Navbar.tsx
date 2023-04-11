@@ -61,6 +61,11 @@ const Navbar: FC = () => {
                 <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
                   <ul className='navbar-nav'>
                     <li className="nav-item">
+                      <NavLink className="nav-link" to={routes.HOME}>
+                        Home
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
                       <NavLink className="nav-link" to={routes.LOGIN}>
                         <Button className='btnLoginHamb'>
                           Sign in
@@ -145,9 +150,16 @@ const Navbar: FC = () => {
                 </div>
                 <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
                   <ul className='navbar-nav'>
-                    <li className="nav-item mb-3">
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to={routes.HOME}>
+                        Home
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
                       <NavLink className="nav-link" to={routes.SIGNUP}>
-                        SIGN UP
+                        <Button className='btnRegister'>
+                          Sign up
+                        </Button>
                       </NavLink> 
                     </li>
                   </ul>
@@ -182,7 +194,7 @@ const Navbar: FC = () => {
                     <li className="nav-item">
                       <NavLink className="nav-link pe-0" to={routes.SIGNUP}>
                         <Button className='btnRegister'>
-                          SIGN UP
+                          Sign up
                         </Button>
                       </NavLink>
                     </li>
@@ -210,8 +222,7 @@ const Navbar: FC = () => {
   return (
     <>
       <header>
-      {
-        isMobile && showMenu ? (
+      {isMobile && showMenu ? (
           <nav className="navbar navbar-expand-lg bg-light">
             {authStore.user ? (
               <>
