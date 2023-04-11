@@ -70,7 +70,7 @@ const RegisterForm: FC = () => {
           control={control}
           name="email"
           render={({field})=>(
-            <Form.Group className="mb-2">
+            <Form.Group className="mb-3">
               <FormLabel htmlFor="email">Email</FormLabel>
               <input
                 {...field}
@@ -97,7 +97,7 @@ const RegisterForm: FC = () => {
             control={control}
             name="first_name"
             render={({field})=>(
-              <Form.Group className="mb-2">
+              <Form.Group className="mb-3">
                 <FormLabel htmlFor="first_name">First name</FormLabel>
                 <input
                   {...field}
@@ -123,7 +123,7 @@ const RegisterForm: FC = () => {
             control={control}
             name="last_name"
             render={({ field }) => (
-              <Form.Group className="mb-2">
+              <Form.Group className="mb-3">
                 <FormLabel htmlFor="last_name">Last name</FormLabel>
                 <input
                   {...field}
@@ -149,7 +149,7 @@ const RegisterForm: FC = () => {
           control={control}
           name="password"
           render={({ field }) =>(
-            <Form.Group className="mb-2">
+            <Form.Group className="mb-3">
               <FormLabel htmlFor="password">Password</FormLabel>
               <input
                 {...field}
@@ -207,8 +207,8 @@ const RegisterForm: FC = () => {
     </div>
     {!isMobile ? (
       <div className='right'>
-      <img src="/location-signup.png" alt="location img" width="824"/>
-    </div>
+        <img src="/location-signup.png" alt="location img" width="824"/>
+      </div>
     ):(
       null
     )}

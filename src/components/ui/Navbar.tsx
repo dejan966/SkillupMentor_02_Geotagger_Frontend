@@ -67,7 +67,7 @@ const Navbar: FC = () => {
                     </li>
                     <li className="nav-item">
                       <NavLink className="nav-link" to={routes.LOGIN}>
-                        <Button className='btnLoginHamb'>
+                        <Button className='w-100 btnLoginHamb'>
                           Sign in
                         </Button>
                       </NavLink>

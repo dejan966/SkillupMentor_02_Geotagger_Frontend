@@ -103,12 +103,12 @@ const LoginForm: FC = () => {
         </Form>
       </div>
       {!isMobile ? (
-      <div className='right'>
-      <img src="/location-signup.png" alt="location img" height="721" width="840"/>
-    </div>
-    ):(
-      null
-    )}
+        <div className='right'>
+          <img src="/location-signup.png" alt="location img" height="721" width="840"/>
+        </div>
+      ):(
+        null
+      )}
       {showError && (
         <ToastContainer className="p-3" position="top-end">
           <Toast onClose={() => setShowError(false)} show={showError}>
