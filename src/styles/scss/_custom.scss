@@ -76,6 +76,18 @@
   text-transform: uppercase;
 }
 
+.addLocation{
+  display: flex;
+  //flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 41px;
+  height: 40px;
+  background: #619B8A;
+  border-radius: 60px;
+  color: #fff;
+}
+
 .btnLogin{
   background-color: #fff;
 }

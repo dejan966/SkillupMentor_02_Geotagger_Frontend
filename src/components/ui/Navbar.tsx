@@ -18,11 +18,11 @@ const Navbar: FC = () => {
   const [showError, setShowError] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
 
-  const {id} = useParams()
-  const userId:number = parseInt(id!)
+  const { id } = useParams()
+  const userId: number = parseInt(id!)
 
   const toggleHamburger = () => {
-    setShowMenu(showMenu => !showMenu)
+    setShowMenu((showMenu) => !showMenu)
   }
 
   const signout = async () => {
@@ -38,172 +38,82 @@ const Navbar: FC = () => {
       navigate(routes.HOME)
     }
   }
-  if(location.pathname === '/signup'){
+  if (location.pathname === '/signup') {
     return (
       <>
         <header>
           {isMobile && showMenu ? (
-              <nav className="navbar navbar-expand-lg bg-light">
-                <div className="container-xxl d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <Link to={routes.HOME}>
-                      <img
-                        src="/geotagger_logo.png"
-                        alt="Geotagger logo"
-                        width={123}
-                      />
-                    </Link>
-                  </div>
-                  <div>
-                    <span className="close-icon" onClick={toggleHamburger}>x</span>
-                  </div>
-                </div>
-                <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
-                  <ul className='navbar-nav'>
-                    <li className="nav-item">
-                      <NavLink className="nav-link" to={routes.HOME}>
-                        Home
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink className="nav-link" to={routes.LOGIN}>
-                        <Button className='w-100 btnLoginHamb'>
-                          Sign in
-                        </Button>
-                      </NavLink>
-                    </li>
-                  </ul>
-                </div>
-              </nav>
-            ):(
-              <nav className="navbar navbar-expand-lg">
-                <div className="container-xxl pb-0">
-                  <Link className="navbar.brand" to={routes.HOME}>
+            <nav className="navbar navbar-expand-lg bg-light">
+              <div className="container-xxl d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <Link to={routes.HOME}>
                     <img
                       src="/geotagger_logo.png"
-                      alt="Geotagger logo logo"
-                      width={123}
-                    />
-                  </Link>
-                  <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo02"
-                    aria-controls="navbarTogglerDemo02"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                  >
-                    <span className="navbar-toggler-icon" onClick={() => toggleHamburger()}></span>
-                  </button>
-                  <div
-                    className="collapse navbar-collapse justify-content-end align-items-center"
-                    id="navbarTogglerDemo02"
-                  >
-                  <ul className="navbar-nav mb-2 mb-lg-0">
-                    <li className="nav-item">
-                      <NavLink className="nav-link pe-0" to={routes.LOGIN}>
-                        <Button className='btnLogin'>
-                          Sign in
-                        </Button>
-                      </NavLink>
-                    </li>
-                  </ul>
-                  </div>
-                </div>
-              </nav>
-            )
-          }
-        </header>
-        {showError && (
-          <ToastContainer className="p-3" position="top-end">
-            <Toast onClose={() => setShowError(false)} show={showError}>
-              <Toast.Header>
-                <strong className="me-suto text-danger">Error</strong>
-              </Toast.Header>
-              <Toast.Body className="text-danger bg-light">{apiError}</Toast.Body>
-            </Toast>
-          </ToastContainer>
-        )}
-      </>
-    )
-  }
-  else if(location.pathname === '/login'){
-    return (
-      <>
-        <header>
-          {isMobile && showMenu ? (
-              <nav className="navbar navbar-expand-lg bg-light">
-                <div className="container-xxl d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <Link to={routes.HOME}>
-                      <img
-                        src="/geotagger_logo.png"
-                        alt="Geotagger logo"
-                        width={123}
-                      />
-                    </Link>
-                  </div>
-                  <div>
-                    <span className="close-icon" onClick={toggleHamburger}>x</span>
-                  </div>
-                </div>
-                <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
-                  <ul className='navbar-nav'>
-                    <li className="nav-item">
-                      <NavLink className="nav-link" to={routes.HOME}>
-                        Home
-                      </NavLink>
-                    </li>
-                    <li className="nav-item">
-                      <NavLink className="nav-link" to={routes.SIGNUP}>
-                        <Button className='btnRegister'>
-                          Sign up
-                        </Button>
-                      </NavLink> 
-                    </li>
-                  </ul>
-                </div>
-              </nav>
-            ):(
-              <nav className="navbar navbar-expand-lg">
-                <div className="container-xxl pb-0">
-                  <Link className="navbar.brand" to={routes.HOME}>
-                    <img
-                      src="geotagger_logo.png"
                       alt="Geotagger logo"
                       width={123}
                     />
                   </Link>
-                  <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo02"
-                    aria-controls="navbarTogglerDemo02"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                  >
-                    <span className="navbar-toggler-icon" onClick={() => toggleHamburger()}></span>
-                  </button>
-                  <div
-                    className="collapse navbar-collapse justify-content-end align-items-center"
-                    id="navbarTogglerDemo02"
-                  >
+                </div>
+                <div>
+                  <span className="close-icon" onClick={toggleHamburger}>
+                    x
+                  </span>
+                </div>
+              </div>
+              <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to={routes.HOME}>
+                      Home
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to={routes.LOGIN}>
+                      <Button className="w-100 btnLoginHamb">Sign in</Button>
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          ) : (
+            <nav className="navbar navbar-expand-lg">
+              <div className="container-xxl pb-0">
+                <Link className="navbar.brand" to={routes.HOME}>
+                  <img
+                    src="/geotagger_logo.png"
+                    alt="Geotagger logo logo"
+                    width={123}
+                  />
+                </Link>
+                <button
+                  className="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarTogglerDemo02"
+                  aria-controls="navbarTogglerDemo02"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span
+                    className="navbar-toggler-icon"
+                    onClick={() => toggleHamburger()}
+                  ></span>
+                </button>
+                <div
+                  className="collapse navbar-collapse justify-content-end align-items-center"
+                  id="navbarTogglerDemo02"
+                >
                   <ul className="navbar-nav mb-2 mb-lg-0">
                     <li className="nav-item">
-                      <NavLink className="nav-link pe-0" to={routes.SIGNUP}>
-                        <Button className='btnRegister'>
-                          Sign up
-                        </Button>
+                      <NavLink className="nav-link pe-0" to={routes.LOGIN}>
+                        <Button className="btnLogin">Sign in</Button>
                       </NavLink>
                     </li>
                   </ul>
-                  </div>
                 </div>
-              </nav>
-            )
-          }
+              </div>
+            </nav>
+          )}
         </header>
         {showError && (
           <ToastContainer className="p-3" position="top-end">
@@ -211,22 +121,115 @@ const Navbar: FC = () => {
               <Toast.Header>
                 <strong className="me-suto text-danger">Error</strong>
               </Toast.Header>
-              <Toast.Body className="text-danger bg-light">{apiError}</Toast.Body>
+              <Toast.Body className="text-danger bg-light">
+                {apiError}
+              </Toast.Body>
+            </Toast>
+          </ToastContainer>
+        )}
+      </>
+    )
+  } else if (location.pathname === '/login') {
+    return (
+      <>
+        <header>
+          {isMobile && showMenu ? (
+            <nav className="navbar navbar-expand-lg bg-light">
+              <div className="container-xxl d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <Link to={routes.HOME}>
+                    <img
+                      src="/geotagger_logo.png"
+                      alt="Geotagger logo"
+                      width={123}
+                    />
+                  </Link>
+                </div>
+                <div>
+                  <span className="close-icon" onClick={toggleHamburger}>
+                    x
+                  </span>
+                </div>
+              </div>
+              <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to={routes.HOME}>
+                      Home
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to={routes.SIGNUP}>
+                      <Button className="btnRegister">Sign up</Button>
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          ) : (
+            <nav className="navbar navbar-expand-lg">
+              <div className="container-xxl pb-0">
+                <Link className="navbar.brand" to={routes.HOME}>
+                  <img
+                    src="geotagger_logo.png"
+                    alt="Geotagger logo"
+                    width={123}
+                  />
+                </Link>
+                <button
+                  className="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarTogglerDemo02"
+                  aria-controls="navbarTogglerDemo02"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span
+                    className="navbar-toggler-icon"
+                    onClick={() => toggleHamburger()}
+                  ></span>
+                </button>
+                <div
+                  className="collapse navbar-collapse justify-content-end align-items-center"
+                  id="navbarTogglerDemo02"
+                >
+                  <ul className="navbar-nav mb-2 mb-lg-0">
+                    <li className="nav-item">
+                      <NavLink className="nav-link pe-0" to={routes.SIGNUP}>
+                        <Button className="btnRegister">Sign up</Button>
+                      </NavLink>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          )}
+        </header>
+        {showError && (
+          <ToastContainer className="p-3" position="top-end">
+            <Toast onClose={() => setShowError(false)} show={showError}>
+              <Toast.Header>
+                <strong className="me-suto text-danger">Error</strong>
+              </Toast.Header>
+              <Toast.Body className="text-danger bg-light">
+                {apiError}
+              </Toast.Body>
             </Toast>
           </ToastContainer>
         )}
       </>
     )
   }
-  
+
   return (
     <>
       <header>
-      {isMobile && showMenu ? (
+        {isMobile && showMenu ? (
           <nav className="navbar navbar-expand-lg bg-light">
             {authStore.user ? (
               <>
-              <div className="container-xxl d-flex justify-content-between align-items-center mb-3">
+                <div className="container-xxl d-flex justify-content-between align-items-center mb-3">
                   <div>
                     <Link to={routes.HOME}>
                       <img
@@ -237,16 +240,25 @@ const Navbar: FC = () => {
                     </Link>
                   </div>
                   <div>
-                    <span className="close-icon" onClick={toggleHamburger}>x</span>
+                    <span className="close-icon" onClick={toggleHamburger}>
+                      x
+                    </span>
                   </div>
                 </div>
                 <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
-                  <ul className='navbar-nav'>
+                  <ul className="navbar-nav">
                     <div>
                       <div>
-                        <img src={`${process.env.REACT_APP_API_URL}/uploads/${authStore.user?.avatar}`} alt="User avatar" />
+                        <img
+                          src={`${process.env.REACT_APP_API_URL}/uploads/${authStore.user?.avatar}`}
+                          alt="User avatar"
+                        />
                       </div>
-                      <div>{authStore.user.first_name + ' ' + authStore.user.last_name}</div>
+                      <div>
+                        {authStore.user.first_name +
+                          ' ' +
+                          authStore.user.last_name}
+                      </div>
                     </div>
                     <li className="nav-item">
                       <NavLink className="nav-link" to={routes.HOME}>
@@ -259,14 +271,18 @@ const Navbar: FC = () => {
                       </NavLink>
                     </li>
                     <li className="nav-item mb-3">
-                      <NavLink className="nav-link btnLoginHamb" to={routes.HOME} onClick={signout}>
+                      <NavLink
+                        className="nav-link btnLoginHamb"
+                        to={routes.HOME}
+                        onClick={signout}
+                      >
                         Logout
-                      </NavLink> 
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
               </>
-            ):(
+            ) : (
               <>
                 <div className="container-xxl d-flex justify-content-between align-items-center mb-3">
                   <div>
@@ -279,11 +295,13 @@ const Navbar: FC = () => {
                     </Link>
                   </div>
                   <div>
-                    <span className="close-icon" onClick={toggleHamburger}>x</span>
+                    <span className="close-icon" onClick={toggleHamburger}>
+                      x
+                    </span>
                   </div>
                 </div>
                 <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
-                  <ul className='navbar-nav'>
+                  <ul className="navbar-nav">
                     <li className="nav-item">
                       <NavLink className="nav-link" to={routes.HOME}>
                         Home
@@ -291,24 +309,23 @@ const Navbar: FC = () => {
                     </li>
                     <li className="nav-item">
                       <NavLink className="nav-link" to={routes.SIGNUP}>
-                        <Button className='btnRegisterHamb'>
-                          SIGN UP
-                        </Button>
+                        <Button className="btnRegisterHamb">SIGN UP</Button>
                       </NavLink>
                     </li>
                     <li className="nav-item mb-3">
-                      <NavLink className="nav-link btnLoginHamb" to={routes.LOGIN}>
-                        <Button className="btnLoginHamb">
-                          Sign in
-                        </Button>
-                      </NavLink> 
+                      <NavLink
+                        className="nav-link btnLoginHamb"
+                        to={routes.LOGIN}
+                      >
+                        <Button className="btnLoginHamb">Sign in</Button>
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
               </>
             )}
           </nav>
-        ):(
+        ) : (
           <nav className="navbar navbar-expand-lg">
             <div className="container-xxl">
               <Link className="navbar.brand" to={routes.HOME}>
@@ -318,18 +335,21 @@ const Navbar: FC = () => {
                   width={123}
                 />
               </Link>
-              <div className='navbar navbar-expand-lg'>
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon" onClick={() => toggleHamburger()}></span>
-              </button>
+              <div className="navbar navbar-expand-lg">
+                <button
+                  className="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarTogglerDemo02"
+                  aria-controls="navbarTogglerDemo02"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span
+                    className="navbar-toggler-icon"
+                    onClick={() => toggleHamburger()}
+                  ></span>
+                </button>
               </div>
               <div
                 className="collapse navbar-collapse justify-content-end align-items-center"
@@ -339,45 +359,55 @@ const Navbar: FC = () => {
                   {authStore.user ? (
                     <>
                       <li className="nav-item pe-4">
-                        <a className="text-decoration-none textColor" href={routes.HOME}>
+                        <a
+                          className="text-decoration-none textColor"
+                          href={routes.HOME}
+                        >
                           Home
                         </a>
                       </li>
                       <li className="nav-item pe-4">
-                        <a className="text-decoration-none textColor" href={routes.USERINFO}>
+                        <a
+                          className="text-decoration-none textColor"
+                          href={routes.USERINFO}
+                        >
                           Profile settings
                         </a>
                       </li>
                       <li className="nav-item pe-4">
-                        <a className="text-decoration-none textColor" onClick={signout}>
+                        <a
+                          className="text-decoration-none textColor"
+                          onClick={signout}
+                        >
                           Logout
                         </a>
                       </li>
-                      <li className="nav-item pe-4">
+                      <li className="nav-item pe-3">
                         <Link to={routes.USERLOCATIONSINFO}>
-                          <img className='userAvatar' src={`${process.env.REACT_APP_API_URL}/uploads/${authStore.user?.avatar}`} alt="User avatar" width={40}/>
+                          <img
+                            className="userAvatar"
+                            src={`${process.env.REACT_APP_API_URL}/uploads/${authStore.user?.avatar}`}
+                            alt="User avatar"
+                            width={40}
+                          />
                         </Link>
                       </li>
-                      <li className="nav-item pe-4">
-                        <Link to={routes.ADDNEWLOCATION}>
-                          <img src='/addLocation.png' alt="Add location" width={40}/>
-                        </Link>
+                      <li className="nav-item">
+                        <a href={routes.ADDNEWLOCATION} className="addLocation">
+                          +
+                        </a>
                       </li>
                     </>
                   ) : (
                     <>
                       <li className="nav-item pe-4">
                         <NavLink className="nav-link" to={routes.LOGIN}>
-                          <Button className="btnLogin">
-                            Sign in
-                          </Button>
-                        </NavLink> 
+                          <Button className="btnLogin">Sign in</Button>
+                        </NavLink>
                       </li>
                       <li className="nav-item">
                         <NavLink className="nav-link pe-0" to={routes.SIGNUP}>
-                          <Button className='btnRegister'>
-                            SIGN UP
-                          </Button>
+                          <Button className="btnRegister">SIGN UP</Button>
                         </NavLink>
                       </li>
                     </>
@@ -386,8 +416,7 @@ const Navbar: FC = () => {
               </div>
             </div>
           </nav>
-        )
-      } 
+        )}
       </header>
       {showError && (
         <ToastContainer className="p-3" position="top-end">
