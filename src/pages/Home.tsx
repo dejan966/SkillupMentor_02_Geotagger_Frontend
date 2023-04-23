@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { StatusCode } from 'constants/errorConstants'
 import useMediaQuery from 'hooks/useMediaQuery'
 import { LocationType } from 'models/location'
+import { GuessType } from 'models/guess'
 
 const Home: FC = () => {
   const { isMobile } = useMediaQuery(1038)
@@ -25,6 +26,14 @@ const Home: FC = () => {
   const { data: allLocations, status: locationStatus } = useQuery(
     ['allLocations'],
     () => API.fetchLocations(),
+    {
+      refetchOnWindowFocus: false,
+    },
+  )
+
+  const { data: personalBest, status: personalBestStatus } = useQuery(
+    ['personalBest'],
+    () => API.fetchPersonalBest(),
     {
       refetchOnWindowFocus: false,
     },
@@ -49,7 +58,19 @@ const Home: FC = () => {
                 Your personal best guesses appear here. Go on and try to beat
                 your personal records or set a new one!
               </p>
-              {/*Locations - personal best in the middle of the pic*/}
+              <div>
+                {personalBestStatus === 'error' && <p>Error fetching data</p>}
+                {personalBestStatus === 'loading' && <p>Loading data...</p>}
+                {personalBestStatus === 'success' && (
+                  <>
+                    {personalBest.data
+                      .slice(0, 3)
+                      .map((item: GuessType, index: number) => (
+                        <>{/*img components */}</>
+                      ))}
+                  </>
+                )}
+              </div>
             </div>
             <div className="mb-3 text-center mx-auto">
               <Button href="/" className="btnLogin">

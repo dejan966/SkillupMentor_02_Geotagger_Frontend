@@ -8,5 +8,6 @@ export enum apiRoutes {
   USERS_PREFIX = '/users',
   UPLOAD_AVATAR_IMAGE = '/users/upload',
   GET_AVATAR_IMAGE = '/users/get/image',
-  LOCATIONS = '/locations'
+  LOCATIONS = '/locations',
+  ME_GUESSES = '/guesses/me',
 } 
