@@ -90,11 +90,11 @@ const Home: FC = () => {
                 {locationStatus === 'loading' && <p>Loading data...</p>}
                 {locationStatus === 'success' && (
                   <>
-                    {allLocations.data
+                    {/* {allLocations.data
                       .slice(0, 9)
                       .map((item: LocationType, index: number) => (
-                        <>{/*img components */}</>
-                      ))}
+                        <></>
+                      ))} */}
                   </>
                 )}
               </div>
@@ -186,11 +186,21 @@ const Home: FC = () => {
                     error distance.{' '}
                   </p>
                 </div>
-                <div className="mb-3">Locations</div>
+                <div>
+                  {locationStatus === 'error' && <p>Error fetching data</p>}
+                  {locationStatus === 'loading' && <p>Loading data...</p>}
+                  {locationStatus === 'success' && (
+                    <>
+{/*                       {allLocations.data
+                        .slice(0, 9)
+                        .map((item: LocationType, index: number) => (
+                          <></>
+                        ))} */}
+                    </>
+                  )}
+                </div>
                 <div className="mb-3 text-center mx-auto">
-                  <a href={routes.SIGNUP}>
-                    <Button className="btnRegister">Sign up</Button>
-                  </a>
+                  <Button className="btnRegister" href={routes.SIGNUP}>Sign up</Button>
                 </div>
               </div>
             </>

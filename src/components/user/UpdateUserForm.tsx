@@ -1,7 +1,7 @@
 import {
   UpdateUserFields,
-  useCreateUpdateUserForm,
-} from 'hooks/react-hook-form/useCreateUpdateUser'
+  useUpdateUserForm,
+} from 'hooks/react-hook-form/useUpdateUser'
 import { FC, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import ToastContainer from 'react-bootstrap/ToastContainer'
@@ -20,9 +20,9 @@ interface Props {
   defaultValues?: UserType & { isActiveUser?: boolean }
 }
 
-const CreateUpdateUserForm: FC<Props> = ({ defaultValues }) => {
+const UpdateUserForm: FC<Props> = ({ defaultValues }) => {
   const navigate = useNavigate()
-  const { handleSubmit, errors, control } = useCreateUpdateUserForm({
+  const { handleSubmit, errors, control } = useUpdateUserForm({
     defaultValues,
   })
 
@@ -46,7 +46,6 @@ const CreateUpdateUserForm: FC<Props> = ({ defaultValues }) => {
       setApiError(response.data.message)
       setShowError(true)
     } else {
-      //navigate success page then redirect to /me after a few seconds
       navigate('/me')
     }
   }
@@ -165,4 +164,4 @@ const CreateUpdateUserForm: FC<Props> = ({ defaultValues }) => {
   )
 }
 
-export default observer(CreateUpdateUserForm)
+export default observer(UpdateUserForm)
