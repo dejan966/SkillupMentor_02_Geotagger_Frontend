@@ -8,6 +8,7 @@ import * as API from 'api/Api'
 import { Link, useNavigate } from 'react-router-dom'
 import { StatusCode } from 'constants/errorConstants'
 import useMediaQuery from 'hooks/useMediaQuery'
+import { LocationType } from 'models/location'
 
 const Home: FC = () => {
   const { isMobile } = useMediaQuery(1038)
@@ -20,6 +21,14 @@ const Home: FC = () => {
 
   const [isOpen, setIsOpen] = useState(false)
   const [successDelete, setSuccessDelete] = useState(false)
+
+  const {data:allLocations, status:locationStatus} = useQuery(
+    ['allLocations'],
+    () => API.fetchLocations(),
+    {
+      refetchOnWindowFocus: false,
+    },
+  )
  
   const togglePopup = () => {
     setIsOpen(!isOpen)
@@ -47,6 +56,19 @@ const Home: FC = () => {
             <div className='text-start' style={{width:420}}>
               <h2 className='green'>New locations</h2>
               <p>New uploads from users. Try to guess all the locations by pressing on a picture.</p>
+              <div>
+              {locationStatus === "error" && <p>Error fetching data</p>}
+              {locationStatus === "loading" && <p>Loading data...</p>}
+              {locationStatus === "success" && (
+                <>
+                  {allLocations.data.map((item: LocationType, index: number)=>(
+                    <>
+                    {/*img components */}
+                    </>
+                  ))}
+                </>
+              )}
+              </div>
               {/*Locations - personal best in the middle of the pic*/}
             </div>
             <div className='text-center'>
