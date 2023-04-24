@@ -23,13 +23,10 @@ const UsersLocations = lazy(() => import('pages/Users/Locations'))
 const UserLocations = lazy(() => import('pages/Me/Locations'))
 const UserPasswordEdit = lazy(() => import('pages/Me/Update-password'))
 const UserAvatarEdit = lazy(() => import('pages/Me/Update-avatar'))
-const DeleteAcc = lazy(() => import('pages/Me/Delete-account'))
 
 const LocationsAdd = lazy(() => import('pages/Me/Mylocation'))
 const LocationsEdit = lazy(() => import('pages/Me/Mylocation/Edit'))
-const LocationsDelete = lazy(() => import('pages/Me/Mylocation/Delete'))
-const LocationsEditSuccess = lazy(() => import('pages/Me/Mylocation/Edit/success'))
- 
+
 /* Restricted routes */
 const Login = lazy(() => import('pages/Login'))
 const Register = lazy(() => import('pages/Register'))
@@ -82,11 +79,6 @@ export const AppRoutes: AppRoute[] = [
   },
   {
     type: RouteType.PRIVATE,
-    path: '/me/delete-account',
-    children: <DeleteAcc />,
-  },
-  {
-    type: RouteType.PRIVATE,
     path: '/me/mylocation',
     children: <LocationsAdd />,
   },
@@ -95,17 +87,6 @@ export const AppRoutes: AppRoute[] = [
     path: '/me/mylocation/edit/:id',
     children: <LocationsEdit />,
   },
-  {
-    type: RouteType.PRIVATE,
-    path: '/me/mylocation/delete/:id',
-    children: <LocationsDelete />,
-  },
-  {
-    type: RouteType.PRIVATE,
-    path: '/me/mylocation/edit/success',
-    children: <LocationsEditSuccess />,
-  },
- 
   // Public Routes
   {
     type: RouteType.PUBLIC,

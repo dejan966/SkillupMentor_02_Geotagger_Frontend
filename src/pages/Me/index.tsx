@@ -11,12 +11,48 @@ import Avatar from 'react-avatar'
 import { UserType } from 'models/auth'
 import axios from 'axios'
 import authStore from 'stores/auth.store'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import SuccessPopup from 'pages/Success'
 
 const UserInfo: FC = () => {
+  const navigate = useNavigate()
   const [loading,setLoading]=useState(true)
+  const [apiError, setApiError] = useState('')
+  const [showError, setShowError] = useState(false)
   const [userData,setUserData]=useState({id:1, first_name:'', last_name:'', email:'', avatar:''})
   
+  const [isOpen, setIsOpen] = useState(false)
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const signout = async () => {
+    const response = await API.signout()
+    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+      setApiError(response.data.message)
+      setShowError(true)
+    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+      setApiError(response.data.message)
+      setShowError(true)
+    } else {
+      handleDeleteAcc(user.data.data.id)
+      authStore.signout()
+      navigate(routes.HOME)
+    }
+  }
+
+  const handleDeleteAcc = async (id: number) => {
+    const response = await API.deleteUser(id)
+    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+      setApiError(response.data.message)
+      setShowError(true)
+    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+      setApiError(response.data.message)
+      setShowError(true)
+    }
+  }
+
   const user = useQuery(
     ['currUser'],
     () => API.fetchCurrUser(),
@@ -86,8 +122,44 @@ const UserInfo: FC = () => {
               </div>
               <div className="d-flex justify-content-between mb-3" onPointerMove={e=>{userData.id = user.data.data.id; userData.first_name = user.data.data.first_name; userData.last_name = user.data.data.last_name; userData.email = user.data.data.email; userData.avatar = user.data.data.avatar}} >
                 <Link to={routes.USEREDIT} state={{ data: userData }}><Button className='btnRegister'>Edit</Button></Link>
-                <a className="text-decoration-none col-md-3" style={{color:'#000000'}} href={routes.USERDELETE}>Delete account</a>
+                <p
+                  className="text-decoration-none col-md-3"
+                  style={{ color: '#000000', cursor:'pointer' }}
+                  onClick={togglePopup}
+                >
+                  Delete account
+                </p>
               </div>
+              {isOpen && (
+                <SuccessPopup
+                  content={
+                    <>
+                      <h1 className="text display-6 mb-4">Are you sure?</h1>
+                      <p className="text">
+                        Are you sure you want to{' '}
+                        <span style={{ color: '#DE8667' }}>delete</span> your
+                        account?
+                      </p>
+                      <div className="d-flex justify-content-start">
+                        <Button
+                          className="btnRegister col-md-3"
+                          style={{ borderColor: '#DE8667' }}
+                          onClick={signout}
+                        >
+                          Delete
+                        </Button>
+                        <p
+                          className="col-md-3 mx-3"
+                          style={{ color: '#000000' }}
+                          onClick={togglePopup}
+                        >
+                          Cancel
+                        </p>
+                      </div>
+                    </>
+                  }
+                />
+              )}
             </div> 
             ) : (
               <div className='text-center text'>No info available</div>

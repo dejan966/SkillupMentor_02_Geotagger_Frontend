@@ -24,3 +24,5 @@ export async function apiRequest<D = Record<string, unknown>, R = unknown>(
 }
 
 export * from './User'
+export * from './Location'
+export * from './Guess'

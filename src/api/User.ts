@@ -1,5 +1,5 @@
 import { apiRoutes } from '../constants/apiConstants'
-import { UpdateUserFields } from '../hooks/react-hook-form/useCreateUpdateUser'
+import { UpdateUserFields } from '../hooks/react-hook-form/useUpdateUser'
 import { LoginUserFields } from '../hooks/react-hook-form/useLogin'
 import { RegisterUserFields } from '../hooks/react-hook-form/useRegister'
 import { UserType } from '../models/auth'

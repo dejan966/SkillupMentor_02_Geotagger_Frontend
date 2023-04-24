@@ -3,14 +3,14 @@ import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { StatusCode } from 'constants/errorConstants'
 import * as API from 'api/Api'
-import { useCreateUpdateUserForm, UpdateUserFields } from 'hooks/react-hook-form/useCreateUpdateUser'
+import { useUpdateUserForm, UpdateUserFields } from 'hooks/react-hook-form/useUpdateUser'
 import { Button, FormLabel, Form, Toast, ToastContainer } from 'react-bootstrap'
 import { routes } from 'constants/routesConstants'
 import { Controller } from 'react-hook-form'
 
 const UpdatePasswordForm: FC = () =>{
 const navigate = useNavigate()
-const { handleSubmit, errors, control } = useCreateUpdateUserForm({})
+const { handleSubmit, errors, control } = useUpdateUserForm({})
 
 const [apiError, setApiError] = useState('')
 const [showError, setShowError] = useState(false)

@@ -17,7 +17,7 @@ interface Props {
   defaultValues?: UserType
 }
 
-export const useCreateUpdateUserForm = ({ defaultValues }: Props) => {
+export const useUpdateUserForm = ({ defaultValues }: Props) => {
   const UpdateUserSchema = Yup.object().shape({
     first_name: Yup.string().notRequired(),
     last_name: Yup.string().notRequired(),
@@ -55,4 +55,4 @@ export const useCreateUpdateUserForm = ({ defaultValues }: Props) => {
   }
 }
 
-export type CreateUpdateUserForm = ReturnType<typeof useCreateUpdateUserForm>
+export type UpdateUserForm = ReturnType<typeof useUpdateUserForm>
