@@ -75,7 +75,7 @@ const UserInfo: FC = () => {
               <h1 className='display-5 text-center'>Your info</h1>
               <Form.Group className="d-flex flex-column justify-content-center align-items-center">
                 <FormLabel htmlFor="avatar" id="avatar-p">
-                  <Avatar round src={`${process.env.REACT_APP_API_URL}/uploads/${user.data.data.avatar}`} alt="Avatar" />
+                  <Avatar round src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${user.data.data.avatar}`} alt="Avatar" />
                 </FormLabel>
               </Form.Group>
               <Form.Group className="mb-3">

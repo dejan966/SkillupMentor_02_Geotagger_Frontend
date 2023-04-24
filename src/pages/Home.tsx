@@ -11,6 +11,7 @@ import useMediaQuery from 'hooks/useMediaQuery'
 import { LocationType } from 'models/location'
 import { GuessType } from 'models/guess'
 import MapContainer from 'components/location/map/MapContainer'
+import LocationBlock from './LocationBlock'
 
 const Home: FC = () => {
   const { isMobile } = useMediaQuery(1038)
@@ -62,15 +63,20 @@ const Home: FC = () => {
               <div>
                 {personalBestStatus === 'error' && <p>Error fetching data</p>}
                 {personalBestStatus === 'loading' && <p>Loading data...</p>}
-                {/* {personalBestStatus === 'success' && (
+                {personalBestStatus === 'success' && (
                   <>
-                    {personalBest.data
+{/*                     {personalBest.data
                       .slice(0, 3)
                       .map((item: GuessType, index: number) => (
-                        <></>
-                      ))}
+                        <LocationBlock
+                            location_id={item.location.id}
+                            image_url={item.location.image_url}
+                            error_distance={item.errorDistance}
+                            key={index}
+                          />
+                      ))} */}
                   </>
-                )} */}
+                )}
               </div>
             </div>
             <div className="mb-3 text-center mx-auto">
@@ -89,16 +95,19 @@ const Home: FC = () => {
               <div>
                 {locationStatus === 'error' && <p>Error fetching data</p>}
                 {locationStatus === 'loading' && <p>Loading data...</p>}
-{/*                 {locationStatus === 'success' && (
+                {locationStatus === 'success' && (
                   <>
                   {allLocations.data
                       .slice(0, 9)
                       .map((item: LocationType, index: number) => (
-                        <></>
+                        <LocationBlock
+                            location_id={item.id}
+                            image_url={item.image_url}
+                            key={index}
+                          />
                       ))}
                   </>
-                )} */}
-                <MapContainer/>
+                )}
               </div>
             </div>
             <div className="text-center">
@@ -193,11 +202,15 @@ const Home: FC = () => {
                   {locationStatus === 'loading' && <p>Loading data...</p>}
                   {locationStatus === 'success' && (
                     <>
-{/*                       {allLocations.data
+                      {allLocations.data
                         .slice(0, 9)
                         .map((item: LocationType, index: number) => (
-                          <></>
-                        ))} */}
+                          <LocationBlock
+                            location_id={item.id}
+                            image_url={item.image_url}
+                            key={index}
+                          />
+                        ))}
                     </>
                   )}
                 </div>
