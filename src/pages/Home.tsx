@@ -10,6 +10,7 @@ import { StatusCode } from 'constants/errorConstants'
 import useMediaQuery from 'hooks/useMediaQuery'
 import { LocationType } from 'models/location'
 import { GuessType } from 'models/guess'
+import MapContainer from 'components/location/map/MapContainer'
 
 const Home: FC = () => {
   const { isMobile } = useMediaQuery(1038)
@@ -61,15 +62,15 @@ const Home: FC = () => {
               <div>
                 {personalBestStatus === 'error' && <p>Error fetching data</p>}
                 {personalBestStatus === 'loading' && <p>Loading data...</p>}
-                {personalBestStatus === 'success' && (
+                {/* {personalBestStatus === 'success' && (
                   <>
                     {personalBest.data
                       .slice(0, 3)
                       .map((item: GuessType, index: number) => (
-                        <>{/*img components */}</>
+                        <></>
                       ))}
                   </>
-                )}
+                )} */}
               </div>
             </div>
             <div className="mb-3 text-center mx-auto">
@@ -88,15 +89,16 @@ const Home: FC = () => {
               <div>
                 {locationStatus === 'error' && <p>Error fetching data</p>}
                 {locationStatus === 'loading' && <p>Loading data...</p>}
-                {locationStatus === 'success' && (
+{/*                 {locationStatus === 'success' && (
                   <>
-                    {/* {allLocations.data
+                  {allLocations.data
                       .slice(0, 9)
                       .map((item: LocationType, index: number) => (
                         <></>
-                      ))} */}
+                      ))}
                   </>
-                )}
+                )} */}
+                <MapContainer/>
               </div>
             </div>
             <div className="text-center">
