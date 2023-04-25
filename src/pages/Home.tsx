@@ -58,7 +58,7 @@ const Home: FC = () => {
                 Your personal best guesses appear here. Go on and try to beat
                 your personal records or set a new one!
               </p>
-              <div>
+              <div className='mb-3'>
                 {personalBestStatus === 'error' && <p>Error fetching data</p>}
                 {personalBestStatus === 'loading' && <p>Loading data...</p>}
                 {/*                 {personalBestStatus === 'success' && (
@@ -90,7 +90,7 @@ const Home: FC = () => {
                 New uploads from users. Try to guess all the locations by
                 pressing on a picture.
               </p>
-              <div>
+              <div className='mb-3'>
                 {locationStatus === 'error' && <p>Error fetching data</p>}
                 {locationStatus === 'loading' && <p>Loading data...</p>}
                 {locationStatus === 'success' && (
@@ -195,7 +195,7 @@ const Home: FC = () => {
                     error distance.{' '}
                   </p>
                 </div>
-                <div>
+                <div className='mb-3'>
                   {locationStatus === 'error' && <p>Error fetching data</p>}
                   {locationStatus === 'loading' && <p>Loading data...</p>}
                   {locationStatus === 'success' && (

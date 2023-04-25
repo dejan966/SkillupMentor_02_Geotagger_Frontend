@@ -84,6 +84,17 @@
   text-transform: uppercase;
 }
 
+.btnRed{
+  color: #fff;
+  background-color: #9B6161;
+  border-color: #9B6161;
+  text-transform: uppercase;
+  &:hover{
+    background-color: #ff0000;
+    border-color: #ff0000;
+  }
+}
+
 .addLocation{
   display: flex;
   //flex-direction: row;

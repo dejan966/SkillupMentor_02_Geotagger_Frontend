@@ -5,7 +5,7 @@ import {
   useCreateUpdateLocationForm,
 } from 'hooks/react-hook-form/useCreateUpdateLocation'
 import { observer } from 'mobx-react'
-import { FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { FormLabel, Button, Toast, ToastContainer } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
@@ -34,15 +34,13 @@ const CreateLocationForm: FC = () => {
   })
 
   const mapStyles = {
-    height: '100vh',
+    height: '50vh',
     width: '100%',
   }
 
   const onMarkerDragEnd = (e: any) => {
     const lat = e.latLng.lat()
     const lng = e.latLng.lng()
-    console.log(lat)
-    console.log(lng)
     currentPosition.lat = lat
     currentPosition.lng = lng
     setCurrentPosition(currentPosition)
@@ -66,7 +64,7 @@ const CreateLocationForm: FC = () => {
     } else {
       const formData = new FormData()
       formData.append('image_url', file, file.name)
-      const fileResponse = await API.uploadAvatar(formData, response.data.id)
+      const fileResponse = await API.uploadLocationImg(formData, response.data.id)
       if (fileResponse.data?.statusCode === StatusCode.BAD_REQUEST) {
         setApiError(fileResponse.data.message)
         setShowError(true)
@@ -79,6 +77,21 @@ const CreateLocationForm: FC = () => {
         navigate('/')
       }
     }
+  }
+
+  const handleFileChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (target.files) {
+      const myfile = target.files[0]
+      setFile(myfile)
+    }
+  }
+
+  const uploadFile = () => {
+    document.getElementById('locationUpload')?.click()
+  }
+
+  const clearImg = () => {
+    setPreview('/default_location.svg')
   }
 
   useEffect(() => {
@@ -108,8 +121,12 @@ const CreateLocationForm: FC = () => {
               <input
                 {...field}
                 type="image"
-                src={preview as string}
-                width="500"
+                src={
+                  preview === 'default_location.svg'
+                    ? (preview as string)
+                    : preview!
+                }
+                width="100%"
                 height="500"
                 aria-label="Image_url"
                 aria-describedby="image_url"
@@ -123,19 +140,36 @@ const CreateLocationForm: FC = () => {
             </Form.Group>
           )}
         />
-        {isLoaded && (
-          <GoogleMap
-            mapContainerStyle={mapStyles}
-            zoom={13}
-            center={currentPosition}
-          >
-            <MarkerF
-              position={currentPosition}
-              onDragEnd={(e) => onMarkerDragEnd(e)}
-              draggable={true}
-            />
-          </GoogleMap>
-        )}
+        <div className="d-flex justify-content-end mb-4">
+          <Button className="btnRegister col-md-3 mx-3" onClick={uploadFile}>Upload image</Button>
+          <input
+            onChange={handleFileChange}
+            id="locationUpload"
+            name="avatar"
+            type="file"
+            aria-label="Avatar"
+            aria-describedby="avatar"
+            className="d-none"
+            accept="image/png, 'image/jpg', image/jpeg"
+          />
+
+          <Button className="btnRed" onClick={clearImg}>x</Button>
+        </div>
+        <div className="mb-3">
+          {isLoaded && (
+            <GoogleMap
+              mapContainerStyle={mapStyles}
+              zoom={13}
+              center={currentPosition}
+            >
+              <MarkerF
+                position={currentPosition}
+                onDragEnd={(e) => onMarkerDragEnd(e)}
+                draggable={true}
+              />
+            </GoogleMap>
+          )}
+        </div>
         <Controller
           control={control}
           name="name"
@@ -160,7 +194,7 @@ const CreateLocationForm: FC = () => {
           )}
         />
         <div className="d-flex justify-content-end">
-          <Button className="btnRegister col-md-3" type="submit">
+          <Button className="btnRegister" type="submit">
             Add new
           </Button>
         </div>

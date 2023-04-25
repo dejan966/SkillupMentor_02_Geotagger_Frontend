@@ -36,7 +36,6 @@ const UpdateAvatarForm: FC<Props> = ({ defaultValues }) => {
   })
 
   const handleUpdate = async () => {
-    console.log(defaultValues?.id)
     const formData = new FormData()
     formData.append('avatar', file!, file?.name!)
     const fileResponse = await API.uploadAvatar(formData, defaultValues?.id!)
