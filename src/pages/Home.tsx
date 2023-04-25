@@ -5,12 +5,10 @@ import { routes } from 'constants/routesConstants'
 import authStore from 'stores/auth.store'
 import { useQuery } from 'react-query'
 import * as API from 'api/Api'
-import { Link, useNavigate } from 'react-router-dom'
-import { StatusCode } from 'constants/errorConstants'
+import { useNavigate } from 'react-router-dom'
 import useMediaQuery from 'hooks/useMediaQuery'
 import { LocationType } from 'models/location'
 import { GuessType } from 'models/guess'
-import MapContainer from 'components/location/map/MapContainer'
 import LocationBlock from './LocationBlock'
 
 const Home: FC = () => {
@@ -63,9 +61,9 @@ const Home: FC = () => {
               <div>
                 {personalBestStatus === 'error' && <p>Error fetching data</p>}
                 {personalBestStatus === 'loading' && <p>Loading data...</p>}
-                {personalBestStatus === 'success' && (
+                {/*                 {personalBestStatus === 'success' && (
                   <>
-{/*                     {personalBest.data
+                     {personalBest.data
                       .slice(0, 3)
                       .map((item: GuessType, index: number) => (
                         <LocationBlock
@@ -74,9 +72,9 @@ const Home: FC = () => {
                             error_distance={item.errorDistance}
                             key={index}
                           />
-                      ))} */}
+                      ))}
                   </>
-                )}
+                )} */}
               </div>
             </div>
             <div className="mb-3 text-center mx-auto">
@@ -97,14 +95,14 @@ const Home: FC = () => {
                 {locationStatus === 'loading' && <p>Loading data...</p>}
                 {locationStatus === 'success' && (
                   <>
-                  {allLocations.data
+                    {allLocations.data
                       .slice(0, 9)
                       .map((item: LocationType, index: number) => (
                         <LocationBlock
-                            location_id={item.id}
-                            image_url={item.image_url}
-                            key={index}
-                          />
+                          location_id={item.id}
+                          image_url={item.image_url}
+                          key={index}
+                        />
                       ))}
                   </>
                 )}
@@ -215,7 +213,9 @@ const Home: FC = () => {
                   )}
                 </div>
                 <div className="mb-3 text-center mx-auto">
-                  <Button className="btnRegister" href={routes.SIGNUP}>Sign up</Button>
+                  <Button className="btnRegister" href={routes.SIGNUP}>
+                    Sign up
+                  </Button>
                 </div>
               </div>
             </>

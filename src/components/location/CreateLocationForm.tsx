@@ -11,6 +11,7 @@ import { Form } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
 import * as API from 'api/Api'
 import { useNavigate } from 'react-router-dom'
+import { useLoadScript, GoogleMap, MarkerF } from '@react-google-maps/api'
 
 const CreateLocationForm: FC = () => {
   const navigate = useNavigate()
@@ -22,6 +23,30 @@ const CreateLocationForm: FC = () => {
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [fileError, setFileError] = useState(false)
+
+  const [currentPosition, setCurrentPosition] = useState({
+    lat: 41.3851,
+    lng: 2.1734,
+  })
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
+  })
+
+  const mapStyles = {
+    height: '100vh',
+    width: '100%',
+  }
+
+  const onMarkerDragEnd = (e: any) => {
+    const lat = e.latLng.lat()
+    const lng = e.latLng.lng()
+    console.log(lat)
+    console.log(lng)
+    currentPosition.lat = lat
+    currentPosition.lng = lng
+    setCurrentPosition(currentPosition)
+  }
 
   const onSubmit = handleSubmit(
     async (data: CreateLocationFields | UpdateLocationFields) => {
@@ -71,7 +96,7 @@ const CreateLocationForm: FC = () => {
 
   return (
     <>
-      <h3 className='mx-auto text-center'>
+      <h3 className="mx-auto text-center">
         Add a new <span style={{ color: '#619E89' }}>location</span>
       </h3>
       <Form onSubmit={onSubmit}>
@@ -88,7 +113,7 @@ const CreateLocationForm: FC = () => {
                 height="500"
                 aria-label="Image_url"
                 aria-describedby="image_url"
-                className='mx-auto d-block'
+                className="mx-auto d-block"
               />
               {errors.image_url && (
                 <div className="invalid-feedback text-danger">
@@ -98,6 +123,19 @@ const CreateLocationForm: FC = () => {
             </Form.Group>
           )}
         />
+        {isLoaded && (
+          <GoogleMap
+            mapContainerStyle={mapStyles}
+            zoom={13}
+            center={currentPosition}
+          >
+            <MarkerF
+              position={currentPosition}
+              onDragEnd={(e) => onMarkerDragEnd(e)}
+              draggable={true}
+            />
+          </GoogleMap>
+        )}
         <Controller
           control={control}
           name="name"
@@ -121,7 +159,6 @@ const CreateLocationForm: FC = () => {
             </Form.Group>
           )}
         />
-        {/*Google map component*/}
         <div className="d-flex justify-content-end">
           <Button className="btnRegister col-md-3" type="submit">
             Add new
