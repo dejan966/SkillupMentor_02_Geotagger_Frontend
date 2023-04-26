@@ -205,12 +205,10 @@ const RegisterForm: FC = () => {
           </div>
         </Form>
       </div>
-      {!isMobile ? (
+      {!isMobile && (
         <div className='right'>
-          <img src="/location-signup.png" alt="location img" width="824"/>
+          <img src="/location-signup.png" alt="location img" width="993"/>
         </div>
-      ):(
-        null
       )}
       {showError && (
         <ToastContainer className="p-3" position="top-end">
