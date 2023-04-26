@@ -9,6 +9,9 @@ import {
 export const fetchLocations = async () =>
   apiRequest<never, LocationType>('get', apiRoutes.LOCATIONS_PREFIX)
 
+export const fetchLocation = async (id:number) =>
+  apiRequest<undefined, LocationType>('get', `${apiRoutes.LOCATIONS_PREFIX}/${id}`)
+
 export const uploadLocationImg = async (formData: FormData, id: number) =>
   apiRequest<FormData, void>(
     'post',

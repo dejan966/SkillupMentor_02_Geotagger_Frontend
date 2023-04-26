@@ -13,7 +13,7 @@ const LocationBlock: FC<Props> = ({
 }) => {
   return (
   <div>
-    <div><img src={`${process.env.REACT_APP_API_URL}/uploads/locations/${image_url}`} alt="" /></div>
+    <div><img src={`${process.env.REACT_APP_API_URL}/uploads/locations/${image_url}`} alt="location_img" /*onCLick GuessForm -> pass location id */ /></div>
   </div>
   )
 }

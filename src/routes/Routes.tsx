@@ -27,6 +27,8 @@ const UserAvatarEdit = lazy(() => import('pages/Me/Update-avatar'))
 const LocationsAdd = lazy(() => import('pages/Me/Mylocation'))
 const LocationsEdit = lazy(() => import('pages/Me/Mylocation/Edit'))
 
+const Guess = lazy(()=> import('pages/Guess/Location'))
+
 /* Restricted routes */
 const Login = lazy(() => import('pages/Login'))
 const Register = lazy(() => import('pages/Register'))
@@ -86,6 +88,11 @@ export const AppRoutes: AppRoute[] = [
     type: RouteType.PRIVATE,
     path: '/me/mylocation/edit/:id',
     children: <LocationsEdit />,
+  },
+  {
+    type: RouteType.PRIVATE,
+    path: '/guess/location/:id',
+    children: <Guess />,
   },
   // Public Routes
   {

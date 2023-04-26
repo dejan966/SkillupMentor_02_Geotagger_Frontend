@@ -11,7 +11,6 @@ import { Form } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
 import * as API from 'api/Api'
 import { Link, useNavigate } from 'react-router-dom'
-import { useLoadScript, GoogleMap, MarkerF } from '@react-google-maps/api'
 import { routes } from 'constants/routesConstants'
 import { LocationType } from 'models/location'
 
