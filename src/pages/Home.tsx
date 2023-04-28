@@ -58,23 +58,23 @@ const Home: FC = () => {
                 Your personal best guesses appear here. Go on and try to beat
                 your personal records or set a new one!
               </p>
-              <div className='mb-3'>
+              <div className="mb-3">
                 {personalBestStatus === 'error' && <p>Error fetching data</p>}
                 {personalBestStatus === 'loading' && <p>Loading data...</p>}
-                {/*                 {personalBestStatus === 'success' && (
+                {personalBestStatus === 'success' && (
                   <>
-                     {personalBest.data
-                      .slice(0, 3)
-                      .map((item: GuessType, index: number) => (
-                        <LocationBlock
-                            location_id={item.location.id}
-                            image_url={item.location.image_url}
-                            error_distance={item.errorDistance}
+                    <div className="locationRow">
+                      {personalBest.data
+                        .slice(0, 3)
+                        .map((item: GuessType, index: number) => (
+                          <LocationBlock
+                            locationGuess={item}
                             key={index}
                           />
-                      ))}
+                        ))}
+                    </div>
                   </>
-                )} */}
+                )}
               </div>
             </div>
             <div className="mb-3 text-center mx-auto">
@@ -90,20 +90,21 @@ const Home: FC = () => {
                 New uploads from users. Try to guess all the locations by
                 pressing on a picture.
               </p>
-              <div className='mb-3'>
+              <div className="mb-3">
                 {locationStatus === 'error' && <p>Error fetching data</p>}
                 {locationStatus === 'loading' && <p>Loading data...</p>}
                 {locationStatus === 'success' && (
                   <>
-                    {allLocations.data
-                      .slice(0, 9)
-                      .map((item: LocationType, index: number) => (
-                        <LocationBlock
-                          location_id={item.id}
-                          image_url={item.image_url}
-                          key={index}
-                        />
-                      ))}
+                    <div className="locationRow">
+                      {allLocations.data
+                        .slice(0, 9)
+                        .map((item: LocationType, index: number) => (
+                          <LocationBlock
+                            location={item}
+                            key={index}
+                          />
+                        ))}
+                    </div>
                   </>
                 )}
               </div>
@@ -195,20 +196,21 @@ const Home: FC = () => {
                     error distance.{' '}
                   </p>
                 </div>
-                <div className='mb-3'>
+                <div className="mb-3">
                   {locationStatus === 'error' && <p>Error fetching data</p>}
                   {locationStatus === 'loading' && <p>Loading data...</p>}
                   {locationStatus === 'success' && (
                     <>
-                      {allLocations.data
-                        .slice(0, 9)
-                        .map((item: LocationType, index: number) => (
-                          <LocationBlock
-                            location_id={item.id}
-                            image_url={item.image_url}
-                            key={index}
-                          />
-                        ))}
+                      <div className="locationRow">
+                        {allLocations.data
+                          .slice(0, 9)
+                          .map((item: LocationType, index: number) => (
+                            <LocationBlock
+                              location={item}
+                              key={index}
+                            />
+                          ))}
+                      </div>
                     </>
                   )}
                 </div>

@@ -56,11 +56,6 @@
   align-items: center;
 }
 
-.parentGrid{
-  display: flex;
-  gap:20px;
-}
-
 .display{
   display:flex;
   flex-direction: column;
@@ -71,12 +66,28 @@
   flex-grow:1;
 }
 
-//error distance over image
+//text centered on image
+.locationContainer {
+  position: relative;
+  color: white;
+}
+
 .centered {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.locationRow{
+  display:grid;
+  grid-template-rows: 3, 0.1fr;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.imgSpacing{
+  padding: 0px 0px 14px 14px;
+  cursor: pointer;
 }
 
 .btnRegister{

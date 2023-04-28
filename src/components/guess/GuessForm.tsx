@@ -5,21 +5,15 @@ import * as API from 'api/Api'
 import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api'
 import { Form, Button, FormLabel, ToastContainer, Toast } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
+import { GuessType } from 'models/guess'
 
 interface Props {
-  locationData: LocationType
+  locationData: LocationType | GuessType
 }
 
 const GuessForm: FC<Props> = ({ locationData }) => {
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
-  const { data: locationToGuess, status: locationToGuessSTatus } = useQuery(
-    ['locationGuess'],
-    () => API.fetchLocation(4),
-    {
-      refetchOnWindowFocus: false,
-    },
-  )
 
   const [currentPosition, setCurrentPosition] = useState({
     lat: 41.3851,
@@ -44,6 +38,7 @@ const GuessForm: FC<Props> = ({ locationData }) => {
   }
 
   return (
+    //check if location is type LocationType or not
     <>
       <h3 className="mx-auto text-center">
         Take a <span style={{ color: '#619E89' }}>guess</span>!

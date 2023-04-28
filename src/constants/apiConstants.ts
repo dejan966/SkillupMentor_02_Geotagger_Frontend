@@ -12,5 +12,7 @@ export enum apiRoutes {
   ME_LOCATIONS = 'locations/me',
   LOCATIONS_PREFIX = '/locations',
   UPDATE_LOCATION = '/locations',
+  GUESSES_PREFIX = 'guesses',
   ME_GUESSES = '/guesses/me',
+  MAKE_GUESS = '/guesses/location/:id'
 } 
