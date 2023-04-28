@@ -14,5 +14,5 @@ export enum apiRoutes {
   UPDATE_LOCATION = '/locations',
   GUESSES_PREFIX = 'guesses',
   ME_GUESSES = '/guesses/me',
-  MAKE_GUESS = '/guesses/location/:id'
+  MAKE_GUESS = '/guesses/location'
 } 

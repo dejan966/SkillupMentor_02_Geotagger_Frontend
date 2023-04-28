@@ -7,7 +7,7 @@ const GuessLocation: FC = () => {
   const location = useLocation()
   return (
     <Layout>
-      <GuessForm locationData={location.state.data}/>
+      <GuessForm defaultValues={location.state.data}/>
     </Layout>
   )
 }
