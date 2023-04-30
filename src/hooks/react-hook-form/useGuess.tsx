@@ -17,10 +17,10 @@ interface Props {
 
 export const useGuess = ({ defaultValues }: Props) => {
   const GuessSchema = Yup.object().shape({
-    image_url: Yup.string().required(),
-    latitude: Yup.number().required(),
-    longitude: Yup.number().required(),
-    errorDistance: Yup.number().required(),
+    image_url: Yup.string().notRequired(),
+    latitude: Yup.number().notRequired(),
+    longitude: Yup.number().notRequired(),
+    errorDistance: Yup.number().notRequired(),
   })
 
   const {
@@ -48,10 +48,10 @@ export const useGuess = ({ defaultValues }: Props) => {
 
 export const useLocation = () => {
   const LocationSchema = Yup.object().shape({
-    image_url: Yup.string().required(),
-    latitude: Yup.number().required(),
-    longitude: Yup.number().required(),
-    errorDistance: Yup.number().required(),
+    image_url: Yup.string().notRequired(),
+    latitude: Yup.number().notRequired(),
+    longitude: Yup.number().notRequired(),
+    errorDistance: Yup.number().notRequired(),
   })
 
   const {

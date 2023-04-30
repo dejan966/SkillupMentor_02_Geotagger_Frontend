@@ -13,7 +13,7 @@ import { StatusCode } from 'constants/errorConstants'
 import { useLoadScript } from '@react-google-maps/api'
 import { GuessType } from 'models/guess'
 import { useQuery } from 'react-query'
-import { LocationType } from 'models/location'
+import Geocode from 'react-geocode'
 
 interface Props {
   defaultValues?: GuessType
@@ -22,6 +22,8 @@ interface Props {
 const libraries: LoadScriptProps['libraries'] = ['geometry']
 
 const GuessForm: FC<Props> = ({ defaultValues }) => {
+  Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY!)
+
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
@@ -29,6 +31,8 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
   const { id } = useParams()
   const locationId: number = parseInt(id!)
 
+  const [address, setAddress] = useState({location:'iu'})
+  const [addressGuess, setAddressGuess] = useState({locationGuess:'iu'})
   const { handleSubmit, errors, control } = useGuess({ defaultValues })
   const {
     handleSubmit: locationSubmit,
@@ -49,6 +53,8 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
           lat: +data.data.latitude,
           lng: +data.data.longitude,
         })
+        getAddress()
+        getAddressGuess()
       },
       refetchOnWindowFocus: false,
     },
@@ -76,6 +82,23 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
       lat: e.latLng!.lat(),
       lng: e.latLng!.lng(),
     })
+    getAddress()
+  }
+
+  const getAddress = () => {
+    Geocode.fromLatLng(
+      currentPosition.lat.toString(),
+      currentPosition.lng.toString(),
+    ).then(
+      (response) => {
+        const addressFromCoordinats = response.results[0].formatted_address
+        console.log(addressFromCoordinats)
+        setAddress({location:addressFromCoordinats})
+      },
+      (error) => {
+        console.error(error)
+      },
+    )
   }
 
   const defaultLocationGuess = {
@@ -100,6 +123,23 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
       lat: e.latLng!.lat(),
       lng: e.latLng!.lng(),
     })
+    getAddressGuess()
+  }
+  
+  const getAddressGuess = () => {
+    Geocode.fromLatLng(
+      currentPositionGuess.lat.toString(),
+      currentPositionGuess.lng.toString(),
+    ).then(
+      (response) => {
+        const addressFromCoordinats = response.results[0].formatted_address
+        console.log(addressFromCoordinats)
+        setAddressGuess({locationGuess:addressFromCoordinats})
+      },
+      (error) => {
+        console.error(error)
+      },
+    )
   }
 
   const { isLoaded } = useLoadScript({
@@ -113,7 +153,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
   }
 
   const onSubmit = handleSubmit(async (data: GuessUserFields) => {
-    const response = await API.makeGuess(data, locationData.data.id)
+    const response = await API.makeGuess(data, locationId)
     if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
@@ -202,11 +242,13 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                 <Form.Group className="mb-3">
                   <FormLabel htmlFor="last_name">Guessed location</FormLabel>
                   <input
+                    value={addressGuess && addressGuess.locationGuess}
                     name="Guessed location"
                     type="text"
                     aria-label="guessed_location"
                     aria-describedby="guessed_location"
                     className="form-control"
+                    readOnly
                   />
                 </Form.Group>
               </div>
@@ -287,6 +329,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                         Guessed location
                       </FormLabel>
                       <input
+                        value={ address && address.location }
                         name="Guessed location"
                         type="text"
                         aria-label="guessed_location"
