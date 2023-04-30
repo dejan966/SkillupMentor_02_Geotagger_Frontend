@@ -1,39 +1,48 @@
-import { LocationType } from 'models/location'
 import { FC, useState } from 'react'
-import { useQuery } from 'react-query'
 import * as API from 'api/Api'
-import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api'
+import { GoogleMap, LoadScriptProps, MarkerF } from '@react-google-maps/api'
 import { Form, Button, FormLabel, ToastContainer, Toast } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
-import { GuessType } from 'models/guess'
 import { useNavigate } from 'react-router-dom'
 import { GuessUserFields, useGuess } from 'hooks/react-hook-form/useGuess'
 import { StatusCode } from 'constants/errorConstants'
+import { useLoadScript } from '@react-google-maps/api'
 
 interface Props {
-  defaultValues?: LocationType
+  defaultValues?: any
 }
 
+const libraries:LoadScriptProps['libraries'] = ['geometry']
+
 const GuessForm: FC<Props> = ({ defaultValues }) => {
+  /*   const {data:locationData, status:locationStatus} = useQuery(
+    ['locationData'],
+    () => API.fetchLocation(defaultValues?.id!),
+    {
+      refetchOnWindowFocus: false,
+    },
+  ) */
+
   const navigate = useNavigate()
-  const location: any = defaultValues
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
+  const [distanceInMeters, setDistanceInMeters] = useState(null)
 
   const { handleSubmit, errors, control } = useGuess({ defaultValues })
 
-  const [currentPosition, setCurrentPosition] = useState({
-    lat: +defaultValues?.latitude!,
-    lng: +defaultValues?.longitude!,
-  })
-
-  const defaultPosition = {
-    lat: +defaultValues?.latitude!,
-    lng: +defaultValues?.longitude!,
+  const defaultLocation = {
+    lat: +defaultValues.latitude,
+    lng: +defaultValues.longitude,
   }
+  
+  const [currentPosition, setCurrentPosition] = useState({
+    lat: +defaultValues.latitude,
+    lng: +defaultValues.longitude,
+  })
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
+    libraries,
   })
 
   const mapStyles = {
@@ -41,8 +50,20 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
     width: '100%',
   }
 
+  const compareDistance = (e: any) => {
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(
+      { lat: e.latLng!.lat(), lng: e.latLng!.lng() },
+      defaultLocation,
+    )
+    console.log(distance)
+    setCurrentPosition({
+      lat: e.latLng!.lat(),
+      lng: e.latLng!.lng(),
+    })
+  }
+
   const onSubmit = handleSubmit(async (data: GuessUserFields) => {
-    const response = await API.makeGuess(data, location.id)
+    const response = await API.makeGuess(data, defaultValues.id)
     if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
@@ -60,7 +81,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
         Take a <span style={{ color: '#619E89' }}>guess</span>!
       </h2>
       <Form onSubmit={onSubmit}>
-        {location.errorDistance ? (
+        {defaultValues.errorDistance ? (
           <>
             <Controller
               control={control}
@@ -70,7 +91,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                   <input
                     {...field}
                     type="image"
-                    src={`${process.env.REACT_APP_API_URL}/uploads/locations/${location.location.image_url}`}
+                    src={`${process.env.REACT_APP_API_URL}/uploads/locations/${defaultValues.location.image_url}`}
                     width="100%"
                     height="500"
                     aria-label="Image_url"
@@ -91,16 +112,9 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                   mapContainerStyle={mapStyles}
                   zoom={13}
                   center={currentPosition}
-                  onClick={(e) =>
-                    setCurrentPosition({
-                      lat: e.latLng!.lat(),
-                      lng: e.latLng!.lng(),
-                    })
-                  }
+                  onClick={(e) => compareDistance(e)}
                 >
-                  <MarkerF
-                    position={currentPosition}
-                  />
+                  <MarkerF position={currentPosition} />
                 </GoogleMap>
               )}
             </div>
@@ -116,6 +130,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                       </FormLabel>
                       <input
                         {...field}
+                        /*  {!distanceInMeters ? {...field} : distanceInMeters} */
                         type="text"
                         aria-label="Error Distance"
                         aria-describedby="errorDistance"
@@ -150,6 +165,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
           </>
         ) : (
           <>
+            
             <Controller
               control={control}
               name="image_url"
@@ -158,7 +174,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                   <input
                     {...field}
                     type="image"
-                    src={`${process.env.REACT_APP_API_URL}/uploads/locations/${location.image_url}`}
+                    src={`${process.env.REACT_APP_API_URL}/uploads/locations/${defaultValues.image_url}`}
                     width="100%"
                     height="500"
                     aria-label="Image_url"
@@ -178,7 +194,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                 <GoogleMap
                   mapContainerStyle={mapStyles}
                   zoom={13}
-                  center={defaultPosition}
+                  center={currentPosition}
                   onClick={(e) =>
                     setCurrentPosition({
                       lat: e.latLng!.lat(),

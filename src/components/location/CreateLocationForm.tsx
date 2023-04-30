@@ -38,14 +38,6 @@ const CreateLocationForm: FC = () => {
     width: '100%',
   }
 
-  const onMarkerDragEnd = (e: any) => {
-    const lat = e.latLng.lat()
-    const lng = e.latLng.lng()
-    currentPosition.lat = lat
-    currentPosition.lng = lng
-    setCurrentPosition(currentPosition)
-  }
-
   const onSubmit = handleSubmit(
     async (data: CreateLocationFields | UpdateLocationFields) => {
       handleAdd(data as CreateLocationFields)
@@ -161,11 +153,15 @@ const CreateLocationForm: FC = () => {
               mapContainerStyle={mapStyles}
               zoom={13}
               center={currentPosition}
+              onClick={(e) =>
+                setCurrentPosition({
+                  lat: e.latLng!.lat(),
+                  lng: e.latLng!.lng(),
+                })
+              }
             >
               <MarkerF
                 position={currentPosition}
-                onDragEnd={(e) => onMarkerDragEnd(e)}
-                draggable={true}
               />
             </GoogleMap>
           )}

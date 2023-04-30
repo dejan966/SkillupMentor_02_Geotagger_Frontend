@@ -7,4 +7,7 @@ export const fetchPersonalBest = async () =>
   apiRequest<never, GuessType>('get', apiRoutes.ME_GUESSES)
 
 export const makeGuess = async (data:GuessUserFields, locationId:number) =>
-  apiRequest<GuessUserFields, void>('post', `${apiRoutes.MAKE_GUESS}/${locationId}`, data)
+  apiRequest<GuessUserFields, void>('post', `${apiRoutes.GUESS_LOCATION_PREFIX}/${locationId}`, data)
+
+export const getLocationFromGuess = async (locationId:number) =>
+  apiRequest<never, GuessType>('get', `${apiRoutes.GUESS_LOCATION_PREFIX}/${locationId}`)
