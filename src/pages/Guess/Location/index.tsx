@@ -5,9 +5,17 @@ import { useLocation } from 'react-router-dom'
 
 const GuessLocation: FC = () => {
   const location = useLocation()
+
+  if (location.state.data.errorDistance) {
+    return (
+      <Layout>
+        <GuessForm defaultValues={location.state.data} />
+      </Layout>
+    )
+  }
   return (
     <Layout>
-      <GuessForm defaultValues={location.state.data}/>
+      <GuessForm />
     </Layout>
   )
 }
