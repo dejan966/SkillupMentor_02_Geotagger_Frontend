@@ -110,7 +110,7 @@ const UpdateAvatarForm: FC<Props> = ({ defaultValues }) => {
               </Form.Group>
               <div className="d-flex justify-content-center mb-3">
                 <Form.Group className="d-flex flex-column justify-content-center align-items-center">
-                  <Button className="btnChangeProfilePic" onClick={uploadFile}>
+                  <Button className="btnRegister" onClick={uploadFile}>
                     Upload new image
                   </Button>
                   <input
@@ -125,7 +125,7 @@ const UpdateAvatarForm: FC<Props> = ({ defaultValues }) => {
                   />
                 </Form.Group>
               </div>
-              <div className="d-flex justify-content-start">
+              <div className="d-flex align-items-center justify-content-between">
                 <Button
                   className="btnRegister col-md-3"
                   type="submit"
