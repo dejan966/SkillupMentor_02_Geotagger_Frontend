@@ -196,6 +196,38 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                 </Form.Group>
               )}
             />
+            <Controller
+              control={control}
+              name="latitude"
+              render={({ field }) => (
+                <Form.Group className="mb-3">
+                  <input
+                    {...field}
+                    value={currentPositionGuess.lat}
+                    type="hidden"
+                    aria-label="Latitude"
+                    aria-describedby="latitude"
+                  />
+                  {errors.latitude && <>{console.log(errors.latitude.message)}</>}
+                </Form.Group>
+              )}
+            />
+            <Controller
+              control={control}
+              name="longitude"
+              render={({ field }) => (
+                <Form.Group className="mb-3">
+                  <input
+                    {...field}
+                    value={currentPositionGuess.lng}
+                    type="hidden"
+                    aria-label="Longitude"
+                    aria-describedby="longitude"
+                  />
+                  {errors.longitude && <>{console.log(errors.longitude.message)}</>}
+                </Form.Group>
+              )}
+            />
             <div className="mb-3">
               {isLoaded && (
                 <GoogleMap
@@ -213,13 +245,14 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                 <Controller
                   control={control}
                   name="errorDistance"
-                  render={({ field }) => (
+                  render={({field}) => (
                     <Form.Group className="mb-3">
                       <FormLabel htmlFor="errorDistance">
                         Error distance
                       </FormLabel>
                       <input
-                        {...field}
+                      {...field}
+                        value={distanceInMeters && distanceInMeters.distance}
                         type="text"
                         aria-label="Error Distance"
                         aria-describedby="errorDistance"
@@ -228,6 +261,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                             ? 'form-control is-invalid'
                             : 'form-control'
                         }
+                        readOnly
                       />
                       {errors.errorDistance && (
                         <div className="invalid-feedback text-danger">
@@ -298,13 +332,13 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                     <Controller
                       control={locationControl}
                       name="errorDistance"
-                      render={({ field }) => (
+                      render={() => (
                         <Form.Group className="mb-3">
                           <FormLabel htmlFor="errorDistance">
                             Error distance
                           </FormLabel>
                           <input
-                            {...field}
+                            value={distanceInMeters && distanceInMeters.distance}
                             type="text"
                             aria-label="Error Distance"
                             aria-describedby="errorDistance"
@@ -313,6 +347,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                                 ? 'form-control is-invalid'
                                 : 'form-control'
                             }
+                            readOnly
                           />
                           {errors.errorDistance && (
                             <div className="invalid-feedback text-danger">

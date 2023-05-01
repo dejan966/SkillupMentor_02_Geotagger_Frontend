@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { GuessType } from 'models/guess'
-import { LocationType } from 'models/location'
 import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 
@@ -17,7 +16,7 @@ interface Props {
 
 export const useGuess = ({ defaultValues }: Props) => {
   const GuessSchema = Yup.object().shape({
-    image_url: Yup.string().notRequired(),
+    image_url: Yup.string().required(),
     latitude: Yup.number().notRequired(),
     longitude: Yup.number().notRequired(),
     errorDistance: Yup.number().notRequired(),
@@ -61,8 +60,6 @@ export const useLocation = () => {
   } = useForm({
     defaultValues: {
       image_url: '',
-      latitude: 0,
-      longitude: 0,
       errorDistance:0
     },
     mode: 'onSubmit',

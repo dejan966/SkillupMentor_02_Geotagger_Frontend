@@ -15,15 +15,15 @@ import { routes } from 'constants/routesConstants'
 import { LocationType } from 'models/location'
 
 interface Props {
-  locationData: LocationType
+  defaultValues: LocationType
 }
 
-const UpdateLocationForm: FC<Props> = ({ locationData }) => {
+const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
 
-  const { handleSubmit, errors, control } = useCreateUpdateLocationForm({})
+  const { handleSubmit, errors, control } = useCreateUpdateLocationForm({defaultValues})
 
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
@@ -36,7 +36,7 @@ const UpdateLocationForm: FC<Props> = ({ locationData }) => {
   )
 
   const handleUpdate = async (data: UpdateLocationFields) => {
-    const response = await API.updateLocation(data, locationData.id)
+    const response = await API.updateLocation(data, defaultValues.id)
     if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
@@ -114,7 +114,7 @@ const UpdateLocationForm: FC<Props> = ({ locationData }) => {
               <input
                 {...field}
                 type="text"
-                value={locationData.name}
+                value={defaultValues.name}
                 aria-label="Name"
                 aria-describedby="name"
                 className={

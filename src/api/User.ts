@@ -27,28 +27,32 @@ export const uploadAvatar = async (formData: FormData, id: number) =>
 export const fetchCurrUser = async () =>
   apiRequest<never, UserType>('get', apiRoutes.ME)
 
-export const fetchUser = async (id:number) =>
+export const fetchUser = async (id: number) =>
   apiRequest<undefined, UserType>('get', `${apiRoutes.FETCH_USERS}/${id}`)
 
 export const updateUser = async (data: UpdateUserFields, id: number) =>
   apiRequest<UpdateUserFields, UserType>(
     'patch',
     `${apiRoutes.USERS_PREFIX}/${id}`,
-    data
+    data,
   )
 
-export const updateUserPass = async ({current_password, password, confirm_password}: UpdateUserFields) =>
+export const updateUserPass = async ({
+  current_password,
+  password,
+  confirm_password,
+}: UpdateUserFields) =>
   apiRequest<UpdateUserFields, UserType>(
     'patch',
     `${apiRoutes.ME}/update-password`,
-    {current_password, password, confirm_password}
+    { current_password, password, confirm_password },
   )
 
-export const updateUserAvatar = async ({avatar}: UpdateUserFields) =>
+export const updateUserAvatar = async ({ avatar }: UpdateUserFields) =>
   apiRequest<UpdateUserFields, UserType>(
     'patch',
     `${apiRoutes.ME}/update-avatar`,
-    {avatar}
+    { avatar },
   )
 
 export const deleteUser = async (id: number) =>

@@ -38,11 +38,9 @@ const CreateLocationForm: FC = () => {
     width: '100%',
   }
 
-  const onSubmit = handleSubmit(
-    async (data: CreateLocationFields | UpdateLocationFields) => {
-      handleAdd(data as CreateLocationFields)
-    },
-  )
+  const onSubmit = handleSubmit(async (data: CreateLocationFields) => {
+    handleAdd(data as CreateLocationFields)
+  })
 
   const handleAdd = async (data: CreateLocationFields) => {
     if (!file) return
@@ -56,7 +54,10 @@ const CreateLocationForm: FC = () => {
     } else {
       const formData = new FormData()
       formData.append('image_url', file, file.name)
-      const fileResponse = await API.uploadLocationImg(formData, response.data.id)
+      const fileResponse = await API.uploadLocationImg(
+        formData,
+        response.data.id,
+      )
       if (fileResponse.data?.statusCode === StatusCode.BAD_REQUEST) {
         setApiError(fileResponse.data.message)
         setShowError(true)
@@ -105,49 +106,83 @@ const CreateLocationForm: FC = () => {
         Add a new <span style={{ color: '#619E89' }}>location</span>
       </h3>
       <Form onSubmit={onSubmit}>
-        <Controller
-          control={control}
-          name="image_url"
-          render={({ field }) => (
-            <Form.Group>
-              <input
-                {...field}
-                type="image"
-                src={
-                  preview === 'default_location.svg'
-                    ? (preview as string)
-                    : preview!
-                }
-                width="100%"
-                height="500"
-                aria-label="Image_url"
-                aria-describedby="image_url"
-                className="mx-auto d-block"
-              />
-              {errors.image_url && (
-                <div className="invalid-feedback text-danger">
-                  {errors.image_url.message}
-                </div>
-              )}
-            </Form.Group>
-          )}
-        />
+        <Form.Group className="mb-3">
+          <input
+            type="image"
+            src={
+              preview ===
+              `${process.env.REACT_APP_API_URL}/uploads/locations/default_location.png`
+                ? (preview as string)
+                : preview!
+            }
+            width="100%"
+            height="500"
+            aria-label="image_url"
+            aria-describedby="image_url"
+            className="mx-auto d-block"
+          />
+          {errors.image_url && <>{console.log(errors.image_url.message)}</>}
+        </Form.Group>
         <div className="d-flex justify-content-end mb-4">
-          <Button className="btnRegister col-md-3 mx-3" onClick={uploadFile}>Upload image</Button>
+          <Button className="btnRegister col-md-3 mx-3" onClick={uploadFile}>
+            Upload image
+          </Button>
           <input
             onChange={handleFileChange}
             id="locationUpload"
-            name="avatar"
+            name="image_url"
             type="file"
-            aria-label="Avatar"
-            aria-describedby="avatar"
+            aria-label="LocationImage"
+            aria-describedby="location_image"
             className="d-none"
             accept="image/png, 'image/jpg', image/jpeg"
           />
-
-          <Button className="btnRed" onClick={clearImg}>x</Button>
+          <Button className="btnRed" onClick={clearImg}>
+            x
+          </Button>
         </div>
         <div className="mb-3">
+          <Controller
+            control={control}
+            name="latitude"
+            render={({ field }) => (
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor='latitude'>
+                <input
+                  {...field}
+                  value={currentPosition.lat}
+                  type="hidden"
+                  aria-label="Latitude"
+                  aria-describedby="latitude"
+                />
+                {errors.latitude && <>{console.log(errors.latitude.message)}</>}
+                </Form.Label>
+              </Form.Group>
+            )}
+          />
+          <Controller
+            control={control}
+            name="longitude"
+            render={({ field }) => (
+              <Form.Group className="mb-3">
+                <input
+                  {...field}
+                  value={currentPosition.lng}
+                  type="hidden"
+                  aria-label="Longitude"
+                  aria-describedby="longitude"
+                  className={
+                    errors.longitude
+                      ? 'form-control is-invalid'
+                      : 'form-control'
+                  }
+                />
+                {errors.longitude && (
+                  <>{console.log(errors.longitude.message)}</>
+                )}
+              </Form.Group>
+            )}
+          />
           {isLoaded && (
             <GoogleMap
               mapContainerStyle={mapStyles}
@@ -160,9 +195,7 @@ const CreateLocationForm: FC = () => {
                 })
               }
             >
-              <MarkerF
-                position={currentPosition}
-              />
+              <MarkerF position={currentPosition} />
             </GoogleMap>
           )}
         </div>
