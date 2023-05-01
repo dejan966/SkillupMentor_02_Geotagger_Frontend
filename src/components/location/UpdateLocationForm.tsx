@@ -10,10 +10,15 @@ import { FormLabel, Button, Toast, ToastContainer } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
 import * as API from 'api/Api'
-import { useNavigate } from 'react-router-dom'
-import { useLoadScript, GoogleMap, MarkerF } from '@react-google-maps/api'
+import { Link, useNavigate } from 'react-router-dom'
+import { routes } from 'constants/routesConstants'
+import { LocationType } from 'models/location'
 
-const CreateLocationForm: FC = () => {
+interface Props {
+  locationData: LocationType
+}
+
+const UpdateLocationForm: FC<Props> = ({ locationData }) => {
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
@@ -24,29 +29,14 @@ const CreateLocationForm: FC = () => {
   const [preview, setPreview] = useState<string | null>(null)
   const [fileError, setFileError] = useState(false)
 
-  const [currentPosition, setCurrentPosition] = useState({
-    lat: 41.3851,
-    lng: 2.1734,
-  })
-
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-  })
-
-  const mapStyles = {
-    height: '50vh',
-    width: '100%',
-  }
-
   const onSubmit = handleSubmit(
     async (data: CreateLocationFields | UpdateLocationFields) => {
-      handleAdd(data as CreateLocationFields)
+      handleUpdate(data as UpdateLocationFields)
     },
   )
 
-  const handleAdd = async (data: CreateLocationFields) => {
-    if (!file) return
-    const response = await API.createLocation(data)
+  const handleUpdate = async (data: UpdateLocationFields) => {
+    const response = await API.updateLocation(data, locationData.id)
     if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
@@ -54,20 +44,7 @@ const CreateLocationForm: FC = () => {
       setApiError(response.data.message)
       setShowError(true)
     } else {
-      const formData = new FormData()
-      formData.append('image_url', file, file.name)
-      const fileResponse = await API.uploadLocationImg(formData, response.data.id)
-      if (fileResponse.data?.statusCode === StatusCode.BAD_REQUEST) {
-        setApiError(fileResponse.data.message)
-        setShowError(true)
-      } else if (
-        fileResponse.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR
-      ) {
-        setApiError(fileResponse.data.message)
-        setShowError(true)
-      } else {
-        navigate('/')
-      }
+      navigate('/')
     }
   }
 
@@ -80,10 +57,6 @@ const CreateLocationForm: FC = () => {
 
   const uploadFile = () => {
     document.getElementById('locationUpload')?.click()
-  }
-
-  const clearImg = () => {
-    setPreview('/default_location.svg')
   }
 
   useEffect(() => {
@@ -102,7 +75,7 @@ const CreateLocationForm: FC = () => {
   return (
     <>
       <h3 className="mx-auto text-center">
-        Add a new <span style={{ color: '#619E89' }}>location</span>
+        Edit <span style={{ color: '#619E89' }}>location</span>
       </h3>
       <Form onSubmit={onSubmit}>
         <Controller
@@ -132,40 +105,6 @@ const CreateLocationForm: FC = () => {
             </Form.Group>
           )}
         />
-        <div className="d-flex justify-content-end mb-4">
-          <Button className="btnRegister col-md-3 mx-3" onClick={uploadFile}>Upload image</Button>
-          <input
-            onChange={handleFileChange}
-            id="locationUpload"
-            name="avatar"
-            type="file"
-            aria-label="Avatar"
-            aria-describedby="avatar"
-            className="d-none"
-            accept="image/png, 'image/jpg', image/jpeg"
-          />
-
-          <Button className="btnRed" onClick={clearImg}>x</Button>
-        </div>
-        <div className="mb-3">
-          {isLoaded && (
-            <GoogleMap
-              mapContainerStyle={mapStyles}
-              zoom={13}
-              center={currentPosition}
-              onClick={(e) =>
-                setCurrentPosition({
-                  lat: e.latLng!.lat(),
-                  lng: e.latLng!.lng(),
-                })
-              }
-            >
-              <MarkerF
-                position={currentPosition}
-              />
-            </GoogleMap>
-          )}
-        </div>
         <Controller
           control={control}
           name="name"
@@ -175,11 +114,13 @@ const CreateLocationForm: FC = () => {
               <input
                 {...field}
                 type="text"
+                value={locationData.name}
                 aria-label="Name"
                 aria-describedby="name"
                 className={
                   errors.name ? 'form-control is-invalid' : 'form-control'
                 }
+                readOnly
               />
               {errors.name && (
                 <div className="invalid-feedback text-danger">
@@ -189,10 +130,16 @@ const CreateLocationForm: FC = () => {
             </Form.Group>
           )}
         />
-        <div className="d-flex justify-content-end">
-          <Button className="btnRegister" type="submit">
-            Add new
+        <div className="d-flex justify-content-between">
+          <Button className="btnRegister col-md-3" onClick={uploadFile}>
+            Upload image
           </Button>
+          <div className="justify-content-end">
+            <Button className="btnRegister mx-3" type="submit">
+              Save
+            </Button>
+            <Link to={routes.HOME}>Cancel</Link>
+          </div>
         </div>
       </Form>
       {showError && (
@@ -209,4 +156,4 @@ const CreateLocationForm: FC = () => {
   )
 }
 
-export default observer(CreateLocationForm)
+export default observer(UpdateLocationForm)

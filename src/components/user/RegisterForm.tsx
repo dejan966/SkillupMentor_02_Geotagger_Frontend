@@ -63,7 +63,7 @@ const RegisterForm: FC = () => {
         <Form onSubmit={onSubmit}>
           <Form.Group className="d-flex flex-column justify-content-center align-items-center">
             <FormLabel htmlFor="avatar" id="avatar-p">
-              <Avatar round src={`${process.env.REACT_APP_API_URL}/uploads/default_profile.png`} alt="Avatar" />
+              <Avatar round src={`${process.env.REACT_APP_API_URL}/uploads/avatars/default_profile.png`} alt="Avatar" />
             </FormLabel>
           </Form.Group>
           <Controller
@@ -205,12 +205,10 @@ const RegisterForm: FC = () => {
           </div>
         </Form>
       </div>
-      {!isMobile ? (
+      {!isMobile && (
         <div className='right'>
-          <img src="/location-signup.png" alt="location img" width="824"/>
+          <img src="/location-signup.png" alt="location img" width="993"/>
         </div>
-      ):(
-        null
       )}
       {showError && (
         <ToastContainer className="p-3" position="top-end">

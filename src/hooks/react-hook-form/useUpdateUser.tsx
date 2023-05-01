@@ -36,9 +36,9 @@ export const useUpdateUserForm = ({ defaultValues }: Props) => {
     control,
   } = useForm({
     defaultValues: {
-      first_name: defaultValues?.first_name,
-      last_name: defaultValues?.last_name,
-      email: defaultValues?.email,
+      first_name: '',
+      last_name: '',
+      email: '',
       new_password: '',
       password: '',
       confirm_password: '',

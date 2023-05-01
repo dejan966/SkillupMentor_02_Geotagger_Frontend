@@ -250,7 +250,7 @@ const Navbar: FC = () => {
                     <div>
                       <div>
                         <img
-                          src={`${process.env.REACT_APP_API_URL}/uploads/${authStore.user?.avatar}`}
+                          src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${authStore.user?.avatar}`}
                           alt="User avatar"
                         />
                       </div>
@@ -386,7 +386,7 @@ const Navbar: FC = () => {
                         <Link to={routes.USERLOCATIONSINFO}>
                           <img
                             className="userAvatar"
-                            src={`${process.env.REACT_APP_API_URL}/uploads/${authStore.user?.avatar}`}
+                            src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${authStore.user?.avatar}`}
                             alt="User avatar"
                             width={40}
                           />

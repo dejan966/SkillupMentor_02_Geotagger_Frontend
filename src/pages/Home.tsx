@@ -5,12 +5,11 @@ import { routes } from 'constants/routesConstants'
 import authStore from 'stores/auth.store'
 import { useQuery } from 'react-query'
 import * as API from 'api/Api'
-import { Link, useNavigate } from 'react-router-dom'
-import { StatusCode } from 'constants/errorConstants'
+import { useNavigate } from 'react-router-dom'
 import useMediaQuery from 'hooks/useMediaQuery'
 import { LocationType } from 'models/location'
 import { GuessType } from 'models/guess'
-import MapContainer from 'components/location/map/MapContainer'
+import LocationBlock from './LocationBlock'
 
 const Home: FC = () => {
   const { isMobile } = useMediaQuery(1038)
@@ -59,18 +58,23 @@ const Home: FC = () => {
                 Your personal best guesses appear here. Go on and try to beat
                 your personal records or set a new one!
               </p>
-              <div>
+              <div className="mb-3">
                 {personalBestStatus === 'error' && <p>Error fetching data</p>}
                 {personalBestStatus === 'loading' && <p>Loading data...</p>}
-                {/* {personalBestStatus === 'success' && (
+                {personalBestStatus === 'success' && (
                   <>
-                    {personalBest.data
-                      .slice(0, 3)
-                      .map((item: GuessType, index: number) => (
-                        <></>
-                      ))}
+                    <div className="locationRow">
+                      {personalBest.data
+                        .slice(0, 3)
+                        .map((item: GuessType, index: number) => (
+                          <LocationBlock
+                            locationGuess={item}
+                            key={index}
+                          />
+                        ))}
+                    </div>
                   </>
-                )} */}
+                )}
               </div>
             </div>
             <div className="mb-3 text-center mx-auto">
@@ -86,19 +90,23 @@ const Home: FC = () => {
                 New uploads from users. Try to guess all the locations by
                 pressing on a picture.
               </p>
-              <div>
+              <div className="mb-3">
                 {locationStatus === 'error' && <p>Error fetching data</p>}
                 {locationStatus === 'loading' && <p>Loading data...</p>}
-{/*                 {locationStatus === 'success' && (
+                {locationStatus === 'success' && (
                   <>
-                  {allLocations.data
-                      .slice(0, 9)
-                      .map((item: LocationType, index: number) => (
-                        <></>
-                      ))}
+                    <div className="locationRow">
+                      {allLocations.data
+                        .slice(0, 9)
+                        .map((item: LocationType, index: number) => (
+                          <LocationBlock
+                            location={item}
+                            key={index}
+                          />
+                        ))}
+                    </div>
                   </>
-                )} */}
-                <MapContainer/>
+                )}
               </div>
             </div>
             <div className="text-center">
@@ -188,21 +196,28 @@ const Home: FC = () => {
                     error distance.{' '}
                   </p>
                 </div>
-                <div>
+                <div className="mb-3">
                   {locationStatus === 'error' && <p>Error fetching data</p>}
                   {locationStatus === 'loading' && <p>Loading data...</p>}
                   {locationStatus === 'success' && (
                     <>
-{/*                       {allLocations.data
-                        .slice(0, 9)
-                        .map((item: LocationType, index: number) => (
-                          <></>
-                        ))} */}
+                      <div className="locationRow">
+                        {allLocations.data
+                          .slice(0, 9)
+                          .map((item: LocationType, index: number) => (
+                            <LocationBlock
+                              location={item}
+                              key={index}
+                            />
+                          ))}
+                      </div>
                     </>
                   )}
                 </div>
                 <div className="mb-3 text-center mx-auto">
-                  <Button className="btnRegister" href={routes.SIGNUP}>Sign up</Button>
+                  <Button className="btnRegister" href={routes.SIGNUP}>
+                    Sign up
+                  </Button>
                 </div>
               </div>
             </>

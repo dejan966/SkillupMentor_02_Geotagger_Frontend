@@ -3,11 +3,7 @@ import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { StatusCode } from 'constants/errorConstants'
 import * as API from 'api/Api'
-import {
-  useUpdateUserForm,
-  UpdateUserFields,
-} from 'hooks/react-hook-form/useUpdateUser'
-import authStore from 'stores/auth.store'
+import { useUpdateUserForm } from 'hooks/react-hook-form/useUpdateUser'
 import { UserType } from 'models/auth'
 import { Button, FormLabel, Form, Toast, ToastContainer } from 'react-bootstrap'
 import { routes } from 'constants/routesConstants'
@@ -40,7 +36,6 @@ const UpdateAvatarForm: FC<Props> = ({ defaultValues }) => {
   })
 
   const handleUpdate = async () => {
-    console.log(defaultValues?.id)
     const formData = new FormData()
     formData.append('avatar', file!, file?.name!)
     const fileResponse = await API.uploadAvatar(formData, defaultValues?.id!)
@@ -107,7 +102,7 @@ const UpdateAvatarForm: FC<Props> = ({ defaultValues }) => {
                     src={
                       preview
                         ? (preview as string)
-                        : `${process.env.REACT_APP_API_URL}/uploads/${defaultValues?.avatar}`
+                        : `${process.env.REACT_APP_API_URL}/uploads/avatars/${defaultValues?.avatar}`
                     }
                     alt="Avatar"
                   />
