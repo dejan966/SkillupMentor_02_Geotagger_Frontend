@@ -144,7 +144,6 @@ const CreateLocationForm: FC = () => {
             className="d-none"
             accept="image/png, 'image/jpg', image/jpeg"
           />
-
           <Button className="btnRed" onClick={clearImg}>x</Button>
         </div>
         <div className="mb-3">
