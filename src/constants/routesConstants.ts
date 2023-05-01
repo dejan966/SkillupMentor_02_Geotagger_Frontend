@@ -7,7 +7,7 @@ export enum routes {
   USERPASSWORDEDIT = '../me/update-password',
   USERAVATAREDIT = '../me/update-avatar',
   ADDNEWLOCATION='../me/mylocation',
-  USERLOCATIONSINFO='../me/location',
+  USERLOCATIONSINFO='../me/locations',
   EDITLOCATION='me/mylocation/edit',
   DELETELOCATION='me/mylocation/delete',
   MAKEGUESS='guess/location'

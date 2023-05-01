@@ -16,12 +16,7 @@ const Home: FC = () => {
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
 
-  const [userId, setUserId] = useState(1)
-  const [quoteData, setQuoteData] = useState({ id: 1, quote: '' })
   const navigate = useNavigate()
-
-  const [isOpen, setIsOpen] = useState(false)
-  const [successDelete, setSuccessDelete] = useState(false)
 
   const { data: allLocations, status: locationStatus } = useQuery(
     ['allLocations'],
@@ -38,14 +33,6 @@ const Home: FC = () => {
       refetchOnWindowFocus: false,
     },
   )
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen)
-  }
-
-  const toggleSuccess = () => {
-    setSuccessDelete(!successDelete)
-  }
 
   return (
     <Layout>
@@ -78,7 +65,7 @@ const Home: FC = () => {
               </div>
             </div>
             <div className="mb-3 text-center mx-auto">
-              <Button href="/" className="btnLogin">
+              <Button href="/" className="btnLoadMore">
                 Load more
               </Button>
             </div>
@@ -110,7 +97,7 @@ const Home: FC = () => {
               </div>
             </div>
             <div className="text-center">
-              <Button href={'/'} className="btnLogin">
+              <Button href={'/'} className="btnLoadMore">
                 Load more
               </Button>
             </div>

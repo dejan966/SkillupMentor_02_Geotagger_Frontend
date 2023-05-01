@@ -107,6 +107,16 @@
   text-transform: uppercase;
 }
 
+.btnLogin{
+  background-color: #fff;
+}
+
+.btnLoadMore{
+  background-color: #fff;
+  text-transform: uppercase;
+  color:$primary;
+}
+
 .btnBlue{
   background-color: $secondary;
   color:#fff;
@@ -133,10 +143,6 @@
   background: #619B8A;
   border-radius: 60px;
   color: #fff;
-}
-
-.btnLogin{
-  background-color: #fff;
 }
 
 @media (max-width: 1038px) {

@@ -36,14 +36,12 @@ const UpdatePasswordForm: FC = () => {
   }
 
   return (
-    <>
-      <Form className="form-group forms" onSubmit={onSubmit}>
-        <div className="text-start text">
-          <h1>
-            Profile <span className="green">settings</span>
-          </h1>
-          <div className="mb-3">Change your password</div>
-        </div>
+    <div className="text-start text forms">
+      <h1>
+        Profile <span className="green">settings</span>
+      </h1>
+      <div className="mb-3">Change your password</div>
+      <Form className="form-group" onSubmit={onSubmit}>
         <Controller
           control={control}
           name="current_password"
@@ -57,7 +55,9 @@ const UpdatePasswordForm: FC = () => {
                 aria-label="old_password"
                 aria-describedby="old_password"
                 className={
-                  errors.current_password ? 'form-control is-invalid' : 'form-control'
+                  errors.current_password
+                    ? 'form-control is-invalid'
+                    : 'form-control'
                 }
                 style={{
                   border: '1px solid #0000006b',
@@ -163,7 +163,7 @@ const UpdatePasswordForm: FC = () => {
           </Toast>
         </ToastContainer>
       )}
-    </>
+    </div>
   )
 }
 
