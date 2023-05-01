@@ -15,8 +15,6 @@ const MyLocationsInfo: FC = () => {
   const [showError, setShowError] = useState(false)
   const navigate = useNavigate()
 
-  const userId = authStore.user?.id as number
-
   const { data: personalBest, status: personalBestStatus } = useQuery(
     ['personalBestProfile'],
     () => API.fetchPersonalBest(),
@@ -32,6 +30,8 @@ const MyLocationsInfo: FC = () => {
       refetchOnWindowFocus: false,
     },
   )
+
+  console.log(currUserLocations)
 
   return (
     <Layout>
