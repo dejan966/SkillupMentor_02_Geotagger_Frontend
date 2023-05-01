@@ -147,7 +147,7 @@ const UpdatePasswordForm: FC = () => {
           <a
             className="text-decoration-none col-md-3"
             style={{ color: '#000000' }}
-            href={routes.USEREDIT}
+            href={routes.USERINFO}
           >
             Cancel
           </a>
