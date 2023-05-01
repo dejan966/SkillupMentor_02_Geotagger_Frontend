@@ -16,24 +16,6 @@ const MyLocationsInfo: FC = () => {
   const navigate = useNavigate()
 
   const userId = authStore.user?.id as number
-  const [locationData, setLocationData] = useState({
-    id: 1,
-    name: '',
-    image_url: '',
-    lat: 0.0,
-    lng: 0.0,
-  })
-
-  const [isOpen, setIsOpen] = useState(false)
-  const [successDelete, setSuccessDelete] = useState(false)
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen)
-  }
-
-  const toggleSuccess = () => {
-    setSuccessDelete(!successDelete)
-  }
 
   const { data: personalBest, status: personalBestStatus } = useQuery(
     ['personalBestProfile'],
