@@ -57,7 +57,7 @@ const UpdatePasswordForm: FC = () => {
                 aria-label="old_password"
                 aria-describedby="old_password"
                 className={
-                  errors.password ? 'form-control is-invalid' : 'form-control'
+                  errors.current_password ? 'form-control is-invalid' : 'form-control'
                 }
                 style={{
                   border: '1px solid #0000006b',
