@@ -32,3 +32,15 @@ export const updateLocation = async (data: UpdateLocationFields, id: number) =>
     `${apiRoutes.LOCATIONS_PREFIX}/${id}`,
     data,
   )
+
+export const deleteLocation = async (id: number) =>
+  apiRequest<number, LocationType>(
+    'delete',
+    `${apiRoutes.LOCATIONS_PREFIX}/${id}`,
+  )
+
+  export const currUserLocations = async (id: number) =>
+  apiRequest<never, LocationType>(
+    'get',
+    `${apiRoutes.LOCATIONS_PREFIX}/user/${id}`,
+  )

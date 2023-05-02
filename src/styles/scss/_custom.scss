@@ -10,6 +10,12 @@
   float: left;
 }
 
+.forms {
+  width: min(100%, 420px);
+  margin: 0 auto;
+  padding: 25px 0;
+}
+
 .right{
   position: absolute;
   top: 0px;
@@ -34,6 +40,20 @@
   height: 100vh;
   top: 0;
   left: 0;
+}
+
+.box{
+  position: relative;
+  width: 70%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 70vh;
+  margin-top: calc(100vh - 85vh - 20px);
+  background: #fff;
+  color: black;
+  border-radius: 15px;
+  padding: 20px;
+  overflow: auto;
 }
 
 .footer {
@@ -66,7 +86,6 @@
   flex-grow:1;
 }
 
-//text centered on image
 .locationContainer {
   position: relative;
   color: white;
@@ -77,6 +96,18 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
 }
 
 .locationRow{
@@ -90,9 +121,30 @@
   cursor: pointer;
 }
 
+.userAvatar{
+  width:40px;
+  height:40px;
+  border-radius: 50%
+}
+
 .btnRegister{
   color: #fff;
   text-transform: uppercase;
+}
+
+.btnLogin{
+  background-color: #fff;
+}
+
+.btnLoadMore{
+  background-color: #fff;
+  text-transform: uppercase;
+  color:$primary;
+}
+
+.btnBlue{
+  background-color: $secondary;
+  color:#fff;
 }
 
 .btnRed{
@@ -116,10 +168,6 @@
   background: #619B8A;
   border-radius: 60px;
   color: #fff;
-}
-
-.btnLogin{
-  background-color: #fff;
 }
 
 @media (max-width: 1038px) {

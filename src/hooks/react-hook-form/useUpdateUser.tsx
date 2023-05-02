@@ -22,7 +22,7 @@ export const useUpdateUserForm = ({ defaultValues }: Props) => {
     first_name: Yup.string().notRequired(),
     last_name: Yup.string().notRequired(),
     email: Yup.string().email().notRequired(),
-    new_password: Yup.string().notRequired(),
+    current_password: Yup.string().notRequired(),
     password: Yup.string().notRequired(),
     confirm_password: Yup.string()
       .oneOf([Yup.ref('password')], 'Passwords do not match')
@@ -39,7 +39,7 @@ export const useUpdateUserForm = ({ defaultValues }: Props) => {
       first_name: '',
       last_name: '',
       email: '',
-      new_password: '',
+      current_password: '',
       password: '',
       confirm_password: '',
       ...defaultValues,

@@ -88,60 +88,61 @@ const UpdateAvatarForm: FC<Props> = ({ defaultValues }) => {
       ) : (
         <>
           {data ? (
-            <Form className="form-group forms" onSubmit={onSubmit}>
-              <div className="text-start text">
-                <h1>
-                  Profile <span style={{ color: '#DE8667' }}>settings</span>
-                </h1>
-                <div className="mb-3">Change your profile photo</div>
-              </div>
-              <Form.Group className="d-flex flex-column justify-content-center align-items-center mb-3">
-                <FormLabel htmlFor="avatar" id="avatar-p">
-                  <Avatar
-                    round
-                    src={
-                      preview
-                        ? (preview as string)
-                        : `${process.env.REACT_APP_API_URL}/uploads/avatars/${defaultValues?.avatar}`
-                    }
-                    alt="Avatar"
-                  />
-                </FormLabel>
-              </Form.Group>
-              <div className="d-flex justify-content-center mb-3">
-                <Form.Group className="d-flex flex-column justify-content-center align-items-center">
-                  <Button className="btnChangeProfilePic" onClick={uploadFile}>
-                    Upload new image
-                  </Button>
-                  <input
-                    onChange={handleFileChange}
-                    id="avatarUpload"
-                    name="avatar"
-                    type="file"
-                    aria-label="Avatar"
-                    aria-describedby="avatar"
-                    className="d-none"
-                    accept="image/png, 'image/jpg', image/jpeg"
-                  />
+            <div className="text-start forms">
+              <h1>
+                Profile <span className="green">settings</span>
+              </h1>
+              <div className="mb-3">Change your profile photo</div>
+
+              <Form className="form-group" onSubmit={onSubmit}>
+                <Form.Group className="d-flex flex-column justify-content-center align-items-center mb-3">
+                  <FormLabel htmlFor="avatar" id="avatar-p">
+                    <Avatar
+                      round
+                      src={
+                        preview
+                          ? (preview as string)
+                          : `${process.env.REACT_APP_API_URL}/uploads/avatars/${defaultValues?.avatar}`
+                      }
+                      alt="Avatar"
+                    />
+                  </FormLabel>
                 </Form.Group>
-              </div>
-              <div className="d-flex justify-content-start">
-                <Button
-                  className="btnRegister col-md-3"
-                  type="submit"
-                  onMouseUp={handleFileError}
-                >
-                  Submit
-                </Button>
-                <a
-                  className="text-decoration-none col-md-3"
-                  style={{ color: '#000000' }}
-                  href={routes.USEREDIT}
-                >
-                  Cancel
-                </a>
-              </div>
-            </Form>
+                <div className="justify-content-center mb-3">
+                  <Form.Group className="d-flex flex-column justify-content-center align-items-center">
+                    <Button className="btnRegister w-100" onClick={uploadFile}>
+                      Upload new image
+                    </Button>
+                    <input
+                      onChange={handleFileChange}
+                      id="avatarUpload"
+                      name="avatar"
+                      type="file"
+                      aria-label="Avatar"
+                      aria-describedby="avatar"
+                      className="d-none"
+                      accept="image/png, 'image/jpg', image/jpeg"
+                    />
+                  </Form.Group>
+                </div>
+                <div className="d-flex align-items-center justify-content-between">
+                  <Button
+                    className="btnRegister col-md-3"
+                    type="submit"
+                    onMouseUp={handleFileError}
+                  >
+                    Submit
+                  </Button>
+                  <a
+                    className="text-decoration-none col-md-3"
+                    style={{ color: '#000000' }}
+                    href={routes.USERINFO}
+                  >
+                    Cancel
+                  </a>
+                </div>
+              </Form>
+            </div>
           ) : (
             <div>Unable to retrieve user data</div>
           )}
