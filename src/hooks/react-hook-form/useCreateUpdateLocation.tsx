@@ -23,13 +23,13 @@ export const useCreateUpdateLocationForm = ({ defaultValues }: Props) => {
   const CreateLocationSchema = Yup.object().shape({
     name: Yup.string().notRequired(),
     latitude: Yup.number().required(),
-    longitude: Yup.number().required()
+    longitude: Yup.number().required(),
   })
-  
+
   const UpdateLocationSchema = Yup.object().shape({
     name: Yup.string().notRequired(),
     latitude: Yup.number().notRequired(),
-    longitude: Yup.number().notRequired()
+    longitude: Yup.number().notRequired(),
   })
 
   const {
@@ -41,12 +41,12 @@ export const useCreateUpdateLocationForm = ({ defaultValues }: Props) => {
       name: '',
       latitude: 0.0,
       longitude: 0.0,
-      ...defaultValues
+      ...defaultValues,
     },
     mode: 'onSubmit',
-    resolver: defaultValues 
-    ? yupResolver(UpdateLocationSchema)
-    : yupResolver(CreateLocationSchema)
+    resolver: defaultValues
+      ? yupResolver(UpdateLocationSchema)
+      : yupResolver(CreateLocationSchema),
   })
 
   return {
@@ -56,4 +56,6 @@ export const useCreateUpdateLocationForm = ({ defaultValues }: Props) => {
   }
 }
 
-export type CreateUpdateLocationForm = ReturnType<typeof useCreateUpdateLocationForm>
+export type CreateUpdateLocationForm = ReturnType<
+  typeof useCreateUpdateLocationForm
+>
