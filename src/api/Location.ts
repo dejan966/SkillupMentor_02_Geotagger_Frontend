@@ -15,7 +15,7 @@ export const fetchLocation = async (id:number) =>
 export const uploadLocationImg = async (formData: FormData, id: number) =>
   apiRequest<FormData, void>(
     'post',
-    `${apiRoutes.UPLOAD_LOCATION_IMAGE}/${id}`,
+    `${apiRoutes.LOCATIONS_PREFIX}/upload/${id}`,
     formData,
   )
 

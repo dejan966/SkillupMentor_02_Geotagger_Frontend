@@ -39,6 +39,8 @@ const CreateLocationForm: FC = () => {
   }
 
   const onSubmit = handleSubmit(async (data: CreateLocationFields) => {
+    data.latitude = currentPosition.lat
+    data.longitude = currentPosition.lng
     handleAdd(data as CreateLocationFields)
   })
 
@@ -51,7 +53,7 @@ const CreateLocationForm: FC = () => {
     } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
-    } else if(response.status === 201) {
+    } else if (response.status === 201) {
       const formData = new FormData()
       formData.append('image_url', file, file.name)
       const fileResponse = await API.uploadLocationImg(
@@ -62,15 +64,13 @@ const CreateLocationForm: FC = () => {
         setApiError(fileResponse.data.message)
         setShowError(true)
         console.log(fileResponse.data.message)
-      } else if (
-        fileResponse.status === StatusCode.INTERNAL_SERVER_ERROR
-      ) {
+      } else if (fileResponse.status === StatusCode.INTERNAL_SERVER_ERROR) {
         setApiError(fileResponse.data.message)
         setShowError(true)
       } else {
-        console.log(fileResponse)
+        navigate('/')
       }
-    } else{
+    } else {
       console.log(response)
     }
   }
@@ -150,16 +150,14 @@ const CreateLocationForm: FC = () => {
             name="latitude"
             render={({ field }) => (
               <Form.Group className="mb-3">
-                  <input
-                    {...field}
-                    value={currentPosition.lat}
-                    type="hidden"
-                    aria-label="Latitude"
-                    aria-describedby="latitude"
-                  />
-                  {errors.latitude && (
-                    <>{console.log(errors.latitude.message)}</>
-                  )}
+                <input
+                  {...field}
+                  value={currentPosition.lat}
+                  type="hidden"
+                  aria-label="Latitude"
+                  aria-describedby="latitude"
+                />
+                {errors.latitude && <>{console.log(errors.latitude.message)}</>}
               </Form.Group>
             )}
           />
@@ -168,7 +166,6 @@ const CreateLocationForm: FC = () => {
             name="longitude"
             render={({ field }) => (
               <Form.Group>
-                
                 <input
                   {...field}
                   value={currentPosition.lng}
