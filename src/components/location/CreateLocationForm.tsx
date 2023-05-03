@@ -18,7 +18,7 @@ const CreateLocationForm: FC = () => {
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
 
-  const { handleSubmit, errors, control } = useCreateUpdateLocationForm({})
+  const { handleSubmit, setValue, errors, control } = useCreateUpdateLocationForm({})
 
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
@@ -29,6 +29,9 @@ const CreateLocationForm: FC = () => {
     lng: 2.1734,
   })
 
+  const [latPosition, setLatPosition] = useState({lat:currentPosition.lat})
+  console.log(latPosition)
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
   })
@@ -38,9 +41,16 @@ const CreateLocationForm: FC = () => {
     width: '100%',
   }
 
+  const setPosition = (e:any) =>{
+    setCurrentPosition({
+      lat: e.latLng!.lat(),
+      lng: e.latLng!.lng(),
+    })
+    setValue('latitude', currentPosition.lat)
+    setValue('longitude', currentPosition.lng)
+  }
+
   const onSubmit = handleSubmit(async (data: CreateLocationFields) => {
-    data.latitude = currentPosition.lat
-    data.longitude = currentPosition.lng
     handleAdd(data as CreateLocationFields)
   })
 
@@ -53,7 +63,7 @@ const CreateLocationForm: FC = () => {
     } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
-    } else if (response.status === 201) {
+    } else {
       const formData = new FormData()
       formData.append('image_url', file, file.name)
       const fileResponse = await API.uploadLocationImg(
@@ -70,8 +80,6 @@ const CreateLocationForm: FC = () => {
       } else {
         navigate('/')
       }
-    } else {
-      console.log(response)
     }
   }
 
@@ -145,55 +153,13 @@ const CreateLocationForm: FC = () => {
           </Button>
         </div>
         <div className="mb-3">
-          <Controller
-            control={control}
-            name="latitude"
-            render={({ field }) => (
-              <Form.Group className="mb-3">
-                <input
-                  {...field}
-                  value={currentPosition.lat}
-                  type="hidden"
-                  aria-label="Latitude"
-                  aria-describedby="latitude"
-                />
-                {errors.latitude && <>{console.log(errors.latitude.message)}</>}
-              </Form.Group>
-            )}
-          />
-          <Controller
-            control={control}
-            name="longitude"
-            render={({ field }) => (
-              <Form.Group>
-                <input
-                  {...field}
-                  value={currentPosition.lng}
-                  type="hidden"
-                  aria-label="Longitude"
-                  aria-describedby="longitude"
-                  className={
-                    errors.longitude
-                      ? 'form-control is-invalid'
-                      : 'form-control'
-                  }
-                />
-                {errors.longitude && (
-                  <>{console.log(errors.longitude.message)}</>
-                )}
-              </Form.Group>
-            )}
-          />
           {isLoaded && (
             <GoogleMap
               mapContainerStyle={mapStyles}
               zoom={13}
               center={currentPosition}
               onClick={(e) =>
-                setCurrentPosition({
-                  lat: e.latLng!.lat(),
-                  lng: e.latLng!.lng(),
-                })
+                setPosition(e)
               }
             >
               <MarkerF position={currentPosition} />

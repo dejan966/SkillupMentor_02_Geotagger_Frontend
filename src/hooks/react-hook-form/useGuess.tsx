@@ -16,7 +16,7 @@ interface Props {
 
 export const useGuess = ({ defaultValues }: Props) => {
   const GuessSchema = Yup.object().shape({
-    image_url: Yup.string().required(),
+    image_url: Yup.string().notRequired(),
     latitude: Yup.number().notRequired(),
     longitude: Yup.number().notRequired(),
     errorDistance: Yup.number().notRequired(),

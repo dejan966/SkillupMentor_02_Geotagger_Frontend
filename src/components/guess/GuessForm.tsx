@@ -27,7 +27,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
-  const [distanceInMeters, setDistanceInMeters] = useState({ distance: 1 })
+  const [distanceInMeters, setDistanceInMeters] = useState({ distance: 0 })
   const { id } = useParams()
   const locationId: number = parseInt(id!)
 
@@ -77,7 +77,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
         defaultLocation,
       ),
     })
-    console.log(distanceInMeters)
+
     setCurrentPosition({
       lat: e.latLng!.lat(),
       lng: e.latLng!.lng(),
@@ -153,6 +153,9 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
   }
 
   const onSubmit = handleSubmit(async (data: GuessUserFields) => {
+    data.latitude = currentPosition.lat
+    data.longitude = currentPosition.lng
+    //data.errorDistance = distanceInMeters.distance
     const response = await API.makeGuess(data, locationId)
     if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
@@ -164,11 +167,11 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
       navigate('/')
     }
   })
-
+  
   return (
     <>
       <h2 className="text-start">
-        Take a <span style={{ color: '#619E89' }}>guess</span>!
+        Take a <span className='green'>guess</span>!
       </h2>
       <Form onSubmit={onSubmit}>
         {defaultValues ? (
@@ -251,8 +254,9 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                         Error distance
                       </FormLabel>
                       <input
-                      {...field}
-                        value={distanceInMeters && distanceInMeters.distance}
+                        {...field}
+                        //when not setting value it works
+                        //value={distanceInMeters.distance === 0 && defaultValues.errorDistance}
                         type="text"
                         aria-label="Error Distance"
                         aria-describedby="errorDistance"

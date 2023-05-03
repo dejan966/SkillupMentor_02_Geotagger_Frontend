@@ -34,6 +34,7 @@ export const useCreateUpdateLocationForm = ({ defaultValues }: Props) => {
 
   const {
     handleSubmit,
+    setValue,
     formState: { errors },
     control,
   } = useForm({
@@ -51,6 +52,7 @@ export const useCreateUpdateLocationForm = ({ defaultValues }: Props) => {
 
   return {
     handleSubmit,
+    setValue,
     errors,
     control,
   }
