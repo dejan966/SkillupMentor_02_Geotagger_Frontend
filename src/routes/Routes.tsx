@@ -27,6 +27,7 @@ const LocationsAdd = lazy(() => import('pages/Me/Mylocation'))
 const LocationsEdit = lazy(() => import('pages/Me/Mylocation/Edit'))
 
 const Guess = lazy(()=> import('pages/Guess/Location'))
+const AllGuesses = lazy(()=> import('pages/Guesses'))
 
 /* Restricted routes */
 const Login = lazy(() => import('pages/Login'))
@@ -87,6 +88,11 @@ export const AppRoutes: AppRoute[] = [
     type: RouteType.PRIVATE,
     path: '/guess/location/:id',
     children: <Guess />,
+  },
+  {
+    type: RouteType.PRIVATE,
+    path: '/guesses',
+    children: <AllGuesses />,
   },
   // Public Routes
   {

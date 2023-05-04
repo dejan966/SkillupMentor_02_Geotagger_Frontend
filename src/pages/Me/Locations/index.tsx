@@ -13,12 +13,14 @@ import { LocationType } from 'models/location'
 const MyLocationsInfo: FC = () => {
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
+  const [pageNumber, setPageNumber] = useState(1)
   const navigate = useNavigate()
 
   const { data: personalBest, status: personalBestStatus } = useQuery(
-    ['personalBestProfile'],
-    () => API.fetchPersonalBest(),
+    ['personalBestProfile', pageNumber],
+    () => API.fetchPersonalBest(pageNumber),
     {
+      keepPreviousData: true,
       refetchOnWindowFocus: false,
     },
   )

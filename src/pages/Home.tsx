@@ -15,21 +15,24 @@ const Home: FC = () => {
   const { isMobile } = useMediaQuery(1038)
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
+  const [pageNumber, setPageNumber] = useState(1)
 
   const navigate = useNavigate()
 
   const { data: allLocations, status: locationStatus } = useQuery(
-    ['allLocations'],
-    () => API.fetchLocations(),
+    ['allLocations', pageNumber],
+    () => API.fetchLocations(pageNumber),
     {
+      keepPreviousData: true,
       refetchOnWindowFocus: false,
     },
   )
 
   const { data: personalBest, status: personalBestStatus } = useQuery(
-    ['personalBest'],
-    () => API.fetchPersonalBest(),
+    ['personalBest', pageNumber],
+    () => API.fetchPersonalBest(pageNumber),
     {
+      keepPreviousData: true,
       refetchOnWindowFocus: false,
     },
   )
@@ -51,13 +54,10 @@ const Home: FC = () => {
                 {personalBestStatus === 'success' && (
                   <>
                     <div className="locationRow">
-                      {personalBest.data
+                      {personalBest.data.data
                         .slice(0, 3)
                         .map((item: GuessType, index: number) => (
-                          <LocationBlock
-                            locationGuess={item}
-                            key={index}
-                          />
+                          <LocationBlock locationGuess={item} key={index} />
                         ))}
                     </div>
                   </>
@@ -65,7 +65,7 @@ const Home: FC = () => {
               </div>
             </div>
             <div className="mb-3 text-center mx-auto">
-              <Button href="/" className="btnLoadMore">
+              <Button href={routes.ALLGUESSES} className="btnLoadMore">
                 Load more
               </Button>
             </div>
@@ -83,13 +83,10 @@ const Home: FC = () => {
                 {locationStatus === 'success' && (
                   <>
                     <div className="locationRow">
-                      {allLocations.data
+                      {allLocations.data.data
                         .slice(0, 9)
                         .map((item: LocationType, index: number) => (
-                          <LocationBlock
-                            location={item}
-                            key={index}
-                          />
+                          <LocationBlock location={item} key={index} />
                         ))}
                     </div>
                   </>
@@ -189,14 +186,11 @@ const Home: FC = () => {
                   {locationStatus === 'success' && (
                     <>
                       <div className="locationRow">
-                        {allLocations.data
-                          .slice(0, 9)
-                          .map((item: LocationType, index: number) => (
-                            <LocationBlock
-                              location={item}
-                              key={index}
-                            />
-                          ))}
+                        {allLocations.data.map(
+                          (item: LocationType, index: number) => (
+                            <LocationBlock location={item} key={index} />
+                          ),
+                        )}
                       </div>
                     </>
                   )}

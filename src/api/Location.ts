@@ -6,8 +6,8 @@ import {
   UpdateLocationFields,
 } from 'hooks/react-hook-form/useCreateUpdateLocation'
 
-export const fetchLocations = async () =>
-  apiRequest<never, LocationType>('get', apiRoutes.LOCATIONS_PREFIX)
+export const fetchLocations = async (pageNumber:number) =>
+  apiRequest<never, LocationType>('get', `${apiRoutes.LOCATIONS_PREFIX}?page=${pageNumber}`)
 
 export const fetchLocation = async (id:number) =>
   apiRequest<undefined, LocationType>('get', `${apiRoutes.LOCATIONS_PREFIX}/${id}`)
