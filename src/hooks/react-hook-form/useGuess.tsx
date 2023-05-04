@@ -24,6 +24,7 @@ export const useGuess = ({ defaultValues }: Props) => {
 
   const {
     handleSubmit,
+    setValue,
     formState: { errors },
     control,
   } = useForm({
@@ -40,6 +41,7 @@ export const useGuess = ({ defaultValues }: Props) => {
 
   return {
     handleSubmit,
+    setValue,
     errors,
     control,
   }
@@ -55,11 +57,14 @@ export const useLocation = () => {
 
   const {
     handleSubmit,
+    setValue,
     formState: { errors },
     control,
   } = useForm({
     defaultValues: {
       image_url: '',
+      latitude:0.0,
+      longitude:0.0,
       errorDistance:0
     },
     mode: 'onSubmit',
@@ -68,6 +73,7 @@ export const useLocation = () => {
 
   return {
     handleSubmit,
+    setValue,
     errors,
     control,
   }

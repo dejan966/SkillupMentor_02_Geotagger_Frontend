@@ -23,7 +23,9 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
 
-  const { handleSubmit, errors, control } = useCreateUpdateLocationForm({defaultValues})
+  const { handleSubmit, errors, control } = useCreateUpdateLocationForm({
+    defaultValues,
+  })
 
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
@@ -78,62 +80,36 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
         Edit <span style={{ color: '#619E89' }}>location</span>
       </h3>
       <Form onSubmit={onSubmit}>
-        <Controller
-          control={control}
-          name="image_url"
-          render={({ field }) => (
-            <Form.Group>
-              <input
-                {...field}
-                type="image"
-                src={
-                  preview === 'default_location.svg'
-                    ? (preview as string)
-                    : preview!
-                }
-                width="100%"
-                height="500"
-                aria-label="Image_url"
-                aria-describedby="image_url"
-                className="mx-auto d-block"
-              />
-              {errors.image_url && (
-                <div className="invalid-feedback text-danger">
-                  {errors.image_url.message}
-                </div>
-              )}
-            </Form.Group>
-          )}
-        />
-        <Controller
-          control={control}
-          name="name"
-          render={({ field }) => (
-            <Form.Group className="mb-3">
-              <FormLabel htmlFor="name">Location</FormLabel>
-              <input
-                {...field}
-                type="text"
-                value={defaultValues.name}
-                aria-label="Name"
-                aria-describedby="name"
-                className={
-                  errors.name ? 'form-control is-invalid' : 'form-control'
-                }
-                readOnly
-              />
-              {errors.name && (
-                <div className="invalid-feedback text-danger">
-                  {errors.name.message}
-                </div>
-              )}
-            </Form.Group>
-          )}
-        />
+        <Form.Group className="mb-3">
+          <input
+            name="image_url"
+            type="image"
+            src={
+              preview === 'default_location.svg'
+                ? (preview as string)
+                : preview!
+            }
+            width="100%"
+            height="500"
+            aria-label="Image_url"
+            aria-describedby="image_url"
+            className="mx-auto d-block"
+          />
+        </Form.Group>
         <div className="d-flex justify-content-between">
           <Button className="btnRegister col-md-3" onClick={uploadFile}>
             Upload image
           </Button>
+          <input
+            onChange={handleFileChange}
+            id="locationUpload"
+            name="image_url"
+            type="file"
+            aria-label="LocationImage"
+            aria-describedby="location_image"
+            className="d-none"
+            accept="image/png, 'image/jpg', image/jpeg"
+          />
           <div className="justify-content-end">
             <Button className="btnRegister mx-3" type="submit">
               Save
