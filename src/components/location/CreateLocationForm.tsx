@@ -18,7 +18,7 @@ const CreateLocationForm: FC = () => {
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
 
-  const { handleSubmit, errors, control } = useCreateUpdateLocationForm({})
+  const { handleSubmit, setValue, errors, control } = useCreateUpdateLocationForm({})
 
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
@@ -29,6 +29,9 @@ const CreateLocationForm: FC = () => {
     lng: 2.1734,
   })
 
+  const [latPosition, setLatPosition] = useState({lat:currentPosition.lat})
+  console.log(latPosition)
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
   })
@@ -38,31 +41,40 @@ const CreateLocationForm: FC = () => {
     width: '100%',
   }
 
-  const onSubmit = handleSubmit(
-    async (data: CreateLocationFields | UpdateLocationFields) => {
-      handleAdd(data as CreateLocationFields)
-    },
-  )
+  const setPosition = (e:any) =>{
+    setCurrentPosition({
+      lat: e.latLng!.lat(),
+      lng: e.latLng!.lng(),
+    })
+    setValue('latitude', currentPosition.lat)
+    setValue('longitude', currentPosition.lng)
+  }
+
+  const onSubmit = handleSubmit(async (data: CreateLocationFields) => {
+    handleAdd(data as CreateLocationFields)
+  })
 
   const handleAdd = async (data: CreateLocationFields) => {
     if (!file) return
     const response = await API.createLocation(data)
-    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+    if (response.status === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
-    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+    } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
     } else {
       const formData = new FormData()
       formData.append('image_url', file, file.name)
-      const fileResponse = await API.uploadLocationImg(formData, response.data.id)
-      if (fileResponse.data?.statusCode === StatusCode.BAD_REQUEST) {
+      const fileResponse = await API.uploadLocationImg(
+        formData,
+        response.data.id,
+      )
+      if (fileResponse.status === StatusCode.BAD_REQUEST) {
         setApiError(fileResponse.data.message)
         setShowError(true)
-      } else if (
-        fileResponse.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR
-      ) {
+        console.log(fileResponse.data.message)
+      } else if (fileResponse.status === StatusCode.INTERNAL_SERVER_ERROR) {
         setApiError(fileResponse.data.message)
         setShowError(true)
       } else {
@@ -105,46 +117,40 @@ const CreateLocationForm: FC = () => {
         Add a new <span style={{ color: '#619E89' }}>location</span>
       </h3>
       <Form onSubmit={onSubmit}>
-        <Controller
-          control={control}
-          name="image_url"
-          render={({ field }) => (
-            <Form.Group>
-              <input
-                {...field}
-                type="image"
-                src={
-                  preview === 'default_location.svg'
-                    ? (preview as string)
-                    : preview!
-                }
-                width="100%"
-                height="500"
-                aria-label="Image_url"
-                aria-describedby="image_url"
-                className="mx-auto d-block"
-              />
-              {errors.image_url && (
-                <div className="invalid-feedback text-danger">
-                  {errors.image_url.message}
-                </div>
-              )}
-            </Form.Group>
-          )}
-        />
+        <Form.Group className="mb-3">
+          <input
+            type="image"
+            src={
+              preview ===
+              `${process.env.REACT_APP_API_URL}/uploads/locations/default_location.png`
+                ? (preview as string)
+                : preview!
+            }
+            width="100%"
+            height="500"
+            aria-label="image_url"
+            aria-describedby="image_url"
+            className="mx-auto d-block"
+          />
+          {errors.image_url && <>{console.log(errors.image_url.message)}</>}
+        </Form.Group>
         <div className="d-flex justify-content-end mb-4">
-          <Button className="btnRegister col-md-3 mx-3" onClick={uploadFile}>Upload image</Button>
+          <Button className="btnRegister col-md-3 mx-3" onClick={uploadFile}>
+            Upload image
+          </Button>
           <input
             onChange={handleFileChange}
             id="locationUpload"
-            name="avatar"
+            name="image_url"
             type="file"
-            aria-label="Avatar"
-            aria-describedby="avatar"
+            aria-label="LocationImage"
+            aria-describedby="location_image"
             className="d-none"
             accept="image/png, 'image/jpg', image/jpeg"
           />
-          <Button className="btnRed" onClick={clearImg}>x</Button>
+          <Button className="btnRed" onClick={clearImg}>
+            x
+          </Button>
         </div>
         <div className="mb-3">
           {isLoaded && (
@@ -153,15 +159,10 @@ const CreateLocationForm: FC = () => {
               zoom={13}
               center={currentPosition}
               onClick={(e) =>
-                setCurrentPosition({
-                  lat: e.latLng!.lat(),
-                  lng: e.latLng!.lng(),
-                })
+                setPosition(e)
               }
             >
-              <MarkerF
-                position={currentPosition}
-              />
+              <MarkerF position={currentPosition} />
             </GoogleMap>
           )}
         </div>

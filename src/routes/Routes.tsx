@@ -19,7 +19,6 @@ const Home = lazy(() => import('pages/Home'))
 /* Private routes */
 const UserInfo = lazy(() => import('pages/Me'))
 const UserEdit = lazy(() => import('pages/Me/Edit'))
-const UsersLocations = lazy(() => import('pages/Users/Locations'))
 const UserLocations = lazy(() => import('pages/Me/Locations'))
 const UserPasswordEdit = lazy(() => import('pages/Me/Update-password'))
 const UserAvatarEdit = lazy(() => import('pages/Me/Update-avatar'))
@@ -58,11 +57,6 @@ export const AppRoutes: AppRoute[] = [
     type: RouteType.PRIVATE,
     path: '/me/locations',
     children: <UserLocations />,
-  },
-  {
-    type: RouteType.PRIVATE,
-    path: '/users/:id/Locations',
-    children: <UsersLocations />,
   },
   {
     type: RouteType.PRIVATE,

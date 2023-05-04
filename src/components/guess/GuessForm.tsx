@@ -27,15 +27,16 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
-  const [distanceInMeters, setDistanceInMeters] = useState({ distance: 1 })
+  const [distanceInMeters, setDistanceInMeters] = useState({ distance: 0 })
   const { id } = useParams()
   const locationId: number = parseInt(id!)
 
   const [address, setAddress] = useState({location:'iu'})
   const [addressGuess, setAddressGuess] = useState({locationGuess:'iu'})
-  const { handleSubmit, errors, control } = useGuess({ defaultValues })
+  const { handleSubmit, setValue, errors, control } = useGuess({ defaultValues })
   const {
     handleSubmit: locationSubmit,
+    setValue:setValueLocation,
     errors: locationErrors,
     control: locationControl,
   } = useLocation()
@@ -77,11 +78,16 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
         defaultLocation,
       ),
     })
-    console.log(distanceInMeters)
+
     setCurrentPosition({
       lat: e.latLng!.lat(),
       lng: e.latLng!.lng(),
     })
+
+    setValueLocation('latitude', currentPosition.lat)
+    setValueLocation('longitude', currentPosition.lng)
+    setValueLocation('errorDistance', distanceInMeters.distance)
+    
     getAddress()
   }
 
@@ -118,11 +124,15 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
         defaultLocationGuess,
       ),
     })
-    console.log(distanceInMeters)
     setCurrentPositionGuess({
       lat: e.latLng!.lat(),
       lng: e.latLng!.lng(),
     })
+
+    setValue('latitude', currentPositionGuess.lat)
+    setValue('longitude', currentPositionGuess.lng)
+    setValue('errorDistance', distanceInMeters.distance)
+
     getAddressGuess()
   }
   
@@ -164,11 +174,11 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
       navigate('/')
     }
   })
-
+  
   return (
     <>
       <h2 className="text-start">
-        Take a <span style={{ color: '#619E89' }}>guess</span>!
+        Take a <span className='green'>guess</span>!
       </h2>
       <Form onSubmit={onSubmit}>
         {defaultValues ? (
@@ -213,7 +223,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                 <Controller
                   control={control}
                   name="errorDistance"
-                  render={({ field }) => (
+                  render={({field}) => (
                     <Form.Group className="mb-3">
                       <FormLabel htmlFor="errorDistance">
                         Error distance
@@ -221,6 +231,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                       <input
                         {...field}
                         type="text"
+                        value={distanceInMeters.distance}
                         aria-label="Error Distance"
                         aria-describedby="errorDistance"
                         className={
@@ -228,6 +239,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                             ? 'form-control is-invalid'
                             : 'form-control'
                         }
+                        readOnly
                       />
                       {errors.errorDistance && (
                         <div className="invalid-feedback text-danger">
@@ -240,7 +252,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
               </div>
               <div className="col-md-7">
                 <Form.Group className="mb-3">
-                  <FormLabel htmlFor="last_name">Guessed location</FormLabel>
+                  <FormLabel htmlFor="guessedLocation">Guessed location</FormLabel>
                   <input
                     value={addressGuess && addressGuess.locationGuess}
                     name="Guessed location"
@@ -298,13 +310,13 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                     <Controller
                       control={locationControl}
                       name="errorDistance"
-                      render={({ field }) => (
+                      render={() => (
                         <Form.Group className="mb-3">
                           <FormLabel htmlFor="errorDistance">
                             Error distance
                           </FormLabel>
                           <input
-                            {...field}
+                            value={distanceInMeters && distanceInMeters.distance}
                             type="text"
                             aria-label="Error Distance"
                             aria-describedby="errorDistance"
@@ -313,6 +325,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                                 ? 'form-control is-invalid'
                                 : 'form-control'
                             }
+                            readOnly
                           />
                           {errors.errorDistance && (
                             <div className="invalid-feedback text-danger">

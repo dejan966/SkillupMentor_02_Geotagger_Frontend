@@ -7,7 +7,7 @@ const LocationsEdit: FC = () => {
   const location = useLocation()
   return (
     <Layout>
-      <UpdateLocationForm locationData={location.state.data}/>
+      <UpdateLocationForm defaultValues={location.state.data}/>
     </Layout>
   )
 }
