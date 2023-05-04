@@ -23,7 +23,7 @@ const Guess: FC = () => {
         {personalBestStatus === 'error' && <p>Error fetching data</p>}
         {personalBestStatus === 'loading' && <p>Loading data...</p>}
         {personalBestStatus === 'success' &&
-          personalBest.data.data.length > 0 && (
+          personalBest?.data.data.length > 0 && (
             <>
               <div className="locationRow">
                 {personalBest.data.data.map(
@@ -32,26 +32,26 @@ const Guess: FC = () => {
                   ),
                 )}
               </div>
+              {personalBest.data.meta.last_page > 1 && (
+                <div>
+                  <Button
+                    className="me-2"
+                    onClick={() => setPageNumber((prev) => prev - 1)}
+                    disabled={pageNumber === 1}
+                  >
+                    Prev page
+                  </Button>
+                  <Button
+                    onClick={() => setPageNumber((prev) => prev + 1)}
+                    disabled={pageNumber === personalBest.data.meta.last_page}
+                  >
+                    Next page
+                  </Button>
+                </div>
+              )}
             </>
           )}
       </div>
-      {personalBest.meta.last_page > 1 && (
-        <div>
-          <Button
-            className="me-2"
-            onClick={() => setPageNumber((prev) => prev - 1)}
-            disabled={pageNumber === 1}
-          >
-            Prev page
-          </Button>
-          <Button
-            onClick={() => setPageNumber((prev) => prev + 1)}
-            disabled={pageNumber === personalBest.meta.last_page}
-          >
-            Next page
-          </Button>
-        </div>
-      )}
     </Layout>
   )
 }
