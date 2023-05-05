@@ -6,7 +6,7 @@ import LocationBlock from 'pages/LocationBlock'
 import { GuessType } from 'models/guess'
 import { Button } from 'react-bootstrap'
 
-const Guess: FC = () => {
+const GuessDisplay: FC = () => {
   const [pageNumber, setPageNumber] = useState(1)
   const { data: personalBest, status: personalBestStatus } = useQuery(
     ['personalBestAll', pageNumber],
@@ -22,8 +22,7 @@ const Guess: FC = () => {
       <div className="mb-3">
         {personalBestStatus === 'error' && <p>Error fetching data</p>}
         {personalBestStatus === 'loading' && <p>Loading data...</p>}
-        {personalBestStatus === 'success' &&
-          personalBest?.data.data.length > 0 && (
+        {personalBestStatus === 'success' && (
             <>
               <div className="locationRow">
                 {personalBest.data.data.map(
@@ -33,15 +32,16 @@ const Guess: FC = () => {
                 )}
               </div>
               {personalBest.data.meta.last_page > 1 && (
-                <div>
+                <div className='d-flex justify-content-between'>
                   <Button
-                    className="me-2"
+                    className="btnRegister me-2"
                     onClick={() => setPageNumber((prev) => prev - 1)}
                     disabled={pageNumber === 1}
                   >
                     Prev page
                   </Button>
                   <Button
+                    className="btnRegister"
                     onClick={() => setPageNumber((prev) => prev + 1)}
                     disabled={pageNumber === personalBest.data.meta.last_page}
                   >
@@ -56,4 +56,4 @@ const Guess: FC = () => {
   )
 }
 
-export default Guess
+export default GuessDisplay

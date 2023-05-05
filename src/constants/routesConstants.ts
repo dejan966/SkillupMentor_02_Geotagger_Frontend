@@ -8,6 +8,7 @@ export enum routes {
   USERAVATAREDIT = '../me/update-avatar',
   ADDNEWLOCATION='../me/mylocation',
   USERLOCATIONSINFO='../me/locations',
+  ALLLOCATIONS='/locations',
   EDITLOCATION='../me/mylocation/edit',
   DELETELOCATION='me/mylocation/delete',
   MAKEGUESS='../guess/location',
