@@ -2,15 +2,21 @@
   height: calc(100vh - 200px);
 }
 
-*{
+* {
   margin: 0;
 }
 
-.left{
+.left {
   float: left;
 }
 
-.right{
+.forms {
+  width: min(100%, 420px);
+  margin: 0 auto;
+  padding: 25px 0;
+}
+
+.right {
   position: absolute;
   top: 0px;
   left: 695px;
@@ -21,8 +27,8 @@
   padding: 70px 0;
 }
 
-.display{
-  display:flex;
+.display {
+  display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
@@ -36,37 +42,50 @@
   left: 0;
 }
 
+.box {
+  position: relative;
+  width: 70%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 70vh;
+  margin-top: calc(100vh - 85vh - 20px);
+  background: #fff;
+  color: black;
+  border-radius: 15px;
+  padding: 20px;
+  overflow: auto;
+}
+
 .footer {
   background-color: $primary;
   color: #fff;
 }
 
-.green{
-  color:$primary;
+.green {
+  color: $primary;
 }
 
-.blue{
-  color:$secondary;
+.blue {
+  color: $secondary;
 }
 
-.grid{
-  display:grid;
+.grid {
+  display: grid;
   grid-template-columns: repeat(2, 2fr);
   justify-content: center;
   align-items: center;
 }
 
-.display{
-  display:flex;
+.display {
+  display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.content{
-  flex-grow:1;
+.content {
+  flex-grow: 1;
 }
 
-//text centered on image
 .locationContainer {
   position: relative;
   color: white;
@@ -79,47 +98,76 @@
   transform: translate(-50%, -50%);
 }
 
-.locationRow{
-  display:grid;
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+.locationRow {
+  display: grid;
   grid-template-rows: 3, 0.1fr;
   grid-template-columns: repeat(3, 1fr);
 }
 
-.imgSpacing{
+.imgSpacing {
   padding: 0px 0px 14px 14px;
   cursor: pointer;
 }
 
-.btnRegister{
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.btnRegister {
   color: #fff;
   text-transform: uppercase;
 }
 
-.btnRed{
-  color: #fff;
-  background-color: #9B6161;
-  border-color: #9B6161;
+.btnLogin {
+  background-color: #fff;
+}
+
+.btnLoadMore {
+  background-color: #fff;
   text-transform: uppercase;
-  &:hover{
+  color: $primary;
+}
+
+.btnBlue {
+  background-color: $secondary;
+  color: #fff;
+}
+
+.btnRed {
+  color: #fff;
+  background-color: #9b6161;
+  border-color: #9b6161;
+  text-transform: uppercase;
+  &:hover {
     background-color: #ff0000;
     border-color: #ff0000;
   }
 }
 
-.addLocation{
+.addLocation {
   display: flex;
   //flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 41px;
   height: 40px;
-  background: #619B8A;
+  background: #619b8a;
   border-radius: 60px;
   color: #fff;
-}
-
-.btnLogin{
-  background-color: #fff;
 }
 
 @media (max-width: 1038px) {

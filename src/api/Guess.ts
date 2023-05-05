@@ -3,8 +3,8 @@ import { apiRequest } from './Api'
 import { apiRoutes } from 'constants/apiConstants'
 import { GuessUserFields } from 'hooks/react-hook-form/useGuess'
 
-export const fetchPersonalBest = async () =>
-  apiRequest<never, GuessType>('get', apiRoutes.ME_GUESSES)
+export const fetchPersonalBest = async (pageNumber:number) =>
+  apiRequest<never, GuessType[]>('get', `${apiRoutes.GUESSES_PREFIX}?page=${pageNumber}`)
 
 export const makeGuess = async (data:GuessUserFields, locationId:number) =>
   apiRequest<GuessUserFields, void>('post', `${apiRoutes.GUESS_LOCATION_PREFIX}/${locationId}`, data)

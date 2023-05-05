@@ -6,34 +6,93 @@ import { Button, Toast, ToastContainer } from 'react-bootstrap'
 import authStore from 'stores/auth.store'
 import { StatusCode } from 'constants/errorConstants'
 import { useNavigate } from 'react-router-dom'
+import { GuessType } from 'models/guess'
+import LocationBlock from 'pages/LocationBlock'
+import { LocationType } from 'models/location'
 
 const MyLocationsInfo: FC = () => {
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
-  const [otherUserId, setOtherUserId] = useState(1)
+  const [pageNumber, setPageNumber] = useState(1)
   const navigate = useNavigate()
-  
-  const userId = (authStore.user?.id) as number
+
+  const { data: personalBest, status: personalBestStatus } = useQuery(
+    ['personalBestProfile', pageNumber],
+    () => API.fetchPersonalBest(pageNumber),
+    {
+      keepPreviousData: true,
+      refetchOnWindowFocus: false,
+    },
+  )
+
+  const { data: currUserLocations, status: currUserLocationsStatus } = useQuery(
+    ['currUserLocations'],
+    () => API.currUserLocations(authStore.user?.id!),
+    {
+      refetchOnWindowFocus: false,
+    },
+  )
+
+  console.log(currUserLocations)
 
   return (
     <Layout>
       <div>
-        <div className='quoteRow mb-5'>
-          <div>
-            <h2 className='red'>Most liked quotes</h2>
-
-          </div>
-          <div>
-            <h2 className='text'>Most recent</h2>
-
-          </div>
-          <div>
-            <h2 className='text'>Liked</h2>
-
+        <div className="mb-4 mt-4">
+          <div className="d-flex justify-content-start">
+            <img
+              src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${authStore.user?.avatar}`}
+              alt="avatar"
+              className="userAvatar"
+            />
+            <h2>
+              {authStore.user?.first_name + ' ' + authStore.user?.last_name}
+            </h2>
           </div>
         </div>
-        <div className='text-center'>
-          <Button className="btnLogin">Load more</Button>
+        <div className="mb-3">
+          <div>
+            <div className="mb-3">My best guesses</div>
+            <div className="mb-3">
+              {personalBestStatus === 'error' && <p>Error fetching data</p>}
+              {personalBestStatus === 'loading' && <p>Loading data...</p>}
+              {personalBestStatus === 'success' && (
+                <>
+                  <div className="locationRow">
+                    {personalBest.data
+                      .slice(0, 3)
+                      .map((item: GuessType, index: number) => (
+                        <LocationBlock locationGuess={item} key={index} />
+                      ))}
+                  </div>
+                </>
+              )}
+            </div>
+            <div className="text-center">
+              <Button className="btnLoadMore">Load more</Button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="mb-3">My uploads</div>
+          <div className="mb-3">
+            {currUserLocationsStatus === 'error' && <p>Error fetching data</p>}
+            {currUserLocationsStatus === 'loading' && <p>Loading data...</p>}
+            {currUserLocationsStatus === 'success' && (
+              <>
+                <div className="locationRow">
+                  {currUserLocations.data
+                    .slice(0, 3)
+                    .map((item: LocationType, index: number) => (
+                      <LocationBlock location={item} key={index} />
+                    ))}
+                </div>
+              </>
+            )}
+          </div>
+          <div className="text-center">
+            <Button className="btnLoadMore">Load more</Button>
+          </div>
         </div>
       </div>
       {showError && (

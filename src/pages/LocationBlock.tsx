@@ -1,9 +1,13 @@
 import { routes } from 'constants/routesConstants'
 import { GuessType } from 'models/guess'
 import { LocationType } from 'models/location'
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import { Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import authStore from 'stores/auth.store'
+import SuccessPopup from './Success'
+import * as API from 'api/Api'
+import { StatusCode } from 'constants/errorConstants'
 
 interface Props {
   location?: LocationType
@@ -11,6 +15,33 @@ interface Props {
 }
 
 const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
+  const [apiError, setApiError] = useState('')
+  const [showError, setShowError] = useState(false)
+
+  const userId = authStore.user?.id as number
+
+  const [isOpen, setIsOpen] = useState(false)
+  const [successDelete, setSuccessDelete] = useState(false)
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const toggleSuccess = () => {
+    setSuccessDelete(!successDelete)
+  }
+
+  const deleteLocation = async (locationId: number) => {
+    const response = await API.deleteLocation(locationId)
+    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+      setApiError(response.data.message)
+      setShowError(true)
+    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+      setApiError(response.data.message)
+      setShowError(true)
+    }
+  }
+
   return (
     <>
       {authStore.user ? (

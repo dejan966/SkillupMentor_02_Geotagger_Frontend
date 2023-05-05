@@ -90,11 +90,7 @@ const UserInfo: FC = () => {
                   aria-label="Email"
                   aria-describedby="email"
                   className="form-control"
-                  style={{
-                    borderRadius: 32,
-                    borderColor: '#DE8667',
-                    fontFamily: 'Raleway',
-                  }}
+                  style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
                   readOnly
                 />
               </Form.Group>
@@ -108,11 +104,7 @@ const UserInfo: FC = () => {
                       aria-label="First name"
                       aria-describedby="first_name"
                       className="form-control"
-                      style={{
-                        borderRadius: 32,
-                        borderColor: '#DE8667',
-                        fontFamily: 'Raleway',
-                      }}
+                      style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
                       readOnly
                     />
                   </Form.Group>
@@ -126,11 +118,7 @@ const UserInfo: FC = () => {
                       aria-label="Last name"
                       aria-describedby="last_name"
                       className="form-control"
-                      style={{
-                        borderRadius: 32,
-                        borderColor: '#DE8667',
-                        fontFamily: 'Raleway',
-                      }}
+                      style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
                       readOnly
                     />
                   </Form.Group>
@@ -138,12 +126,8 @@ const UserInfo: FC = () => {
               </div>
               <div
                 className="d-flex justify-content-between mb-3"
-                onPointerMove={(e) => {
-                  userData.id = user.data.data.id
-                  userData.first_name = user.data.data.first_name
-                  userData.last_name = user.data.data.last_name
-                  userData.email = user.data.data.email
-                  userData.avatar = user.data.data.avatar
+                onPointerMove={() => {
+                  setUserData(user.data.data)
                 }}
               >
                 <Link to={routes.USEREDIT} state={{ data: userData }}>

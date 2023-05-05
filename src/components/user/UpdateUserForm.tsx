@@ -26,15 +26,16 @@ const UpdateUserForm: FC<Props> = ({ defaultValues }) => {
     defaultValues,
   })
 
-  const [userAvatar, setUserAvatar] = useState({id:1, avatar:'default-avatar.png'})
+  const [userAvatar, setUserAvatar] = useState({
+    id: 1,
+    avatar: 'default-avatar.png',
+  })
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
 
-  const onSubmit = handleSubmit(
-    async (data:UpdateUserFields) => {
-      handleUpdate(data as UpdateUserFields)
-    },
-  )
+  const onSubmit = handleSubmit(async (data: UpdateUserFields) => {
+    handleUpdate(data as UpdateUserFields)
+  })
 
   const handleUpdate = async (data: UpdateUserFields) => {
     const response = await API.updateUser(data, defaultValues?.id as number)
@@ -54,13 +55,15 @@ const UpdateUserForm: FC<Props> = ({ defaultValues }) => {
     <>
       <Form className="form-group forms" onSubmit={onSubmit}>
         <div className="text-start text">
-          <h1>Profile <span style={{color:'#DE8667'}}>settings</span></h1>
-          <div className='mb-3'>Change your profile settings</div>
+          <h1>
+            Profile <span className="green">settings</span>
+          </h1>
+          <div className="mb-3">Change your profile settings</div>
         </div>
         <Controller
           control={control}
           name="email"
-          render={({field})=>(
+          render={({ field }) => (
             <Form.Group className="mb-3">
               <FormLabel htmlFor="email">Email</FormLabel>
               <input
@@ -71,7 +74,13 @@ const UpdateUserForm: FC<Props> = ({ defaultValues }) => {
                 className={
                   errors.email ? 'form-control is-invalid' : 'form-control'
                 }
-                style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
+                style={{
+                  border: '1px solid #0000006b',
+                  borderRadius: 0,
+                  borderTop: 'none',
+                  borderLeft: 'none',
+                  borderRight: 'none',
+                }}
               />
               {errors.email && (
                 <div className="invalid-feedback text-danger">
@@ -84,70 +93,98 @@ const UpdateUserForm: FC<Props> = ({ defaultValues }) => {
         <div className="d-flex justify-content-between">
           <div className="col-md-5">
             <Controller
-            control={control}
-            name="first_name"
-            render={({field})=>(
-              <Form.Group className="mb-3">
-                <FormLabel htmlFor="first_name">First name</FormLabel>
-                <input
-                  {...field}
-                  type="text"
-                  aria-label="First name"
-                  aria-describedby="first_name"
-                  className={
-                    errors.first_name ? 'form-control is-invalid' : 'form-control'
-                  }
-                  style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
-                />
-                {errors.first_name && (
-                  <div className="invalid-feedback text-danger">
-                    {errors.first_name.message}
-                  </div>
-                )}
-              </Form.Group>
-            )}
+              control={control}
+              name="first_name"
+              render={({ field }) => (
+                <Form.Group className="mb-3">
+                  <FormLabel htmlFor="first_name">First name</FormLabel>
+                  <input
+                    {...field}
+                    type="text"
+                    aria-label="First name"
+                    aria-describedby="first_name"
+                    className={
+                      errors.first_name
+                        ? 'form-control is-invalid'
+                        : 'form-control'
+                    }
+                    style={{
+                      border: '1px solid #0000006b',
+                      borderRadius: 0,
+                      borderTop: 'none',
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                    }}
+                  />
+                  {errors.first_name && (
+                    <div className="invalid-feedback text-danger">
+                      {errors.first_name.message}
+                    </div>
+                  )}
+                </Form.Group>
+              )}
             />
           </div>
-          <div className='col-md-5'>
+          <div className="col-md-5">
             <Controller
-            control={control}
-            name="last_name"
-            render={({ field }) => (
-              <Form.Group className="mb-3">
-                <FormLabel htmlFor="last_name">Last name</FormLabel>
-                <input
-                  {...field}
-                  type="text"
-                  aria-label="Last name"
-                  aria-describedby="last_name"
-                  className={
-                    errors.last_name ? 'form-control is-invalid' : 'form-control'
-                  }
-                  style={{borderRadius:32, borderColor:'#DE8667', fontFamily:'Raleway'}}
-                />
-                {errors.last_name && (
-                  <div className="invalid-feedback text-danger">
-                    {errors.last_name.message}
-                  </div>
-                )}
-              </Form.Group>
-            )}
-            />   
+              control={control}
+              name="last_name"
+              render={({ field }) => (
+                <Form.Group className="mb-3">
+                  <FormLabel htmlFor="last_name">Last name</FormLabel>
+                  <input
+                    {...field}
+                    type="text"
+                    aria-label="Last name"
+                    aria-describedby="last_name"
+                    className={
+                      errors.last_name
+                        ? 'form-control is-invalid'
+                        : 'form-control'
+                    }
+                    style={{
+                      border: '1px solid #0000006b',
+                      borderRadius: 0,
+                      borderTop: 'none',
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                    }}
+                  />
+                  {errors.last_name && (
+                    <div className="invalid-feedback text-danger">
+                      {errors.last_name.message}
+                    </div>
+                  )}
+                </Form.Group>
+              )}
+            />
           </div>
         </div>
-        <div className="d-flex justify-content-between align-items-center mb-3">
-          <div className="md-5">
-            <Button className='btnOrange' href={routes.USERPASSWORDEDIT}>Change password</Button>
-          </div>
-          <div className="col-md-5" onPointerMove={e=>{userAvatar.id = defaultValues?.id!; userAvatar.avatar = defaultValues?.avatar!}}>
-            <Link to={routes.USERAVATAREDIT} state={{ data: userAvatar }}><Button className='btnChangeProfilePic'>Change profile picture</Button></Link>
-          </div>
-        </div>
-        <div className="d-flex justify-content-start">
+        <Button className="w-100 btnBlue mb-3" href={routes.USERPASSWORDEDIT}>
+          Change password
+        </Button>
+        <Link to={routes.USERAVATAREDIT} state={{ data: userAvatar }}>
+          <Button
+            className="w-100 mb-3"
+            style={{ color: '#fff' }}
+            onPointerMove={() => {
+              setUserAvatar(defaultValues!)
+            }}
+          >
+            Change profile picture
+          </Button>
+        </Link>
+        <div className="d-flex align-items-center justify-content-between">
           <Button className="btnRegister col-md-3" type="submit">
             Submit
           </Button>
-          <a className="text-decoration-none col-md-3" style={{color:'#000000'}} href={routes.USERINFO}>Cancel</a>
+          <a
+            className="text-decoration-none col-md-3"
+            style={{ color: '#000000' }}
+            href={routes.USERINFO}
+          >
+            Cancel
+          </a>
         </div>
       </Form>
       {showError && (

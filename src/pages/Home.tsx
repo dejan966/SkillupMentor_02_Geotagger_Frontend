@@ -15,37 +15,25 @@ const Home: FC = () => {
   const { isMobile } = useMediaQuery(1038)
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
+  const [pageNumber, setPageNumber] = useState(1)
 
-  const [userId, setUserId] = useState(1)
-  const [quoteData, setQuoteData] = useState({ id: 1, quote: '' })
   const navigate = useNavigate()
 
-  const [isOpen, setIsOpen] = useState(false)
-  const [successDelete, setSuccessDelete] = useState(false)
-
   const { data: allLocations, status: locationStatus } = useQuery(
-    ['allLocations'],
-    () => API.fetchLocations(),
+    ['allLocations', pageNumber],
+    () => API.fetchLocations(pageNumber),
     {
       refetchOnWindowFocus: false,
     },
   )
 
   const { data: personalBest, status: personalBestStatus } = useQuery(
-    ['personalBest'],
-    () => API.fetchPersonalBest(),
+    ['personalBest', pageNumber],
+    () => API.fetchPersonalBest(pageNumber),
     {
       refetchOnWindowFocus: false,
     },
   )
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen)
-  }
-
-  const toggleSuccess = () => {
-    setSuccessDelete(!successDelete)
-  }
 
   return (
     <Layout>
@@ -62,23 +50,18 @@ const Home: FC = () => {
                 {personalBestStatus === 'error' && <p>Error fetching data</p>}
                 {personalBestStatus === 'loading' && <p>Loading data...</p>}
                 {personalBestStatus === 'success' && (
-                  <>
-                    <div className="locationRow">
-                      {personalBest.data
-                        .slice(0, 3)
-                        .map((item: GuessType, index: number) => (
-                          <LocationBlock
-                            locationGuess={item}
-                            key={index}
-                          />
-                        ))}
-                    </div>
-                  </>
+                  <div className="locationRow">
+                    {personalBest.data.data
+                      .slice(0, 3)
+                      .map((item: GuessType, index: number) => (
+                        <LocationBlock locationGuess={item} key={index} />
+                      ))}
+                  </div>
                 )}
               </div>
             </div>
             <div className="mb-3 text-center mx-auto">
-              <Button href="/" className="btnLogin">
+              <Button href={routes.ALLGUESSES} className="btnLoadMore">
                 Load more
               </Button>
             </div>
@@ -94,23 +77,18 @@ const Home: FC = () => {
                 {locationStatus === 'error' && <p>Error fetching data</p>}
                 {locationStatus === 'loading' && <p>Loading data...</p>}
                 {locationStatus === 'success' && (
-                  <>
-                    <div className="locationRow">
-                      {allLocations.data
-                        .slice(0, 9)
-                        .map((item: LocationType, index: number) => (
-                          <LocationBlock
-                            location={item}
-                            key={index}
-                          />
-                        ))}
-                    </div>
-                  </>
+                  <div className="locationRow">
+                    {allLocations.data.data
+                      .slice(0, 9)
+                      .map((item: LocationType, index: number) => (
+                        <LocationBlock location={item} key={index} />
+                      ))}
+                  </div>
                 )}
               </div>
             </div>
             <div className="text-center">
-              <Button href={'/'} className="btnLogin">
+              <Button href={routes.ALLLOCATIONS} className="btnLoadMore">
                 Load more
               </Button>
             </div>
@@ -202,13 +180,10 @@ const Home: FC = () => {
                   {locationStatus === 'success' && (
                     <>
                       <div className="locationRow">
-                        {allLocations.data
+                        {allLocations.data.data
                           .slice(0, 9)
                           .map((item: LocationType, index: number) => (
-                            <LocationBlock
-                              location={item}
-                              key={index}
-                            />
+                            <LocationBlock location={item} key={index} />
                           ))}
                       </div>
                     </>
