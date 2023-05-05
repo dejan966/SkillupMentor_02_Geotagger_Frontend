@@ -11,6 +11,7 @@ export interface CreateLocationFields {
 
 export interface UpdateLocationFields {
   name?: string
+  image_url?: string
   latitude?: number
   longitude?: number
 }
@@ -27,9 +28,7 @@ export const useCreateUpdateLocationForm = ({ defaultValues }: Props) => {
   })
 
   const UpdateLocationSchema = Yup.object().shape({
-    name: Yup.string().notRequired(),
-    latitude: Yup.number().notRequired(),
-    longitude: Yup.number().notRequired(),
+    image_url: Yup.string().notRequired(),
   })
 
   const {
@@ -40,6 +39,7 @@ export const useCreateUpdateLocationForm = ({ defaultValues }: Props) => {
   } = useForm({
     defaultValues: {
       name: '',
+      image_url: '',
       latitude: 0.0,
       longitude: 0.0,
       ...defaultValues,

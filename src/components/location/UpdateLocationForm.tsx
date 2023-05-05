@@ -27,26 +27,33 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
     defaultValues,
   })
 
+  const [isOpen, setIsOpen] = useState(false)
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen)
+  }
+
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [fileError, setFileError] = useState(false)
 
-  const onSubmit = handleSubmit(
-    async (data: CreateLocationFields | UpdateLocationFields) => {
-      handleUpdate(data as UpdateLocationFields)
-    },
-  )
+  const onSubmit = handleSubmit(async (data: UpdateLocationFields) => {
+    handleUpdate(data as UpdateLocationFields)
+  })
 
   const handleUpdate = async (data: UpdateLocationFields) => {
-    const response = await API.updateLocation(data, defaultValues.id)
-    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
-      setApiError(response.data.message)
+    const formData = new FormData()
+    formData.append('image_url', file!, file!.name)
+    const fileResponse = await API.uploadLocationImg(formData, defaultValues.id)
+    if (fileResponse.status === StatusCode.BAD_REQUEST) {
+      setApiError(fileResponse.data.message)
       setShowError(true)
-    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
-      setApiError(response.data.message)
+      console.log(fileResponse.data.message)
+    } else if (fileResponse.status === StatusCode.INTERNAL_SERVER_ERROR) {
+      setApiError(fileResponse.data.message)
       setShowError(true)
     } else {
-      navigate('/')
+      console.log(fileResponse.data.messag)
     }
   }
 
@@ -69,8 +76,6 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
         setFileError(false)
       }
       reader.readAsDataURL(file)
-    } else {
-      setPreview('/default_location.svg')
     }
   }, [file])
 
@@ -85,9 +90,9 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
             name="image_url"
             type="image"
             src={
-              preview === 'default_location.svg'
+              preview
                 ? (preview as string)
-                : preview!
+                : `${process.env.REACT_APP_API_URL}/uploads/locations/${defaultValues.image_url}`
             }
             width="100%"
             height="500"
