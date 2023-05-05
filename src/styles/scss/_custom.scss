@@ -16,6 +16,13 @@
   padding: 25px 0;
 }
 
+.right{
+.forms {
+  width: min(100%, 420px);
+  margin: 0 auto;
+  padding: 25px 0;
+}
+
 .right {
   position: absolute;
   top: 0px;
@@ -110,8 +117,8 @@
   right: 16px;
 }
 
-.locationRow {
-  display: grid;
+.locationRow{
+  display:grid;
   grid-template-rows: 3, 0.1fr;
   grid-template-columns: repeat(3, 1fr);
 }

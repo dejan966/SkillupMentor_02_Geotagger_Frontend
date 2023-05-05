@@ -13,6 +13,7 @@ import * as API from 'api/Api'
 import { Link, useNavigate } from 'react-router-dom'
 import { routes } from 'constants/routesConstants'
 import { LocationType } from 'models/location'
+import SuccessPopup from 'pages/Success'
 
 interface Props {
   defaultValues: LocationType
@@ -116,12 +117,40 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
             accept="image/png, 'image/jpg', image/jpeg"
           />
           <div className="justify-content-end">
-            <Button className="btnRegister mx-3" type="submit">
+            <Button
+              className="btnRegister mx-3"
+              onClick={() => {
+                togglePopup()
+              }}
+            >
               Save
             </Button>
             <Link to={routes.HOME}>Cancel</Link>
           </div>
         </div>
+        {isOpen && (
+          <SuccessPopup
+            content={
+              <>
+                <p className="text fs-5">
+                  Your <span className="green">location</span> was edited.
+                </p>
+                <div className="text-center">
+                  <Button
+                    href="/"
+                    className="btnRegister col-md-3"
+                    onClick={() => {
+                      togglePopup()
+                    }}
+                    type="submit"
+                  >
+                    Close
+                  </Button>
+                </div>
+              </>
+            }
+          />
+        )}
       </Form>
       {showError && (
         <ToastContainer className="p-3" position="top-end">

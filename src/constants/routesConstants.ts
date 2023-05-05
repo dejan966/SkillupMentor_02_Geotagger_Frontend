@@ -7,10 +7,10 @@ export enum routes {
   USERPASSWORDEDIT = '../me/update-password',
   USERAVATAREDIT = '../me/update-avatar',
   ADDNEWLOCATION = '../me/mylocation',
-  USERLOCATIONSINFO = '../me/locations',
+  USERLOCATIONSINFO = '../me/locationss',
   ALLLOCATIONS = '/locations',
-  EDITLOCATION = '../me/mylocation/edit',
+  EDITLOCATION = '../../me/mylocation/edit',
   DELETELOCATION = 'me/mylocation/delete',
-  MAKEGUESS = '../guess/location',
+  MAKEGUESS = '../../guess/location',
   ALLGUESSES = '/guesses',
 }

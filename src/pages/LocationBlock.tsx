@@ -171,6 +171,16 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
           </a>
         </div>
       )}
+      {showError && (
+        <ToastContainer className="p-3" position="top-end">
+          <Toast onClose={() => setShowError(false)} show={showError}>
+            <Toast.Header>
+              <strong className="me-suto text-danger">Error</strong>
+            </Toast.Header>
+            <Toast.Body className="text-danger bg-light">{apiError}</Toast.Body>
+          </Toast>
+        </ToastContainer>
+      )}
     </>
   )
 }
