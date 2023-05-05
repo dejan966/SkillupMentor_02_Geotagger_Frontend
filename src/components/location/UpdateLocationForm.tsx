@@ -8,12 +8,12 @@ import { observer } from 'mobx-react'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { FormLabel, Button, Toast, ToastContainer } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
-import { Controller } from 'react-hook-form'
 import * as API from 'api/Api'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { routes } from 'constants/routesConstants'
 import { LocationType } from 'models/location'
 import SuccessPopup from 'pages/Success'
+import Geocode from 'react-geocode'
 
 interface Props {
   defaultValues: LocationType
@@ -23,6 +23,11 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
+  const [address, setAddress] = useState({location:'iu'})
+  const [currentPosition, setCurrentPosition] = useState({
+    lat: +defaultValues.latitude,
+    lng: +defaultValues.longitude,
+  })
 
   const { handleSubmit, errors, control } = useCreateUpdateLocationForm({
     defaultValues,
@@ -57,6 +62,20 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
       console.log(fileResponse.data.messag)
     }
   }
+
+  Geocode.fromLatLng(
+    currentPosition.lat.toString(),
+    currentPosition.lng.toString(),
+  ).then(
+    (response) => {
+      const addressFromCoordinats = response.results[0].formatted_address
+      console.log(addressFromCoordinats)
+      setAddress({location:addressFromCoordinats})
+    },
+    (error) => {
+      console.error(error)
+    },
+  )
 
   const handleFileChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     if (target.files) {
@@ -102,6 +121,17 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
             className="mx-auto d-block"
           />
         </Form.Group>
+        <Form.Group className="mb-3">
+          <FormLabel htmlFor="last_name">Guessed location</FormLabel>
+          <input
+            value={address && address.location}
+            name="Guessed location"
+            type="text"
+            aria-label="guessed_location"
+            aria-describedby="guessed_location"
+            className="form-control"
+          />
+        </Form.Group>
         <div className="d-flex justify-content-between">
           <Button className="btnRegister col-md-3" onClick={uploadFile}>
             Upload image
@@ -125,7 +155,13 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
             >
               Save
             </Button>
-            <Link to={routes.HOME}>Cancel</Link>
+            <a
+              className="text-decoration-none col-md-3"
+              style={{ color: '#000000' }}
+              href={routes.HOME}
+            >
+              Cancel
+            </a>
           </div>
         </div>
         {isOpen && (
