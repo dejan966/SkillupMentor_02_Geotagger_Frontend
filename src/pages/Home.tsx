@@ -15,6 +15,7 @@ const Home: FC = () => {
   const { isMobile } = useMediaQuery(1038)
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
+  const [pageNumber, setPageNumber] = useState(1)
 
   const navigate = useNavigate()
 

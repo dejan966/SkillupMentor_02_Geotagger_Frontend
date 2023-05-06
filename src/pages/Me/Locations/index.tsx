@@ -14,12 +14,14 @@ import { routes } from 'constants/routesConstants'
 const MyLocationsInfo: FC = () => {
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
+  const [pageNumber, setPageNumber] = useState(1)
   const navigate = useNavigate()
 
   const { data: personalBest, status: personalBestStatus } = useQuery(
     ['personalBestProfile', 1],
     () => API.fetchPersonalBest(1),
     {
+      keepPreviousData: true,
       refetchOnWindowFocus: false,
     },
   )
