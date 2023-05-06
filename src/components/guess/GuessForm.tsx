@@ -60,6 +60,14 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
     },
   )
 
+  const { data: personalBestAll, status: personalBestAllStatus } = useQuery(
+    ['personalBestAll'],
+    () => API.getPeoplesPersonalBestForLocation(locationId),
+    {
+      refetchOnWindowFocus: false,
+    },
+  )
+
   const compareDistance = (e: any) => {
     setDistanceInMeters({
       distance: google.maps.geometry.spherical.computeDistanceBetween(
@@ -119,7 +127,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
 
   return (
     <div className="d-flex justify-content-start">
-      <div className='col-md-9 me-3'>
+      <div className="col-md-9 me-3">
         <h2 className="text-start">
           Take a <span className="green">guess</span>!
         </h2>
@@ -325,7 +333,29 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
       <div>
         <h2 className="text-start">Leaderboard</h2>
         <div>
-          {/* leaderboard */}
+          {personalBestAllStatus === 'error' && <p>Error fetching data</p>}
+          {personalBestAllStatus === 'loading' && <p>Loading data...</p>}
+          {personalBestAll && personalBestAllStatus === 'success' ? (
+            <>
+              {personalBestAll.data.map((item: GuessType, index: number) => (
+                <div
+                  className="leaderboardRow"
+                  key={index}
+                  style={{ width: 400 }}
+                >
+                  <div className='leaderboardPlace'>{index+1}</div>
+                  <img src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${item.user.avatar}`} alt='gold' className='userAvatar'/>
+                  <div>
+                    <div>{item.user.first_name || ' ' || item.user.last_name}</div>
+                    <div>date</div>
+                  </div>
+                  <div>{item.errorDistance}m</div>
+                </div>
+              ))}
+            </>
+          ):(
+            <div>No guesses yet</div>
+          )}
         </div>
       </div>
     </div>
