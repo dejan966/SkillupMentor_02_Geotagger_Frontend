@@ -4,11 +4,7 @@ import { GoogleMap, LoadScriptProps, MarkerF } from '@react-google-maps/api'
 import { Form, Button, FormLabel, ToastContainer, Toast } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-import {
-  GuessUserFields,
-  useGuess,
-  useLocation,
-} from 'hooks/react-hook-form/useGuess'
+import { GuessUserFields, useGuess } from 'hooks/react-hook-form/useGuess'
 import { StatusCode } from 'constants/errorConstants'
 import { useLoadScript } from '@react-google-maps/api'
 import { GuessType } from 'models/guess'
@@ -31,8 +27,10 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
   const { id } = useParams()
   const locationId: number = parseInt(id!)
 
-  const [address, setAddress] = useState({location:''})
-  const { handleSubmit, setValue, errors, control } = useGuess({ defaultValues })
+  const [address, setAddress] = useState({ location: '' })
+  const { handleSubmit, setValue, errors, control } = useGuess({
+    defaultValues,
+  })
 
   const [defaultLocation, setDefaultLocation] = useState({
     lat: +46.5,
@@ -95,7 +93,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
       },
     )
   }, [currentPosition])
-  
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
     libraries,
@@ -118,11 +116,11 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
       navigate('/')
     }
   })
-  
+
   return (
     <>
       <h2 className="text-start">
-        Take a <span className='green'>guess</span>!
+        Take a <span className="green">guess</span>!
       </h2>
       <Form onSubmit={onSubmit}>
         {defaultValues ? (
@@ -167,7 +165,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                 <Controller
                   control={control}
                   name="errorDistance"
-                  render={({field}) => (
+                  render={({ field }) => (
                     <Form.Group className="mb-3">
                       <FormLabel htmlFor="errorDistance">
                         Error distance
@@ -196,7 +194,9 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
               </div>
               <div className="col-md-7">
                 <Form.Group className="mb-3">
-                  <FormLabel htmlFor="guessedLocation">Guessed location</FormLabel>
+                  <FormLabel htmlFor="guessedLocation">
+                    Guessed location
+                  </FormLabel>
                   <input
                     value={address && address.location}
                     name="Guessed location"
@@ -260,7 +260,9 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                             Error distance
                           </FormLabel>
                           <input
-                            value={distanceInMeters && distanceInMeters.distance}
+                            value={
+                              distanceInMeters && distanceInMeters.distance
+                            }
                             type="text"
                             aria-label="Error Distance"
                             aria-describedby="errorDistance"
@@ -286,7 +288,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                         Guessed location
                       </FormLabel>
                       <input
-                        value={ address && address.location }
+                        value={address && address.location}
                         name="Guessed location"
                         type="text"
                         aria-label="guessed_location"

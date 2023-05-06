@@ -25,7 +25,6 @@ const Home: FC = () => {
       refetchOnWindowFocus: false,
     },
   )
-  
 
   const { data: personalBest, status: personalBestStatus } = useQuery(
     ['personalBest', 1],
