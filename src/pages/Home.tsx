@@ -15,21 +15,21 @@ const Home: FC = () => {
   const { isMobile } = useMediaQuery(1038)
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
-  const [pageNumber, setPageNumber] = useState(1)
 
   const navigate = useNavigate()
 
   const { data: allLocations, status: locationStatus } = useQuery(
-    ['allLocations', pageNumber],
-    () => API.fetchLocations(pageNumber),
+    ['allLocations', 1],
+    () => API.fetchLocations(1),
     {
       refetchOnWindowFocus: false,
     },
   )
+  
 
   const { data: personalBest, status: personalBestStatus } = useQuery(
-    ['personalBest', pageNumber],
-    () => API.fetchPersonalBest(pageNumber),
+    ['personalBest', 1],
+    () => API.fetchPersonalBest(1),
     {
       refetchOnWindowFocus: false,
     },
@@ -78,11 +78,11 @@ const Home: FC = () => {
                 {locationStatus === 'loading' && <p>Loading data...</p>}
                 {locationStatus === 'success' && (
                   <div className="locationRow">
-                    {allLocations.data.data
-                      .slice(0, 9)
-                      .map((item: LocationType, index: number) => (
+                    {allLocations.data.data.map(
+                      (item: LocationType, index: number) => (
                         <LocationBlock location={item} key={index} />
-                      ))}
+                      ),
+                    )}
                   </div>
                 )}
               </div>
@@ -180,11 +180,11 @@ const Home: FC = () => {
                   {locationStatus === 'success' && (
                     <>
                       <div className="locationRow">
-                        {allLocations.data.data
-                          .slice(0, 9)
-                          .map((item: LocationType, index: number) => (
+                        {allLocations.data.data.map(
+                          (item: LocationType, index: number) => (
                             <LocationBlock location={item} key={index} />
-                          ))}
+                          ),
+                        )}
                       </div>
                     </>
                   )}

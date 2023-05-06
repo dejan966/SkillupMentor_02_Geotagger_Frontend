@@ -45,7 +45,7 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
       {authStore.user ? (
         <>
           {location ? (
-            <div className="locationContainer">
+            <div className="locationContainer mb-3">
               <Link
                 to={`${routes.MAKEGUESS}/${location?.id}`}
                 state={{ data: location }}
@@ -124,7 +124,7 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
               )}
             </div>
           ) : (
-            <div className="locationContainer">
+            <div className="locationContainer mb-3">
               <Link
                 to={`${routes.MAKEGUESS}/${locationGuess?.location.id}`}
                 state={{ data: locationGuess }}

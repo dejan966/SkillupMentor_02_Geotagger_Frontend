@@ -24,11 +24,11 @@ const LocationsDisplay: FC = () => {
         {locationStatus === 'success' && (
           <>
             <div className="locationRow">
-              {allLocations.data.data
-                .slice(0, 9)
-                .map((item: LocationType, index: number) => (
+              {allLocations.data.data.map(
+                (item: LocationType, index: number) => (
                   <LocationBlock location={item} key={index} />
-                ))}
+                ),
+              )}
             </div>
             {allLocations.data.meta.last_page > 1 && (
               <div className="d-flex justify-content-between">

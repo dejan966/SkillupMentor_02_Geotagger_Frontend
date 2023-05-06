@@ -93,7 +93,6 @@ const UpdateAvatarForm: FC<Props> = ({ defaultValues }) => {
                 Profile <span className="green">settings</span>
               </h1>
               <div className="mb-3">Change your profile photo</div>
-
               <Form className="form-group" onSubmit={onSubmit}>
                 <Form.Group className="d-flex flex-column justify-content-center align-items-center mb-3">
                   <FormLabel htmlFor="avatar" id="avatar-p">

@@ -1,9 +1,5 @@
 import { StatusCode } from 'constants/errorConstants'
-import {
-  CreateLocationFields,
-  UpdateLocationFields,
-  useCreateUpdateLocationForm,
-} from 'hooks/react-hook-form/useCreateUpdateLocation'
+import { useCreateUpdateLocationForm } from 'hooks/react-hook-form/useCreateUpdateLocation'
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { FormLabel, Button, Toast, ToastContainer } from 'react-bootstrap'
@@ -20,10 +16,12 @@ interface Props {
 }
 
 const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
+  Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY!)
+
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
-  const [address, setAddress] = useState({location:'iu'})
+  const [address, setAddress] = useState({ location: '' })
   const [currentPosition, setCurrentPosition] = useState({
     lat: +defaultValues.latitude,
     lng: +defaultValues.longitude,
@@ -43,39 +41,42 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
   const [preview, setPreview] = useState<string | null>(null)
   const [fileError, setFileError] = useState(false)
 
-  const onSubmit = handleSubmit(async (data: UpdateLocationFields) => {
-    handleUpdate(data as UpdateLocationFields)
+  const onSubmit = handleSubmit(async () => {
+    handleUpdate()
   })
 
-  const handleUpdate = async (data: UpdateLocationFields) => {
+  const handleUpdate = async () => {
     const formData = new FormData()
-    formData.append('image_url', file!, file!.name)
+    formData.append('image_url', file!, file?.name!)
     const fileResponse = await API.uploadLocationImg(formData, defaultValues.id)
-    if (fileResponse.status === StatusCode.BAD_REQUEST) {
+    if (fileResponse.data?.statusCode === StatusCode.BAD_REQUEST) {
       setApiError(fileResponse.data.message)
       setShowError(true)
-      console.log(fileResponse.data.message)
-    } else if (fileResponse.status === StatusCode.INTERNAL_SERVER_ERROR) {
+    } else if (
+      fileResponse.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR
+    ) {
       setApiError(fileResponse.data.message)
       setShowError(true)
     } else {
-      console.log(fileResponse.data.messag)
+      navigate('/')
     }
   }
 
-  Geocode.fromLatLng(
-    currentPosition.lat.toString(),
-    currentPosition.lng.toString(),
-  ).then(
-    (response) => {
-      const addressFromCoordinats = response.results[0].formatted_address
-      console.log(addressFromCoordinats)
-      setAddress({location:addressFromCoordinats})
-    },
-    (error) => {
-      console.error(error)
-    },
-  )
+  useEffect(() => {
+    Geocode.fromLatLng(
+      currentPosition.lat.toString(),
+      currentPosition.lng.toString(),
+    ).then(
+      (response) => {
+        const addressFromCoordinats = response.results[0].formatted_address
+        console.log(addressFromCoordinats)
+        setAddress({ location: addressFromCoordinats })
+      },
+      (error) => {
+        console.error(error)
+      },
+    )
+  }, [])
 
   const handleFileChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     if (target.files) {
@@ -96,6 +97,8 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
         setFileError(false)
       }
       reader.readAsDataURL(file)
+    } else {
+      setPreview(null)
     }
   }, [file])
 
@@ -152,6 +155,7 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
               onClick={() => {
                 togglePopup()
               }}
+              type="submit"
             >
               Save
             </Button>
@@ -163,8 +167,7 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
               Cancel
             </a>
           </div>
-        </div>
-        {isOpen && (
+          {/*           {isOpen && (
           <SuccessPopup
             content={
               <>
@@ -173,7 +176,6 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
                 </p>
                 <div className="text-center">
                   <Button
-                    href="/"
                     className="btnRegister col-md-3"
                     onClick={() => {
                       togglePopup()
@@ -186,7 +188,8 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
               </>
             }
           />
-        )}
+        )} */}
+        </div>
       </Form>
       {showError && (
         <ToastContainer className="p-3" position="top-end">
