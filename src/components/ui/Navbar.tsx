@@ -18,9 +18,6 @@ const Navbar: FC = () => {
   const [showError, setShowError] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
 
-  const { id } = useParams()
-  const userId: number = parseInt(id!)
-
   const toggleHamburger = () => {
     setShowMenu((showMenu) => !showMenu)
   }

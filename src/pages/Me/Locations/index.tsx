@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { GuessType } from 'models/guess'
 import LocationBlock from 'pages/LocationBlock'
 import { LocationType } from 'models/location'
+import { routes } from 'constants/routesConstants'
 
 const MyLocationsInfo: FC = () => {
   const [apiError, setApiError] = useState('')
@@ -17,8 +18,8 @@ const MyLocationsInfo: FC = () => {
   const navigate = useNavigate()
 
   const { data: personalBest, status: personalBestStatus } = useQuery(
-    ['personalBestProfile', pageNumber],
-    () => API.fetchPersonalBest(pageNumber),
+    ['personalBestProfile', 1],
+    () => API.fetchPersonalBest(1),
     {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
@@ -32,8 +33,6 @@ const MyLocationsInfo: FC = () => {
       refetchOnWindowFocus: false,
     },
   )
-
-  console.log(currUserLocations)
 
   return (
     <Layout>
@@ -59,8 +58,8 @@ const MyLocationsInfo: FC = () => {
               {personalBestStatus === 'success' && (
                 <>
                   <div className="locationRow">
-                    {personalBest.data
-                      .slice(0, 3)
+                    {personalBest.data.data
+                      .slice(0, 4)
                       .map((item: GuessType, index: number) => (
                         <LocationBlock locationGuess={item} key={index} />
                       ))}
@@ -69,7 +68,7 @@ const MyLocationsInfo: FC = () => {
               )}
             </div>
             <div className="text-center">
-              <Button className="btnLoadMore">Load more</Button>
+              <Button href={routes.ALLGUESSES} className="btnLoadMore">Load more</Button>
             </div>
           </div>
         </div>
@@ -82,7 +81,7 @@ const MyLocationsInfo: FC = () => {
               <>
                 <div className="locationRow">
                   {currUserLocations.data
-                    .slice(0, 3)
+                    .slice(0, 4)
                     .map((item: LocationType, index: number) => (
                       <LocationBlock location={item} key={index} />
                     ))}

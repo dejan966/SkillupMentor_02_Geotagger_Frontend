@@ -1,5 +1,5 @@
-import { UserType } from "./auth"
-import { LocationType } from "./location"
+import { UserType } from './auth'
+import { LocationType } from './location'
 
 export type GuessType = {
     id:number

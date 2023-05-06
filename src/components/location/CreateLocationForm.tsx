@@ -95,7 +95,7 @@ const CreateLocationForm: FC = () => {
   }
 
   const clearImg = () => {
-    setPreview('/default_location.svg')
+    setPreview('/default_location.png')
   }
 
   useEffect(() => {
@@ -107,7 +107,7 @@ const CreateLocationForm: FC = () => {
       }
       reader.readAsDataURL(file)
     } else {
-      setPreview('/default_location.svg')
+      setPreview('/default_location.png')
     }
   }, [file])
 
@@ -121,10 +121,7 @@ const CreateLocationForm: FC = () => {
           <input
             type="image"
             src={
-              preview ===
-              `${process.env.REACT_APP_API_URL}/uploads/locations/default_location.png`
-                ? (preview as string)
-                : preview!
+              preview as string
             }
             width="100%"
             height="500"

@@ -47,36 +47,4 @@ export const useGuess = ({ defaultValues }: Props) => {
   }
 }
 
-export const useLocation = () => {
-  const LocationSchema = Yup.object().shape({
-    image_url: Yup.string().notRequired(),
-    latitude: Yup.number().notRequired(),
-    longitude: Yup.number().notRequired(),
-    errorDistance: Yup.number().notRequired(),
-  })
-
-  const {
-    handleSubmit,
-    setValue,
-    formState: { errors },
-    control,
-  } = useForm({
-    defaultValues: {
-      image_url: '',
-      latitude:0.0,
-      longitude:0.0,
-      errorDistance:0
-    },
-    mode: 'onSubmit',
-    resolver: yupResolver(LocationSchema),
-  })
-
-  return {
-    handleSubmit,
-    setValue,
-    errors,
-    control,
-  }
-}
-
 export type GuessForm = ReturnType<typeof useGuess>
