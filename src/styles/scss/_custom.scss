@@ -1,5 +1,6 @@
-.layout-container {
-  height: calc(100vh - 200px);
+#login-page footer,
+#signup-page footer {
+  display: none !important;
 }
 
 *{
@@ -78,9 +79,15 @@
 
 .leaderboardRow{
   display:grid;
-  grid-template-columns: 0.2fr 0.3fr 1fr 0.1fr;
+  grid-template-columns: 0.2fr 0.2fr 1fr 0.2fr;
   justify-content: center;
   align-items: center;
+  color:#619B8A;
+}
+
+.leaderboardRow.me{
+  background-color:#619B8A;
+  color: #fff;
 }
 
 .leaderboardPlace{
@@ -90,14 +97,22 @@
   width: 27px;
   height:27px;
   border-radius: 30px;
-  background: #233D4D;
-  color: #fff;
 }
 
-.display{
-  display:flex;
-  flex-direction: column;
-  min-height: 100vh;
+.leaderboardPlace.gold{
+  background: #FCCA46;
+}
+
+.leaderboardPlace.silver{
+  background: #D8D8D8;
+}
+
+.leaderboardPlace.bronze{
+  background: #956956;
+}
+
+.leaderboardPlace.none{
+  background: #233D4D;
 }
 
 .content{
@@ -178,7 +193,6 @@
 
 .addLocation{
   display: flex;
-  //flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 41px;

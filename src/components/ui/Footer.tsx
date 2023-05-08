@@ -1,13 +1,9 @@
 import useMediaQuery from 'hooks/useMediaQuery'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const Footer: FC = () => {
   const { isMobile } = useMediaQuery(1038)
-  const location = useLocation()
-  if(location.pathname === '/login' || location.pathname === '/signup'){
-    return null
-  }
   return (
     <footer className="footer">
       {

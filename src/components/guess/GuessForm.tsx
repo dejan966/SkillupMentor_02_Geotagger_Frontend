@@ -10,6 +10,7 @@ import { useLoadScript } from '@react-google-maps/api'
 import { GuessType } from 'models/guess'
 import { useQuery } from 'react-query'
 import Geocode from 'react-geocode'
+import authStore from 'stores/auth.store'
 
 interface Props {
   defaultValues?: GuessType
@@ -70,10 +71,10 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
 
   const compareDistance = (e: any) => {
     setDistanceInMeters({
-      distance: google.maps.geometry.spherical.computeDistanceBetween(
+      distance: Math.ceil(google.maps.geometry.spherical.computeDistanceBetween(
         { lat: e.latLng!.lat(), lng: e.latLng!.lng() },
         defaultLocation,
-      ),
+      ),)
     })
 
     setCurrentPosition({
@@ -126,8 +127,8 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
   })
 
   return (
-    <div className="d-flex justify-content-start">
-      <div className="col-md-9 me-3">
+    <div className="d-flex justify-content-center">
+      <div className="col-md-8 me-3">
         <h2 className="text-start">
           Take a <span className="green">guess</span>!
         </h2>
@@ -335,26 +336,104 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
         <div>
           {personalBestAllStatus === 'error' && <p>Error fetching data</p>}
           {personalBestAllStatus === 'loading' && <p>Loading data...</p>}
-          {personalBestAll && personalBestAllStatus === 'success' ? (
+          {personalBestAllStatus === 'success' && (
             <>
               {personalBestAll.data.map((item: GuessType, index: number) => (
-                <div
-                  className="leaderboardRow"
-                  key={index}
-                  style={{ width: 400 }}
-                >
-                  <div className='leaderboardPlace'>{index+1}</div>
-                  <img src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${item.user.avatar}`} alt='gold' className='userAvatar'/>
-                  <div>
-                    <div>{item.user.first_name || ' ' || item.user.last_name}</div>
-                    <div>date</div>
-                  </div>
-                  <div>{item.errorDistance}m</div>
-                </div>
+                <>
+                  {item.user.first_name === authStore.user?.first_name &&
+                  item.user.last_name === authStore.user?.last_name ? (
+                    <div
+                      className="leaderboardRow me"
+                      key={index}
+                      style={{ width: 400 }}
+                    >
+                      {index + 1 === 1 ? (
+                        <div className="leaderboardPlace gold">{index + 1}</div>
+                      ) : (
+                        <>
+                          {index + 1 === 2 ? (
+                            <div className="leaderboardPlace silver">
+                              {index + 1}
+                            </div>
+                          ) : (
+                            <>
+                              {index + 1 === 3 ? (
+                                <div className="leaderboardPlace bronze">
+                                  {index + 1}
+                                </div>
+                              ) : (
+                                <div className="leaderboardPlace none">
+                                  {index + 1}
+                                </div>
+                              )}
+                            </>
+                          )}
+                        </>
+                      )}
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${item.user.avatar}`}
+                        alt="user avatar"
+                        className="userAvatar"
+                      />
+                      <div>
+                        <div>You</div>
+                        {new Date().getDate() ===
+                        new Date(item.created_at).getDate() ? (
+                          <div>{new Date(item.created_at).toLocaleTimeString()}</div>
+                        ) : (
+                          <div>
+                            {new Date(item.created_at).toLocaleDateString()}
+                          </div>
+                        )}
+                      </div>
+                      <div>{item.errorDistance} m</div>
+                    </div>
+                  ) : (
+                    <div
+                      className="leaderboardRow"
+                      key={index}
+                      style={{ width: 400 }}
+                    >
+                      {index + 1 === 1 ? (
+                        <div className="leaderboardPlace gold">{index + 1}</div>
+                      ) : (
+                        <>
+                          {index + 1 === 2 ? (
+                            <div className="leaderboardPlace silver">
+                              {index + 1}
+                            </div>
+                          ) : (
+                            <>
+                              {index + 1 === 3 ? (
+                                <div className="leaderboardPlace bronze">
+                                  {index + 1}
+                                </div>
+                              ) : (
+                                <div className="leaderboardPlace none">
+                                  {index + 1}
+                                </div>
+                              )}
+                            </>
+                          )}
+                        </>
+                      )}
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${item.user.avatar}`}
+                        alt="user avatar"
+                        className="userAvatar"
+                      />
+                      <div>
+                        <div>
+                          {item.user.first_name} {item.user.last_name}
+                        </div>
+                        <div>date</div>
+                      </div>
+                      <div>{item.errorDistance} m</div>
+                    </div>
+                  )}
+                </>
               ))}
             </>
-          ):(
-            <div>No guesses yet</div>
           )}
         </div>
       </div>

@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button'
 import { routes } from 'constants/routesConstants'
 import { FC, useState } from 'react'
-import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Toast from 'react-bootstrap/Toast'
 import authStore from 'stores/auth.store'

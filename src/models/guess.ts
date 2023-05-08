@@ -6,6 +6,7 @@ export type GuessType = {
     latitude:number
     longitude:number
     errorDistance:number
+    created_at:string
     location:LocationType
     user:UserType
 }

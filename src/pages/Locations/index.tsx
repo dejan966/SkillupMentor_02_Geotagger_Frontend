@@ -21,7 +21,9 @@ const LocationsDisplay: FC = () => {
       <div className="mb-3">
         {locationStatus === 'error' && <p>Error fetching data</p>}
         {locationStatus === 'loading' && <p>Loading data...</p>}
-        {locationStatus === 'success' && (
+        {allLocations &&
+        allLocations.data.data.length > 0 &&
+        locationStatus === 'success' ? (
           <>
             <div className="locationRow">
               {allLocations.data.data.map(
@@ -49,6 +51,8 @@ const LocationsDisplay: FC = () => {
               </div>
             )}
           </>
+        ) : (
+          <div className="text-center">No locations available.</div>
         )}
       </div>
     </Layout>

@@ -104,7 +104,7 @@ const LoginForm: FC = () => {
       </div>
       {!isMobile && (
         <div className='right'>
-          <img src="/location-signup.png" alt="location img" height="801" width="1012"/>
+          <img src="/location-signup.png" alt="location img" height="801" width="1011"/>
         </div>
       )}
       {showError && (
