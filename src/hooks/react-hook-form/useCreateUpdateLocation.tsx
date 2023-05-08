@@ -38,7 +38,6 @@ export const useCreateUpdateLocationForm = ({ defaultValues }: Props) => {
     control,
   } = useForm({
     defaultValues: {
-      name: '',
       image_url: '',
       latitude: 0.0,
       longitude: 0.0,

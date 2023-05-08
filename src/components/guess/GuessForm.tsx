@@ -12,26 +12,21 @@ import { useQuery } from 'react-query'
 import Geocode from 'react-geocode'
 import authStore from 'stores/auth.store'
 
-interface Props {
-  defaultValues?: GuessType
-}
-
 const libraries: LoadScriptProps['libraries'] = ['geometry']
 
-const GuessForm: FC<Props> = ({ defaultValues }) => {
+const GuessForm: FC = () => {
   Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY!)
 
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
   const [distanceInMeters, setDistanceInMeters] = useState({ distance: 0 })
+  const [address, setAddress] = useState({ location: '' })
+
   const { id } = useParams()
   const locationId: number = parseInt(id!)
 
-  const [address, setAddress] = useState({ location: '' })
-  const { handleSubmit, setValue, errors, control } = useGuess({
-    defaultValues,
-  })
+  const { handleSubmit, setValue, errors, control } = useGuess()
 
   const [defaultLocation, setDefaultLocation] = useState({
     lat: +46.5,
@@ -71,10 +66,12 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
 
   const compareDistance = (e: any) => {
     setDistanceInMeters({
-      distance: Math.ceil(google.maps.geometry.spherical.computeDistanceBetween(
-        { lat: e.latLng!.lat(), lng: e.latLng!.lng() },
-        defaultLocation,
-      ),)
+      distance: Math.ceil(
+        google.maps.geometry.spherical.computeDistanceBetween(
+          { lat: e.latLng!.lat(), lng: e.latLng!.lng() },
+          defaultLocation,
+        ),
+      ),
     })
 
     setCurrentPosition({
@@ -133,31 +130,20 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
           Take a <span className="green">guess</span>!
         </h2>
         <Form onSubmit={onSubmit}>
-          {defaultValues ? (
+          {locationData && (
             <>
-              <Controller
-                control={control}
-                name="image_url"
-                render={({ field }) => (
-                  <Form.Group className="mb-3">
-                    <input
-                      {...field}
-                      type="image"
-                      src={`${process.env.REACT_APP_API_URL}/uploads/locations/${defaultValues.location.image_url}`}
-                      width="100%"
-                      height="500"
-                      aria-label="Image_url"
-                      aria-describedby="image_url"
-                      className="mx-auto d-block"
-                    />
-                    {errors.image_url && (
-                      <div className="invalid-feedback text-danger">
-                        {errors.image_url.message}
-                      </div>
-                    )}
-                  </Form.Group>
-                )}
-              />
+              <Form.Group className="mb-3">
+                <input
+                  name="image_url"
+                  type="image"
+                  src={`${process.env.REACT_APP_API_URL}/uploads/locations/${locationData.data.image_url}`}
+                  width="100%"
+                  height="500"
+                  aria-label="Image_url"
+                  aria-describedby="image_url"
+                  className="mx-auto d-block"
+                />
+              </Form.Group>
               <div className="mb-3">
                 {isLoaded && (
                   <GoogleMap
@@ -175,15 +161,14 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                   <Controller
                     control={control}
                     name="errorDistance"
-                    render={({ field }) => (
+                    render={() => (
                       <Form.Group className="mb-3">
                         <FormLabel htmlFor="errorDistance">
                           Error distance
                         </FormLabel>
                         <input
-                          {...field}
+                          value={distanceInMeters && distanceInMeters.distance}
                           type="text"
-                          value={distanceInMeters.distance}
                           aria-label="Error Distance"
                           aria-describedby="errorDistance"
                           className={
@@ -204,9 +189,7 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                 </div>
                 <div className="col-md-7">
                   <Form.Group className="mb-3">
-                    <FormLabel htmlFor="guessedLocation">
-                      Guessed location
-                    </FormLabel>
+                    <FormLabel htmlFor="last_name">Guessed location</FormLabel>
                     <input
                       value={address && address.location}
                       name="Guessed location"
@@ -214,102 +197,10 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                       aria-label="guessed_location"
                       aria-describedby="guessed_location"
                       className="form-control"
-                      readOnly
                     />
                   </Form.Group>
                 </div>
               </div>
-            </>
-          ) : (
-            <>
-              {locationData && (
-                <>
-                  <Controller
-                    control={control}
-                    name="image_url"
-                    render={({ field }) => (
-                      <Form.Group className="mb-3">
-                        <input
-                          {...field}
-                          type="image"
-                          src={`${process.env.REACT_APP_API_URL}/uploads/locations/${locationData.data.image_url}`}
-                          width="100%"
-                          height="500"
-                          aria-label="Image_url"
-                          aria-describedby="image_url"
-                          className="mx-auto d-block"
-                        />
-                        {errors.image_url && (
-                          <div className="invalid-feedback text-danger">
-                            {errors.image_url.message}
-                          </div>
-                        )}
-                      </Form.Group>
-                    )}
-                  />
-                  <div className="mb-3">
-                    {isLoaded && (
-                      <GoogleMap
-                        mapContainerStyle={mapStyles}
-                        zoom={13}
-                        center={currentPosition}
-                        onClick={(e) => compareDistance(e)}
-                      >
-                        <MarkerF position={currentPosition} />
-                      </GoogleMap>
-                    )}
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    <div className="col-md-3">
-                      <Controller
-                        control={control}
-                        name="errorDistance"
-                        render={() => (
-                          <Form.Group className="mb-3">
-                            <FormLabel htmlFor="errorDistance">
-                              Error distance
-                            </FormLabel>
-                            <input
-                              value={
-                                distanceInMeters && distanceInMeters.distance
-                              }
-                              type="text"
-                              aria-label="Error Distance"
-                              aria-describedby="errorDistance"
-                              className={
-                                errors.errorDistance
-                                  ? 'form-control is-invalid'
-                                  : 'form-control'
-                              }
-                              readOnly
-                            />
-                            {errors.errorDistance && (
-                              <div className="invalid-feedback text-danger">
-                                {errors.errorDistance.message}
-                              </div>
-                            )}
-                          </Form.Group>
-                        )}
-                      />
-                    </div>
-                    <div className="col-md-7">
-                      <Form.Group className="mb-3">
-                        <FormLabel htmlFor="last_name">
-                          Guessed location
-                        </FormLabel>
-                        <input
-                          value={address && address.location}
-                          name="Guessed location"
-                          type="text"
-                          aria-label="guessed_location"
-                          aria-describedby="guessed_location"
-                          className="form-control"
-                        />
-                      </Form.Group>
-                    </div>
-                  </div>
-                </>
-              )}
             </>
           )}
           <div className="d-flex justify-content-end">
@@ -379,7 +270,9 @@ const GuessForm: FC<Props> = ({ defaultValues }) => {
                         <div>You</div>
                         {new Date().getDate() ===
                         new Date(item.created_at).getDate() ? (
-                          <div>{new Date(item.created_at).toLocaleTimeString()}</div>
+                          <div>
+                            {new Date(item.created_at).toLocaleTimeString()}
+                          </div>
                         ) : (
                           <div>
                             {new Date(item.created_at).toLocaleDateString()}

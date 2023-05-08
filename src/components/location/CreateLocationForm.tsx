@@ -18,7 +18,8 @@ const CreateLocationForm: FC = () => {
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
 
-  const { handleSubmit, setValue, errors, control } = useCreateUpdateLocationForm({})
+  const { handleSubmit, setValue, errors, control } =
+    useCreateUpdateLocationForm({})
 
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
@@ -29,8 +30,8 @@ const CreateLocationForm: FC = () => {
     lng: 2.1734,
   })
 
-  const [latPosition, setLatPosition] = useState({lat:currentPosition.lat})
-  console.log(latPosition)
+  setValue('latitude', currentPosition.lat)
+  setValue('longitude', currentPosition.lng)
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
@@ -41,7 +42,7 @@ const CreateLocationForm: FC = () => {
     width: '100%',
   }
 
-  const setPosition = (e:any) =>{
+  const setPosition = (e: any) => {
     setCurrentPosition({
       lat: e.latLng!.lat(),
       lng: e.latLng!.lng(),
@@ -120,16 +121,18 @@ const CreateLocationForm: FC = () => {
         <Form.Group className="mb-3">
           <input
             type="image"
-            src={
-              preview as string
-            }
+            src={preview as string}
             width="100%"
             height="500"
             aria-label="image_url"
             aria-describedby="image_url"
             className="mx-auto d-block"
           />
-          {errors.image_url && <>{console.log(errors.image_url.message)}</>}
+          {errors.image_url && (
+            <div className="invalid-feedback text-danger">
+              {errors.image_url.message}
+            </div>
+          )}
         </Form.Group>
         <div className="d-flex justify-content-end mb-4">
           <Button className="btnRegister col-md-3 mx-3" onClick={uploadFile}>
@@ -155,9 +158,7 @@ const CreateLocationForm: FC = () => {
               mapContainerStyle={mapStyles}
               zoom={13}
               center={currentPosition}
-              onClick={(e) =>
-                setPosition(e)
-              }
+              onClick={(e) => setPosition(e)}
             >
               <MarkerF position={currentPosition} />
             </GoogleMap>

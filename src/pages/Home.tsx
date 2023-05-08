@@ -45,7 +45,7 @@ const Home: FC = () => {
                 Your personal best guesses appear here. Go on and try to beat
                 your personal records or set a new one!
               </p>
-              <div className="mb-3">
+              <div>
                 {personalBestStatus === 'error' && <p>Error fetching data</p>}
                 {personalBestStatus === 'loading' && <p>Loading data...</p>}
                 {personalBest &&
@@ -70,13 +70,13 @@ const Home: FC = () => {
             </div>
           </div>
           <div className="mb-5">
-            <div className="text-start" style={{ width: 420 }}>
+            <div className="text-start">
               <h3 className="green">New locations</h3>
               <p>
                 New uploads from users. Try to guess all the locations by
                 pressing on a picture.
               </p>
-              <div className="mb-3">
+              <div>
                 {locationStatus === 'error' && <p>Error fetching data</p>}
                 {locationStatus === 'loading' && <p>Loading data...</p>}
                 {allLocations &&

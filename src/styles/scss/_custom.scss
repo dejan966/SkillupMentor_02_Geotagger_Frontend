@@ -82,7 +82,7 @@
   grid-template-columns: 0.2fr 0.2fr 1fr 0.2fr;
   justify-content: center;
   align-items: center;
-  color:#619B8A;
+  color:#fff;
 }
 
 .leaderboardRow.me{
@@ -145,13 +145,13 @@
 
 .locationRow{
   display:grid;
-  grid-template-rows: 3, 0.1fr;
   grid-template-columns: repeat(3, 1fr);
 }
-
-.imgSpacing{
-  padding: 0px 0px 14px 14px;
-  cursor: pointer;
+.img{
+  left: 12.5%;
+right: 25.79%;
+top: 25.79%;
+bottom: 12.5%;
 }
 
 .userAvatar{

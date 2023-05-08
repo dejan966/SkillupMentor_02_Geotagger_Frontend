@@ -45,7 +45,7 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
       {authStore.user ? (
         <>
           {location ? (
-            <div className="locationContainer mb-3">
+            <div className="locationContainer mb-3 me-3">
               <Link
                 to={`${routes.MAKEGUESS}/${location?.id}`}
                 state={{ data: location }}
@@ -55,10 +55,9 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
                   alt="location_img"
                   width="420"
                   height="235"
-                  className="imgSpacing"
                 />
               </Link>
-              <Button className="top-left mx-2">
+              <Button className="top-left">
                 <Link
                   to={`${routes.EDITLOCATION}/${location.id}`}
                   state={{ data: location }}
@@ -70,7 +69,7 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
                 className="btnRed top-right"
                 onClick={() => setIsOpen(true)}
               >
-                x
+                <img width={25} height={15} src="/x.svg" alt="delete" />
               </Button>
               {isOpen && (
                 <SuccessPopup
@@ -124,24 +123,29 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
               )}
             </div>
           ) : (
-            <div className="locationContainer mb-3">
-              <Link
-                to={`${routes.MAKEGUESS}/${locationGuess?.location.id}`}
-                state={{ data: locationGuess }}
-              >
-                <img
-                  src={`${process.env.REACT_APP_API_URL}/uploads/locations/${locationGuess?.location.image_url}`}
-                  alt="location_img"
-                  width="420"
-                  height="235"
-                />
-              </Link>
-              <div className="centered">{locationGuess?.errorDistance} m</div>
-            </div>
+            <>
+              {locationGuess?.location && (
+                <div className="locationContainer mb-3 me-3">
+                  <Link
+                    to={`${routes.MAKEGUESS}/${locationGuess?.location.id}`}
+                  >
+                    <img
+                      src={`${process.env.REACT_APP_API_URL}/uploads/locations/${locationGuess?.location.image_url}`}
+                      alt="location_img"
+                      width="420"
+                      height="235"
+                    />
+                  </Link>
+                  <div className="centered">
+                    {locationGuess?.errorDistance} m
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </>
       ) : (
-        <div className="locationContainer">
+        <div className="locationContainer mb-3 me-3">
           <img
             src={`${process.env.REACT_APP_API_URL}/uploads/locations/${location?.image_url}`}
             alt="location_img"
