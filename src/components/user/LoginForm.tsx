@@ -37,16 +37,16 @@ const LoginForm: FC = () => {
 
   return (
     <>
-      <div className='verticalCenter left'>
+      <div className="verticalCenter left">
         <div className="text-center">
           <h1 className="display-4 blue">Sign in</h1>
-            <p>Welcome back to Geotagger. We are glad that you are back.</p>
+          <p>Welcome back to Geotagger. We are glad that you are back.</p>
         </div>
         <Form onSubmit={onSubmit}>
           <Controller
             control={control}
             name="email"
-            render={({field})=>(
+            render={({ field }) => (
               <Form.Group className="mb-3">
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <input
@@ -70,7 +70,7 @@ const LoginForm: FC = () => {
           <Controller
             control={control}
             name="password"
-            render={({field})=>(
+            render={({ field }) => (
               <Form.Group className="mb-3">
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <input
@@ -96,17 +96,22 @@ const LoginForm: FC = () => {
           </Button>
           <div className="d-flex justify-content-between align-items-center mb-2">
             <p className="mb-0">Dont have an account yet?</p>
-            <Link className="text-decoration-none text-end signUpText" to={routes.SIGNUP}>
+            <Link
+              className="text-decoration-none text-end signUpText"
+              to={routes.SIGNUP}
+            >
               Sign up
             </Link>
           </div>
         </Form>
       </div>
-      {!isMobile && (
-        <div className='right'>
-          <img src="/location-signup.png" alt="location img" height="801" width="1011"/>
+      <div className="right">
+          <img
+            style={{ height: window.innerHeight, width: '100%', objectFit: 'cover' }}
+            src="/location-signup.png"
+            alt="location img"
+          />
         </div>
-      )}
       {showError && (
         <ToastContainer className="p-3" position="top-end">
           <Toast onClose={() => setShowError(false)} show={showError}>

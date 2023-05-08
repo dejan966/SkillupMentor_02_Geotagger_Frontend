@@ -30,9 +30,6 @@ const CreateLocationForm: FC = () => {
     lng: 2.1734,
   })
 
-  setValue('latitude', currentPosition.lat)
-  setValue('longitude', currentPosition.lng)
-
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
   })
