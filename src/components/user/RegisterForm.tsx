@@ -55,7 +55,7 @@ const RegisterForm: FC = () => {
 
   return (
     <>
-      <div className='verticalCenter left'>
+      <div className="left">
         <div className="text-center">
           <h1 className="display-5 blue">Sign up</h1>
           <p>Your name will appear on posts and your public profile.</p>
@@ -63,13 +63,17 @@ const RegisterForm: FC = () => {
         <Form onSubmit={onSubmit}>
           <Form.Group className="d-flex flex-column justify-content-center align-items-center">
             <FormLabel htmlFor="avatar" id="avatar-p">
-              <Avatar round src={`${process.env.REACT_APP_API_URL}/uploads/avatars/default_profile.png`} alt="Avatar" />
+              <Avatar
+                round
+                src={`${process.env.REACT_APP_API_URL}/uploads/avatars/default_profile.svg`}
+                alt="Avatar"
+              />
             </FormLabel>
           </Form.Group>
           <Controller
             control={control}
             name="email"
-            render={({field})=>(
+            render={({ field }) => (
               <Form.Group className="mb-3">
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <input
@@ -81,7 +85,13 @@ const RegisterForm: FC = () => {
                   className={
                     errors.email ? 'form-control is-invalid' : 'form-control'
                   }
-                  style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
+                  style={{
+                    border: '1px solid #0000006b',
+                    borderRadius: 0,
+                    borderTop: 'none',
+                    borderLeft: 'none',
+                    borderRight: 'none',
+                  }}
                 />
                 {errors.email && (
                   <div className="invalid-feedback text-danger">
@@ -94,61 +104,77 @@ const RegisterForm: FC = () => {
           <div className="d-flex justify-content-between">
             <div className="col-md-5">
               <Controller
-              control={control}
-              name="first_name"
-              render={({field})=>(
-                <Form.Group className="mb-3">
-                  <FormLabel htmlFor="first_name">First name</FormLabel>
-                  <input
-                    {...field}
-                    type="text"
-                    aria-label="First name"
-                    aria-describedby="first_name"
-                    className={
-                      errors.first_name ? 'form-control is-invalid' : 'form-control'
-                    }
-                    style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
-                  />
-                  {errors.first_name && (
-                    <div className="invalid-feedback text-danger">
-                      {errors.first_name.message}
-                    </div>
-                  )}
-                </Form.Group>
-              )}
+                control={control}
+                name="first_name"
+                render={({ field }) => (
+                  <Form.Group className="mb-3">
+                    <FormLabel htmlFor="first_name">First name</FormLabel>
+                    <input
+                      {...field}
+                      type="text"
+                      aria-label="First name"
+                      aria-describedby="first_name"
+                      className={
+                        errors.first_name
+                          ? 'form-control is-invalid'
+                          : 'form-control'
+                      }
+                      style={{
+                        border: '1px solid #0000006b',
+                        borderRadius: 0,
+                        borderTop: 'none',
+                        borderLeft: 'none',
+                        borderRight: 'none',
+                      }}
+                    />
+                    {errors.first_name && (
+                      <div className="invalid-feedback text-danger">
+                        {errors.first_name.message}
+                      </div>
+                    )}
+                  </Form.Group>
+                )}
               />
             </div>
-            <div className='col-md-5'>
+            <div className="col-md-5">
               <Controller
-              control={control}
-              name="last_name"
-              render={({ field }) => (
-                <Form.Group className="mb-3">
-                  <FormLabel htmlFor="last_name">Last name</FormLabel>
-                  <input
-                    {...field}
-                    type="text"
-                    aria-label="Last name"
-                    aria-describedby="last_name"
-                    className={
-                      errors.last_name ? 'form-control is-invalid' : 'form-control'
-                    }
-                    style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
-                  />
-                  {errors.last_name && (
-                    <div className="invalid-feedback text-danger">
-                      {errors.last_name.message}
-                    </div>
-                  )}
-                </Form.Group>
-              )}
-              />   
+                control={control}
+                name="last_name"
+                render={({ field }) => (
+                  <Form.Group className="mb-3">
+                    <FormLabel htmlFor="last_name">Last name</FormLabel>
+                    <input
+                      {...field}
+                      type="text"
+                      aria-label="Last name"
+                      aria-describedby="last_name"
+                      className={
+                        errors.last_name
+                          ? 'form-control is-invalid'
+                          : 'form-control'
+                      }
+                      style={{
+                        border: '1px solid #0000006b',
+                        borderRadius: 0,
+                        borderTop: 'none',
+                        borderLeft: 'none',
+                        borderRight: 'none',
+                      }}
+                    />
+                    {errors.last_name && (
+                      <div className="invalid-feedback text-danger">
+                        {errors.last_name.message}
+                      </div>
+                    )}
+                  </Form.Group>
+                )}
+              />
             </div>
           </div>
           <Controller
             control={control}
             name="password"
-            render={({ field }) =>(
+            render={({ field }) => (
               <Form.Group className="mb-3">
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <input
@@ -160,7 +186,13 @@ const RegisterForm: FC = () => {
                   className={
                     errors.password ? 'form-control is-invalid' : 'form-control'
                   }
-                  style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
+                  style={{
+                    border: '1px solid #0000006b',
+                    borderRadius: 0,
+                    borderTop: 'none',
+                    borderLeft: 'none',
+                    borderRight: 'none',
+                  }}
                 />
                 {errors.password && (
                   <div className="invalid-feedback text-danger">
@@ -175,41 +207,60 @@ const RegisterForm: FC = () => {
             name="confirm_password"
             render={({ field }) => (
               <Form.Group className="mb-3">
-                <FormLabel htmlFor="confirm_password">Confirm password</FormLabel>
+                <FormLabel htmlFor="confirm_password">
+                  Confirm password
+                </FormLabel>
                 <input
                   {...field}
                   type="password"
                   aria-label="Confirm password"
                   aria-describedby="confirm_password"
                   className={
-                    errors.confirm_password ? 'form-control is-invalid' : 'form-control'
+                    errors.confirm_password
+                      ? 'form-control is-invalid'
+                      : 'form-control'
                   }
-                  style={{border:'1px solid #0000006b', borderRadius:0, borderTop:'none', borderLeft:'none', borderRight:'none'}}
+                  style={{
+                    border: '1px solid #0000006b',
+                    borderRadius: 0,
+                    borderTop: 'none',
+                    borderLeft: 'none',
+                    borderRight: 'none',
+                  }}
                 />
                 {errors.confirm_password && (
                   <div className="invalid-feedback text-danger">
                     {errors.confirm_password.message}
                   </div>
                 )}
-              </Form.Group> 
+              </Form.Group>
             )}
           />
-          <Button className="w-100 btnRegister" type="submit">
+          <Button className="btnRegister w-100 mb-2" type="submit">
             Sign up
           </Button>
           <div className="d-flex justify-content-between align-items-center mb-2">
             <p className="mb-0">Already have an account?</p>
-            <Link className="text-decoration-none text-end signUpText" to={routes.LOGIN}>
+            <Link
+              className="text-decoration-none text-end signUpText"
+              to={routes.LOGIN}
+            >
               Sign in
             </Link>
           </div>
         </Form>
       </div>
-      {!isMobile && (
-        <div className='right'>
-          <img src="/location-signup.png" alt="location img" width="993"/>
-        </div>
-      )}
+      <div className="right">
+        <img
+          style={{
+            height: window.innerHeight,
+            width: '155%',
+            objectFit: 'cover',
+          }}
+          src="/location-signup.png"
+          alt="location img"
+        />
+      </div>
       {showError && (
         <ToastContainer className="p-3" position="top-end">
           <Toast onClose={() => setShowError(false)} show={showError}>
