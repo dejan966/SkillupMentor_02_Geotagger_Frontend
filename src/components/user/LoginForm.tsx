@@ -12,11 +12,9 @@ import { StatusCode } from 'constants/errorConstants'
 import authStore from 'stores/auth.store'
 import { observer } from 'mobx-react'
 import { Controller } from 'react-hook-form'
-import useMediaQuery from 'hooks/useMediaQuery'
 
 const LoginForm: FC = () => {
   const navigate = useNavigate()
-  const { isMobile } = useMediaQuery(1038)
   const { handleSubmit, errors, control } = useLoginForm()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
@@ -91,7 +89,7 @@ const LoginForm: FC = () => {
               </Form.Group>
             )}
           />
-          <Button className="w-100 btnRegister" type="submit">
+          <Button className="btnRegister w-100 mb-2" type="submit">
             Sign in
           </Button>
           <div className="d-flex justify-content-between align-items-center mb-2">
@@ -106,12 +104,16 @@ const LoginForm: FC = () => {
         </Form>
       </div>
       <div className="right">
-          <img
-            style={{ height: window.innerHeight, width: '100%', objectFit: 'cover' }}
-            src="/location-signup.png"
-            alt="location img"
-          />
-        </div>
+        <img
+          style={{
+            height: window.innerHeight,
+            width: '155%',
+            objectFit: 'cover',
+          }}
+          src="/location-signup.png"
+          alt="location img"
+        />
+      </div>
       {showError && (
         <ToastContainer className="p-3" position="top-end">
           <Toast onClose={() => setShowError(false)} show={showError}>

@@ -10,17 +10,14 @@ import useMediaQuery from 'hooks/useMediaQuery'
 import { LocationType } from 'models/location'
 import { GuessType } from 'models/guess'
 import LocationBlock from './LocationBlock'
-import useWindowSize from 'hooks/useWindowSize'
 
 const Home: FC = () => {
-  const { size } = useWindowSize()
   const { isMobile } = useMediaQuery(1038)
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
 
   const navigate = useNavigate()
 
-  console.log(size)
   const { data: allLocations, status: locationStatus } = useQuery(
     ['allLocations', 1],
     () => API.fetchLocations(1),

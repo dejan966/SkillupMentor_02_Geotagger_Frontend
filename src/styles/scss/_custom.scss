@@ -219,4 +219,13 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
   }
+
+  .right {
+    position: absolute;
+    height: fit-content;
+  }
+
+  .verticalCenter {
+    padding: 70px 0;
+  }
 }
