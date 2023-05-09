@@ -124,8 +124,8 @@ const GuessForm: FC = () => {
   })
 
   return (
-    <div className="d-flex justify-content-center">
-      <div className="col-md-8 me-3">
+    <div className="grid">
+      <div className="me-3">
         <h2 className="text-start">
           Take a <span className="green">guess</span>!
         </h2>
@@ -156,8 +156,8 @@ const GuessForm: FC = () => {
                   </GoogleMap>
                 )}
               </div>
-              <div className="d-flex justify-content-between">
-                <div className="col-md-3">
+              <div className="grid">
+                <div className='col-md-5'>
                   <Controller
                     control={control}
                     name="errorDistance"
@@ -187,7 +187,7 @@ const GuessForm: FC = () => {
                     )}
                   />
                 </div>
-                <div className="col-md-7">
+                <div>
                   <Form.Group className="mb-3">
                     <FormLabel htmlFor="last_name">Guessed location</FormLabel>
                     <input
@@ -223,7 +223,7 @@ const GuessForm: FC = () => {
         )}
       </div>
       <div>
-        <h2 className="text-start">Leaderboard</h2>
+        <h2>Leaderboard</h2>
         <div>
           {personalBestAllStatus === 'error' && <p>Error fetching data</p>}
           {personalBestAllStatus === 'loading' && <p>Loading data...</p>}
@@ -239,21 +239,21 @@ const GuessForm: FC = () => {
                       style={{ width: 400 }}
                     >
                       {index + 1 === 1 ? (
-                        <div className="leaderboardPlace gold">{index + 1}</div>
+                        <div className="ms-2 leaderboardPlace gold">{index + 1}</div>
                       ) : (
                         <>
                           {index + 1 === 2 ? (
-                            <div className="leaderboardPlace silver">
+                            <div className="ms-2 leaderboardPlace silver">
                               {index + 1}
                             </div>
                           ) : (
                             <>
                               {index + 1 === 3 ? (
-                                <div className="leaderboardPlace bronze">
+                                <div className="ms-2 leaderboardPlace bronze">
                                   {index + 1}
                                 </div>
                               ) : (
-                                <div className="leaderboardPlace none">
+                                <div className="ms-2 leaderboardPlace none">
                                   {index + 1}
                                 </div>
                               )}

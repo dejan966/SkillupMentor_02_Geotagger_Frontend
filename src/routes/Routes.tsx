@@ -19,7 +19,7 @@ const Home = lazy(() => import('pages/Home'))
 /* Private routes */
 const UserInfo = lazy(() => import('pages/Me'))
 const UserEdit = lazy(() => import('pages/Me/Edit'))
-const UserLocations = lazy(() => import('pages/Me/Locations'))
+const UserLocations = lazy(() => import('pages/Me/Locations/All'))
 const UserPasswordEdit = lazy(() => import('pages/Me/Update-password'))
 const UserAvatarEdit = lazy(() => import('pages/Me/Update-avatar'))
 

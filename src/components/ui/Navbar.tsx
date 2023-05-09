@@ -61,13 +61,12 @@ const Navbar: FC = () => {
                 </div>
                 <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
                   <ul className="navbar-nav">
-                    <div>
-                      <div>
-                        <img
-                          src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${authStore.user?.avatar}`}
-                          alt="User avatar"
-                        />
-                      </div>
+                    <div className="d-flex align-items-center">
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${authStore.user?.avatar}`}
+                        className="userAvatar"
+                        alt="User avatar"
+                      />
                       <div>
                         {authStore.user.first_name +
                           ' ' +

@@ -73,13 +73,12 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 2fr);
-  justify-content: center;
-  align-items: center;
+ 
 }
 
 .leaderboardRow {
   display: grid;
-  grid-template-columns: 0.2fr 0.2fr 1fr 0.2fr;
+  grid-template-columns: 0.2fr 0.2fr 1fr 0.3fr;
   justify-content: center;
   align-items: center;
   color: #fff;
@@ -214,8 +213,6 @@
   }
 
   .locationRow {
-    margin:auto;
-    text-align: center;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
   }
@@ -227,5 +224,17 @@
 
   .verticalCenter {
     padding: 70px 0;
+  }
+
+  .locationContainer {
+    position: relative;
+    color: white;
+  }
+
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 44%;
+    transform: translate(-50%, -50%);
   }
 }

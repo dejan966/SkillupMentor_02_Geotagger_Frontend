@@ -51,7 +51,7 @@ const MyLocationsInfo: FC = () => {
         </div>
         <div className="mb-3">
           <div>
-            <div className="mb-3">My best guesses</div>
+            <div className="mb-3 justify-content-between">My best guesses</div>
             <div className="mb-3">
               {personalBestStatus === 'error' && <p>Error fetching data</p>}
               {personalBestStatus === 'loading' && <p>Loading data...</p>}
@@ -74,7 +74,7 @@ const MyLocationsInfo: FC = () => {
         </div>
         <div>
           <div className="mb-3">My uploads</div>
-          <div className="mb-3">
+          <div className="text-start d-flex mb-3">
             {currUserLocationsStatus === 'error' && <p>Error fetching data</p>}
             {currUserLocationsStatus === 'loading' && <p>Loading data...</p>}
             {currUserLocationsStatus === 'success' && (

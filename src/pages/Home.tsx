@@ -76,7 +76,7 @@ const Home: FC = () => {
                 New uploads from users. Try to guess all the locations by
                 pressing on a picture.
               </p>
-              <div>
+              <div className='text-start d-flex'>
                 {locationStatus === 'error' && <p>Error fetching data</p>}
                 {locationStatus === 'loading' && <p>Loading data...</p>}
                 {allLocations &&
