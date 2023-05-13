@@ -36,7 +36,7 @@ const UpdatePasswordForm: FC = () => {
   }
 
   return (
-    <div className="text-start text forms">
+    <div className="text-start forms">
       <h1>
         Profile <span className="green">settings</span>
       </h1>
