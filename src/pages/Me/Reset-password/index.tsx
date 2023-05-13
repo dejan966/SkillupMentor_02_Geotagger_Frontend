@@ -1,11 +1,10 @@
 import Layout from 'components/ui/Layout'
+import PasswordResetForm from 'components/user/PasswordResetForm'
 
 const ResetPassword = () => {
   return (
     <Layout>
-      <h1>
-        Forgot your <span className="green">password</span>
-      </h1>
+      <PasswordResetForm />
     </Layout>
   )
 }
