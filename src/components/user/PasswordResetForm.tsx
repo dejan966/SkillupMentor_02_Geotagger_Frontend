@@ -8,6 +8,8 @@ import { StatusCode } from 'constants/errorConstants'
 import { useState } from 'react'
 import { Form, ToastContainer, Toast, FormLabel, Button } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
+import SuccessPopup from 'pages/Success'
+import { routes } from 'constants/routesConstants'
 
 const PasswordResetForm = () => {
   const navigate = useNavigate()
@@ -15,6 +17,11 @@ const PasswordResetForm = () => {
 
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen)
+  }
 
   const onSubmit = handleSubmit(async (data: UpdateUserFields) => {
     handleChange(data as UpdateUserFields)
@@ -29,8 +36,7 @@ const PasswordResetForm = () => {
       setApiError(response.data.message)
       setShowError(true)
     } else {
-        console.log(data.email)
-      //navigate('/')
+      togglePopup()
     }
   }
 
@@ -78,6 +84,25 @@ const PasswordResetForm = () => {
         <Button className="btnRegister w-100" type="submit">
           Send password reset email
         </Button>
+        {isOpen && (
+          <SuccessPopup
+            content={
+              <>
+                <p>
+                  The password reset link was successfully sent to your{' '}
+                  <span className="green">email</span>.
+                </p>
+                <Button
+                  className="btnRegister"
+                  href={routes.HOME}
+                  style={{ borderColor: '#DE8667' }}
+                >
+                  Close
+                </Button>
+              </>
+            }
+          />
+        )}
       </Form>
       {showError && (
         <ToastContainer className="p-3" position="top-end">

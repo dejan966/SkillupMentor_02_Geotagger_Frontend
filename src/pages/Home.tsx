@@ -1,21 +1,16 @@
 import Layout from 'components/ui/Layout'
-import { FC, useEffect, useState } from 'react'
-import { Button, Toast, ToastContainer } from 'react-bootstrap'
+import { FC } from 'react'
+import { Button } from 'react-bootstrap'
 import { routes } from 'constants/routesConstants'
 import authStore from 'stores/auth.store'
 import { useQuery } from 'react-query'
 import * as API from 'api/Api'
 import { useNavigate } from 'react-router-dom'
-import useMediaQuery from 'hooks/useMediaQuery'
 import { LocationType } from 'models/location'
 import { GuessType } from 'models/guess'
 import LocationBlock from '../components/location/LocationBlock'
 
 const Home: FC = () => {
-  const { isMobile } = useMediaQuery(1038)
-  const [apiError, setApiError] = useState('')
-  const [showError, setShowError] = useState(false)
-
   const navigate = useNavigate()
 
   const { data: allLocations, status: locationStatus } = useQuery(
