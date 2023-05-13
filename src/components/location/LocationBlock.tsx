@@ -5,7 +5,7 @@ import { FC, useState } from 'react'
 import { Button, Toast, ToastContainer } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import authStore from 'stores/auth.store'
-import SuccessPopup from './Success'
+import SuccessPopup from '../../pages/Success'
 import * as API from 'api/Api'
 import { StatusCode } from 'constants/errorConstants'
 

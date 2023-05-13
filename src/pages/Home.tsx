@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import useMediaQuery from 'hooks/useMediaQuery'
 import { LocationType } from 'models/location'
 import { GuessType } from 'models/guess'
-import LocationBlock from './LocationBlock'
+import LocationBlock from '../components/location/LocationBlock'
 
 const Home: FC = () => {
   const { isMobile } = useMediaQuery(1038)

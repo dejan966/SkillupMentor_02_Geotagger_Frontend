@@ -160,7 +160,7 @@ const UpdateUserForm: FC<Props> = ({ defaultValues }) => {
             />
           </div>
         </div>
-        <Button className="w-100 btnBlue mb-3" href={routes.USERPASSWORDEDIT}>
+        <Button className="w-100 btnBlue mb-3" href={routes.USERPASSWORDRESET}>
           Change password
         </Button>
         <Link to={routes.USERAVATAREDIT} state={{ data: userAvatar }}>

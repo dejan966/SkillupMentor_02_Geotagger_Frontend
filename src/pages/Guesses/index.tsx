@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import * as API from 'api/Api'
 import { useQuery } from 'react-query'
 import Layout from 'components/ui/Layout'
-import LocationBlock from 'pages/LocationBlock'
+import LocationBlock from 'components/location/LocationBlock'
 import { GuessType } from 'models/guess'
 import { Button } from 'react-bootstrap'
 
