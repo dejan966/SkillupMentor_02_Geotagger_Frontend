@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { StatusCode } from 'constants/errorConstants'
 import * as API from 'api/Api'
 import {
@@ -13,11 +13,16 @@ import { Controller } from 'react-hook-form'
 
 const UpdatePasswordForm: FC = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const { handleSubmit, errors, control } = useUpdateUserForm({})
 
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
 
+  const queryParams = new URLSearchParams(location.search)
+  const token = queryParams.get('token')
+  console.log(token)
+  
   const onSubmit = handleSubmit(async (data: UpdateUserFields) => {
     handleUpdate(data as UpdateUserFields)
   })

@@ -30,12 +30,14 @@ const PasswordResetForm = () => {
   const handleChange = async (data: UpdateUserFields) => {
     const response = await API.passwordResetEmail(data)
     if (response.status === StatusCode.BAD_REQUEST) {
+      console.log(data)
       setApiError(response.data.message)
       setShowError(true)
     } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
     } else {
+
       togglePopup()
     }
   }
