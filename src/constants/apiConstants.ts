@@ -10,6 +10,7 @@ export enum apiRoutes {
   UPLOAD_AVATAR_IMAGE = '/users/upload',
   UPLOAD_LOCATION_IMAGE = '/locations/upload',
   GET_AVATAR_IMAGE = '/users/get/image',
+  PASSWORD_RESET_PREFIX = 'password-reset-tokens',
   ME_LOCATIONS = 'locations/me',
   LOCATIONS_PREFIX = '/locations',
   UPDATE_LOCATION = '/locations',
