@@ -38,7 +38,7 @@ export const updateUser = async (data: UpdateUserFields, id: number) =>
   )
 
 export const passwordResetEmail = async ({ email }: UpdateUserFields) =>
-  apiRequest<string, void>('post', `${apiRoutes.ME}/reset-password`, { email })
+  apiRequest<UpdateUserFields, string>('get', `${apiRoutes.ME}/reset-password`, { email })
 
 export const updateUserPass = async ({
   current_password,
