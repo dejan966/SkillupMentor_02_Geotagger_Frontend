@@ -40,10 +40,10 @@ const UpdateUserForm: FC<Props> = ({ defaultValues }) => {
   const handleUpdate = async (data: UpdateUserFields) => {
     const response = await API.updateUser(data, defaultValues?.id as number)
     console.log(defaultValues?.id)
-    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+    if (response.status === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
-    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+    } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
     } else {

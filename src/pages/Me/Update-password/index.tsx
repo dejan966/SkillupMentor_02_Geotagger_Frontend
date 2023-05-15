@@ -31,7 +31,7 @@ const UserPasswordEdit: FC = () => {
       {queryToken ? (
         <Layout>
           {queryToken === tokenFromDB && currTime < tokenExpTime ? (
-            <UpdatePasswordForm />
+            <UpdatePasswordForm token={queryToken} />
           ) : (
             <h1>Invalid token</h1>
           )}

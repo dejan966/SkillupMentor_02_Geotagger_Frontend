@@ -37,7 +37,6 @@ const PasswordResetForm = () => {
       setApiError(response.data.message)
       setShowError(true)
     } else {
-
       togglePopup()
     }
   }

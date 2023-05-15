@@ -35,10 +35,10 @@ const UserInfo: FC = () => {
 
   const signout = async () => {
     const response = await API.signout()
-    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+    if (response.status === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
-    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+    } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
     } else {
@@ -50,10 +50,10 @@ const UserInfo: FC = () => {
 
   const handleDeleteAcc = async (id: number) => {
     const response = await API.deleteUser(id)
-    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+    if (response.status === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
-    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+    } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
     }

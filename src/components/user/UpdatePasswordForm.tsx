@@ -10,13 +10,23 @@ import {
 import { Button, FormLabel, Form, Toast, ToastContainer } from 'react-bootstrap'
 import { routes } from 'constants/routesConstants'
 import { Controller } from 'react-hook-form'
+import SuccessPopup from 'pages/Success'
 
-const UpdatePasswordForm: FC = () => {
+interface Props{
+  token:string
+}
+
+const UpdatePasswordForm: FC<Props> = (token) => {
   const navigate = useNavigate()
   const { handleSubmit, errors, control } = useUpdateUserForm({})
 
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen)
+  }
 
   const onSubmit = handleSubmit(async (data: UpdateUserFields) => {
     handleUpdate(data as UpdateUserFields)
@@ -24,14 +34,23 @@ const UpdatePasswordForm: FC = () => {
 
   const handleUpdate = async (data: UpdateUserFields) => {
     const response = await API.updateUserPass(data)
-    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+    if (response.status === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
-    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+    } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
     } else {
-      navigate('/me')
+      const responseToken = await API.deleteToken(token.token)
+      if (responseToken.status === StatusCode.BAD_REQUEST) {
+        setApiError(responseToken.message)
+        setShowError(true)
+      } else if (responseToken.status === StatusCode.INTERNAL_SERVER_ERROR) {
+        setApiError(responseToken.message)
+        setShowError(true)
+      } else {
+        togglePopup()
+      }
     }
   }
 
@@ -153,6 +172,25 @@ const UpdatePasswordForm: FC = () => {
           </a>
         </div>
       </Form>
+      {isOpen && (
+          <SuccessPopup
+            content={
+              <>
+                <p>
+                  Your password was successfully{' '}
+                  <span className="green">changed</span>.
+                </p>
+                <Button
+                  className="btnRegister"
+                  href={routes.HOME}
+                  style={{ borderColor: '#DE8667' }}
+                >
+                  Close
+                </Button>
+              </>
+            }
+          />
+        )}
       {showError && (
         <ToastContainer className="p-3" position="top-end">
           <Toast onClose={() => setShowError(false)} show={showError}>

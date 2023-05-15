@@ -7,3 +7,9 @@ export const fetchTokenInfo = async (token: string) =>
     'get',
     `${apiRoutes.PASSWORD_RESET_PREFIX}/user/${token}`,
   )
+
+export const deleteToken = async (token: string) =>
+  apiRequest<string, PasswordResetType>(
+    'delete',
+    `${apiRoutes.PASSWORD_RESET_PREFIX}/delete/${token}`,
+  )
