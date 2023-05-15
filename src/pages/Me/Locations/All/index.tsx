@@ -7,7 +7,7 @@ import authStore from 'stores/auth.store'
 import { StatusCode } from 'constants/errorConstants'
 import { useNavigate } from 'react-router-dom'
 import { GuessType } from 'models/guess'
-import LocationBlock from 'pages/LocationBlock'
+import LocationBlock from 'components/location/LocationBlock'
 import { LocationType } from 'models/location'
 import { routes } from 'constants/routesConstants'
 

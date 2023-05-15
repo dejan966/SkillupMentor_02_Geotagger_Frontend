@@ -5,7 +5,7 @@ import { FC, useState } from 'react'
 import { Button, Toast, ToastContainer } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import authStore from 'stores/auth.store'
-import SuccessPopup from './Success'
+import SuccessPopup from '../../pages/Success'
 import * as API from 'api/Api'
 import { StatusCode } from 'constants/errorConstants'
 
@@ -31,10 +31,10 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
 
   const deleteLocation = async (locationId: number) => {
     const response = await API.deleteLocation(locationId)
-    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+    if (response.status === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
-    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+    } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
     }

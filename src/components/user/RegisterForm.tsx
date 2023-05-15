@@ -27,10 +27,10 @@ const RegisterForm: FC = () => {
 
   const onSubmit = handleSubmit(async (data: RegisterUserFields) => {
     const response = await API.register(data)
-    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+    if (response.status === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
-    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+    } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
     } else {

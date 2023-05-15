@@ -24,10 +24,10 @@ const Navbar: FC = () => {
 
   const signout = async () => {
     const response = await API.signout()
-    if (response.data?.statusCode === StatusCode.BAD_REQUEST) {
+    if (response.status === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
       setShowError(true)
-    } else if (response.data?.statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+    } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
       setShowError(true)
     } else {
@@ -62,16 +62,18 @@ const Navbar: FC = () => {
                 <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
                   <ul className="navbar-nav">
                     <div className="d-flex align-items-center">
-                      <img
-                        src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${authStore.user?.avatar}`}
-                        className="userAvatar"
-                        alt="User avatar"
-                      />
-                      <div>
-                        {authStore.user.first_name +
-                          ' ' +
-                          authStore.user.last_name}
-                      </div>
+                      <Link to={routes.USERLOCATIONSINFO}>
+                        <img
+                          src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${authStore.user?.avatar}`}
+                          className="userAvatar"
+                          alt="User avatar"
+                        />
+                        <div>
+                          {authStore.user.first_name +
+                            ' ' +
+                            authStore.user.last_name}
+                        </div>
+                      </Link>
                     </div>
                     <li className="nav-item">
                       <NavLink className="nav-link" to={routes.HOME}>
@@ -79,7 +81,7 @@ const Navbar: FC = () => {
                       </NavLink>
                     </li>
                     <li className="nav-item">
-                      <NavLink className="nav-link" to={routes.SIGNUP}>
+                      <NavLink className="nav-link" to={routes.USERINFO}>
                         Profile settings
                       </NavLink>
                     </li>

@@ -3,7 +3,7 @@ import * as API from 'api/Api'
 import { useQuery } from 'react-query'
 import Layout from 'components/ui/Layout'
 import { LocationType } from 'models/location'
-import LocationBlock from 'pages/LocationBlock'
+import LocationBlock from 'components/location/LocationBlock'
 import { Button } from 'react-bootstrap'
 
 const LocationsDisplay: FC = () => {
