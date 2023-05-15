@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { FC, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { StatusCode } from 'constants/errorConstants'
 import * as API from 'api/Api'
 import {
@@ -10,18 +10,33 @@ import {
 import { Button, FormLabel, Form, Toast, ToastContainer } from 'react-bootstrap'
 import { routes } from 'constants/routesConstants'
 import { Controller } from 'react-hook-form'
+import { useQuery } from 'react-query'
 
-const UpdatePasswordForm: FC = () => {
+interface Props{
+  token?:string
+}
+
+const UpdatePasswordForm: FC<Props> = (token) => {
   const navigate = useNavigate()
-  const location = useLocation()
   const { handleSubmit, errors, control } = useUpdateUserForm({})
 
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
+  const [tokenExpiration, setTokenExpiration] = useState<Date>()
+  const [tokenFromDB, setTokenFromDB] = useState()
 
-  const queryParams = new URLSearchParams(location.search)
-  const token = queryParams.get('token')
-  console.log(token)
+  const {data:password_token_data, status:password_token_status} = useQuery(
+    ['password_token_info'],
+    ()=>API.fetchTokenInfo(token.token!),
+    {
+      onSuccess(data){
+        setTokenExpiration(data.data.token_expiry_date)
+        setTokenFromDB(data.data.token)
+      },
+      refetchOnWindowFocus: false,
+    },
+  )
+
   
   const onSubmit = handleSubmit(async (data: UpdateUserFields) => {
     handleUpdate(data as UpdateUserFields)
