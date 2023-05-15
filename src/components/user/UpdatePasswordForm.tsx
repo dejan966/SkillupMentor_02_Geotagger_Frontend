@@ -10,34 +10,14 @@ import {
 import { Button, FormLabel, Form, Toast, ToastContainer } from 'react-bootstrap'
 import { routes } from 'constants/routesConstants'
 import { Controller } from 'react-hook-form'
-import { useQuery } from 'react-query'
 
-interface Props{
-  token?:string
-}
-
-const UpdatePasswordForm: FC<Props> = (token) => {
+const UpdatePasswordForm: FC = () => {
   const navigate = useNavigate()
   const { handleSubmit, errors, control } = useUpdateUserForm({})
 
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
-  const [tokenExpiration, setTokenExpiration] = useState<Date>()
-  const [tokenFromDB, setTokenFromDB] = useState()
 
-  const {data:password_token_data, status:password_token_status} = useQuery(
-    ['password_token_info'],
-    ()=>API.fetchTokenInfo(token.token!),
-    {
-      onSuccess(data){
-        setTokenExpiration(data.data.token_expiry_date)
-        setTokenFromDB(data.data.token)
-      },
-      refetchOnWindowFocus: false,
-    },
-  )
-
-  
   const onSubmit = handleSubmit(async (data: UpdateUserFields) => {
     handleUpdate(data as UpdateUserFields)
   })
