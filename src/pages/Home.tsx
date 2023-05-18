@@ -34,6 +34,7 @@ const Home: FC = () => {
       {authStore.user ? (
         <>
           <div className="mt-3">
+            {/*LocationList loadmore title desc status data */}
             <div className="text-start">
               <h3 className="green">Personal best guesses</h3>
               <p>
