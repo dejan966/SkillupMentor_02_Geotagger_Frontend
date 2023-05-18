@@ -24,7 +24,7 @@ const UserPasswordEdit = lazy(() => import('pages/Me/Update-password'))
 const UserPasswordReset = lazy(() => import('pages/Me/Reset-password'))
 const UserAvatarEdit = lazy(() => import('pages/Me/Update-avatar'))
 
-const LocationsAdd = lazy(() => import('pages/Me/Mylocation'))
+const LocationsAdd = lazy(() => import('pages/Me/Mylocation/Add'))
 const LocationsEdit = lazy(() => import('pages/Me/Mylocation/Edit'))
 
 const Guess = lazy(() => import('pages/Guess/Location'))
@@ -83,7 +83,7 @@ export const AppRoutes: AppRoute[] = [
   },
   {
     type: RouteType.PRIVATE,
-    path: '/me/mylocation',
+    path: '/me/mylocation/add',
     children: <LocationsAdd />,
   },
   {

@@ -47,14 +47,14 @@ const Home: FC = () => {
                 personalBest.data.data.length > 0 &&
                 personalBestStatus === 'success' ? (
                   <div className="locationRow">
-                    {personalBest.data.data
+                    {personalBest?.data.data
                       .slice(0, 3)
                       .map((item: GuessType, index: number) => (
                         <LocationBlock locationGuess={item} key={index} />
                       ))}
                   </div>
                 ) : (
-                  <div>You havent made any guesses yet.</div>
+                  <div className='mb-3'>You havent made any guesses yet.</div>
                 )}
               </div>
             </div>
@@ -85,7 +85,7 @@ const Home: FC = () => {
                     )}
                   </div>
                 ) : (
-                  <div>No locations available.</div>
+                  <div className='mb-3'>No locations available.</div>
                 )}
               </div>
             </div>
@@ -98,7 +98,7 @@ const Home: FC = () => {
         </>
       ) : (
         <>
-          <div className="py-4 grid mb-5 text-center">
+          <div className="py-4 grid text-center">
             <div className="text-start">
               <h1 className="display-2 green">
                 Explore the world with Geotagger!

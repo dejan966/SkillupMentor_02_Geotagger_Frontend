@@ -1,4 +1,4 @@
-import { UserType } from "./auth"
+import { UserType } from './auth'
 
 export type PasswordResetType = {
     token:string

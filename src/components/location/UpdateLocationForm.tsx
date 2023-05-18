@@ -58,7 +58,7 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
       setApiError(fileResponse.data.message)
       setShowError(true)
     } else {
-      navigate('/')
+      togglePopup()
     }
   }
 
@@ -150,13 +150,7 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
             accept="image/png, 'image/jpg', image/jpeg"
           />
           <div className="justify-content-end">
-            <Button
-              className="btnRegister mx-3"
-              onClick={() => {
-                togglePopup()
-              }}
-              type="submit"
-            >
+            <Button className="btnRegister mx-3" type="submit">
               Save
             </Button>
             <a
@@ -167,28 +161,28 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
               Cancel
             </a>
           </div>
-          {/*           {isOpen && (
-          <SuccessPopup
-            content={
-              <>
-                <p className="text fs-5">
-                  Your <span className="green">location</span> was edited.
-                </p>
-                <div className="text-center">
-                  <Button
-                    className="btnRegister col-md-3"
-                    onClick={() => {
-                      togglePopup()
-                    }}
-                    type="submit"
-                  >
-                    Close
-                  </Button>
-                </div>
-              </>
-            }
-          />
-        )} */}
+          {isOpen && (
+            <SuccessPopup
+              content={
+                <>
+                  <p className="text fs-5">
+                    Your <span className="green">location</span> was edited.
+                  </p>
+                  <div className="text-center">
+                    <Button
+                      href="/"
+                      className="btnRegister col-md-3"
+                      onClick={() => {
+                        togglePopup()
+                      }}
+                    >
+                      Close
+                    </Button>
+                  </div>
+                </>
+              }
+            />
+          )}
         </div>
       </Form>
       {showError && (

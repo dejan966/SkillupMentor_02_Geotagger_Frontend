@@ -12,8 +12,8 @@ import { routes } from 'constants/routesConstants'
 import { Controller } from 'react-hook-form'
 import SuccessPopup from 'pages/Success'
 
-interface Props{
-  token:string
+interface Props {
+  token: string
 }
 
 const UpdatePasswordForm: FC<Props> = (token) => {
@@ -173,24 +173,24 @@ const UpdatePasswordForm: FC<Props> = (token) => {
         </div>
       </Form>
       {isOpen && (
-          <SuccessPopup
-            content={
-              <>
-                <p>
-                  Your password was successfully{' '}
-                  <span className="green">changed</span>.
-                </p>
-                <Button
-                  className="btnRegister"
-                  href={routes.HOME}
-                  style={{ borderColor: '#DE8667' }}
-                >
-                  Close
-                </Button>
-              </>
-            }
-          />
-        )}
+        <SuccessPopup
+          content={
+            <>
+              <p>
+                Your password was successfully{' '}
+                <span className="green">changed</span>.
+              </p>
+              <Button
+                className="btnRegister"
+                href={routes.HOME}
+                style={{ borderColor: '#DE8667' }}
+              >
+                Close
+              </Button>
+            </>
+          }
+        />
+      )}
       {showError && (
         <ToastContainer className="p-3" position="top-end">
           <Toast onClose={() => setShowError(false)} show={showError}>
