@@ -93,7 +93,7 @@ const CreateLocationForm: FC = () => {
   }
 
   const clearImg = () => {
-    setPreview('/default_location.png')
+    setPreview('/location_placeholder.png')
   }
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const CreateLocationForm: FC = () => {
       }
       reader.readAsDataURL(file)
     } else {
-      setPreview('/default_location.png')
+      setPreview('/location_placeholder.png')
     }
   }, [file])
 

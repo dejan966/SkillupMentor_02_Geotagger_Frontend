@@ -34,7 +34,7 @@ const Home: FC = () => {
     <Layout>
       {authStore.user ? (
         <>
-          <div className="mt-3">
+          <div className="mt-3 text-start">
             <LocationList
               title="Personal best guesses"
               desc="Your personal best guesses appear here. Go on and try to beat
@@ -44,7 +44,7 @@ const Home: FC = () => {
               loadmore
             />
           </div>
-          <div>
+          <div className="text-start">
             <LocationList
               title="New locations"
               desc="New uploads from users. Try to guess all the locations by
@@ -80,7 +80,7 @@ const Home: FC = () => {
               />
             </div>
           </div>
-          <div>
+          <div className="text-center mx-auto">
             <LocationList
               title="Try yourself at Geotagger!"
               desc="Try to guess the location of the images by selecting a position
