@@ -222,7 +222,7 @@ const GuessForm: FC = () => {
           </ToastContainer>
         )}
       </div>
-      <div>
+      {/* <div>
         <h2>Leaderboard</h2>
         <div>
           {personalBestAllStatus === 'error' && <p>Error fetching data</p>}
@@ -329,7 +329,7 @@ const GuessForm: FC = () => {
             </>
           )}
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
