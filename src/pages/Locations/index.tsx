@@ -2,59 +2,41 @@ import { FC, useState } from 'react'
 import * as API from 'api/Api'
 import { useQuery } from 'react-query'
 import Layout from 'components/ui/Layout'
-import { LocationType } from 'models/location'
-import LocationBlock from 'components/location/LocationBlock'
-import { Button } from 'react-bootstrap'
+import LocationList from 'components/location/LocationList'
+import { useLocation } from 'react-router-dom'
 
 const LocationsDisplay: FC = () => {
   const [pageNumber, setPageNumber] = useState(1)
   const { data: allLocations, status: locationStatus } = useQuery(
-    ['allLocationsAll', pageNumber],
+    ['allLocations', pageNumber],
     () => API.fetchLocations(pageNumber),
     {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
     },
   )
-  console.log(pageNumber)
+
+  const changePage = (upDown: string) =>{
+    if(upDown === 'next'){
+      setPageNumber((prev) => prev + 1)
+    } else if(upDown === 'prev'){
+      setPageNumber((prev) => prev - 1)
+    }
+    return pageNumber
+  }
+
   return (
     <Layout>
       <div className="mb-3">
-        {locationStatus === 'error' && <p>Error fetching data</p>}
-        {locationStatus === 'loading' && <p>Loading data...</p>}
-        {allLocations &&
-        allLocations.data.data.length > 0 &&
-        locationStatus === 'success' ? (
-          <>
-            <div className="locationRow">
-              {allLocations.data.data.map(
-                (item: LocationType, index: number) => (
-                  <LocationBlock location={item} key={index} />
-                ),
-              )}
-            </div>
-            {allLocations.data.meta.last_page > 1 && (
-              <div className="d-flex justify-content-between">
-                <Button
-                  className="btnRegister me-2"
-                  onClick={() => setPageNumber((prev) => prev - 1)}
-                  disabled={pageNumber === 1}
-                >
-                  Prev page
-                </Button>
-                <Button
-                  className="btnRegister"
-                  onClick={() => setPageNumber((prev) => prev + 1)}
-                  disabled={pageNumber === allLocations.data.meta.last_page}
-                >
-                  Next page
-                </Button>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="text-center">No locations available.</div>
-        )}
+        <LocationList
+          title="New locations"
+          desc="New uploads from users. Try to guess all the locations by
+              pressing on a picture."
+          locationData={allLocations}
+          status={locationStatus}
+          changePage={changePage}
+          multiplePages
+        /> 
       </div>
     </Layout>
   )

@@ -11,6 +11,9 @@ interface Props {
   status: string
   locationData?: any
   guessData?: any
+  changePage?: (
+    upDown: string
+  )=>number
   loadmore?: boolean
   multiplePages?: boolean
 }
@@ -21,6 +24,7 @@ const LocationList: FC<Props> = ({
   status,
   locationData,
   guessData,
+  changePage,
   loadmore,
   multiplePages,
 }) => {
@@ -68,14 +72,14 @@ const LocationList: FC<Props> = ({
                     <div className="d-flex justify-content-between">
                       <Button
                         className="btnRegister me-2"
-                        onClick={() => setPageNumber((prev) => prev - 1)}
+                        onClick={() => setPageNumber(changePage!('prev'))}
                         disabled={pageNumber === 1}
                       >
                         Prev page
                       </Button>
                       <Button
                         className="btnRegister"
-                        onClick={() => setPageNumber((prev) => prev + 1)}
+                        onClick={() => setPageNumber(changePage!('next'))}
                         disabled={
                           pageNumber === locationData.data.meta.last_page
                         }
@@ -132,44 +136,7 @@ const LocationList: FC<Props> = ({
               <div className="mb-3">You havent made any guesses yet.</div>
             )}
           </div>
-          {loadmore || multiplePages ? (
-            <>
-              {multiplePages && !loadmore ? (
-                <>
-                  {guessData.data.meta.last_page > 1 && (
-                    <div className="d-flex justify-content-between">
-                      <Button
-                        className="btnRegister me-2"
-                        onClick={() => setPageNumber((prev) => prev - 1)}
-                        disabled={pageNumber === 1}
-                      >
-                        Prev page
-                      </Button>
-                      <Button
-                        className="btnRegister"
-                        onClick={() => setPageNumber((prev) => prev + 1)}
-                        disabled={
-                          pageNumber === guessData.data.meta.last_page
-                        }
-                      >
-                        Next page
-                      </Button>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="mb-3 text-center mx-auto">
-                  <Button href={routes.ALLGUESSES} className="btnLoadMore">
-                    Load more
-                  </Button>
-                </div>
-              )}
-            </>
-          ) : (
-            <Button className="btnRegister" href={routes.SIGNUP}>
-              Sign up
-            </Button>
-          )}
+          
         </>
       )}
     </>

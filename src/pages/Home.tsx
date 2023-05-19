@@ -1,5 +1,5 @@
 import Layout from 'components/ui/Layout'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { routes } from 'constants/routesConstants'
 import authStore from 'stores/auth.store'
@@ -29,7 +29,7 @@ const Home: FC = () => {
       refetchOnWindowFocus: false,
     },
   )
-
+ 
   return (
     <Layout>
       {authStore.user ? (
