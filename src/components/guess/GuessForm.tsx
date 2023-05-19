@@ -231,157 +231,161 @@ const GuessForm: FC = () => {
             personalBestAll.data.length > 0 &&
             personalBestAllStatus === 'success' && (
               <>
-                {personalBestAll?.data.map(
-                  (item: GuessType, index: number) => (
-                    <>
-                      {item.user ? (
-                        <>
+                {personalBestAll?.data.map((item: GuessType, index: number) => (
+                  <>
+                    {item.user ? (
+                      <>
                         {item.user.first_name === authStore.user?.first_name &&
-                      item.user.last_name === authStore.user?.last_name ? (
-                        <div
-                          className="leaderboardRow me"
-                          key={index}
-                          style={{ width: 400 }}
-                        >
-                          {index + 1 === 1 ? (
-                            <div className="ms-2 leaderboardPlace gold">
-                              {index + 1}
-                            </div>
-                          ) : (
-                            <>
-                              {index + 1 === 2 ? (
-                                <div className="ms-2 leaderboardPlace silver">
-                                  {index + 1}
-                                </div>
-                              ) : (
-                                <>
-                                  {index + 1 === 3 ? (
-                                    <div className="ms-2 leaderboardPlace bronze">
-                                      {index + 1}
-                                    </div>
-                                  ) : (
-                                    <div className="ms-2 leaderboardPlace none">
-                                      {index + 1}
-                                    </div>
-                                  )}
-                                </>
-                              )}
-                            </>
-                          )}
-                          <img
-                            src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${item.user.avatar}`}
-                            alt="user avatar"
-                            className="userAvatar"
-                          />
-                          <div>
-                            <div>You</div>
-                            {new Date().getDate() ===
-                            new Date(item.created_at).getDate() ? (
-                              <div>
-                                {new Date(item.created_at).toLocaleTimeString()}
+                        item.user.last_name === authStore.user?.last_name ? (
+                          <div
+                            className="leaderboardRow me"
+                            key={index}
+                            style={{ width: 400 }}
+                          >
+                            {index + 1 === 1 ? (
+                              <div className="ms-2 leaderboardPlace gold">
+                                {index + 1}
                               </div>
                             ) : (
+                              <>
+                                {index + 1 === 2 ? (
+                                  <div className="ms-2 leaderboardPlace silver">
+                                    {index + 1}
+                                  </div>
+                                ) : (
+                                  <>
+                                    {index + 1 === 3 ? (
+                                      <div className="ms-2 leaderboardPlace bronze">
+                                        {index + 1}
+                                      </div>
+                                    ) : (
+                                      <div className="ms-2 leaderboardPlace none">
+                                        {index + 1}
+                                      </div>
+                                    )}
+                                  </>
+                                )}
+                              </>
+                            )}
+                            <img
+                              src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${item.user.avatar}`}
+                              alt="user avatar"
+                              className="userAvatar"
+                            />
+                            <div>
+                              <div>You</div>
+                              {new Date().getDate() ===
+                              new Date(item.created_at).getDate() ? (
+                                <div>
+                                  {new Date(
+                                    item.created_at,
+                                  ).toLocaleTimeString()}
+                                </div>
+                              ) : (
+                                <div>
+                                  {new Date(
+                                    item.created_at,
+                                  ).toLocaleDateString()}
+                                </div>
+                              )}
+                            </div>
+                            <div>{item.errorDistance} m</div>
+                          </div>
+                        ) : (
+                          <div
+                            className="leaderboardRow"
+                            key={index}
+                            style={{ width: 400 }}
+                          >
+                            {index + 1 === 1 ? (
+                              <div className="ms-2 leaderboardPlace gold">
+                                {index + 1}
+                              </div>
+                            ) : (
+                              <>
+                                {index + 1 === 2 ? (
+                                  <div className="ms-2 leaderboardPlace silver">
+                                    {index + 1}
+                                  </div>
+                                ) : (
+                                  <>
+                                    {index + 1 === 3 ? (
+                                      <div className="ms-2 leaderboardPlace bronze">
+                                        {index + 1}
+                                      </div>
+                                    ) : (
+                                      <div className="ms-2 leaderboardPlace none">
+                                        {index + 1}
+                                      </div>
+                                    )}
+                                  </>
+                                )}
+                              </>
+                            )}
+                            <img
+                              src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${item.user.avatar}`}
+                              alt="user avatar"
+                              className="userAvatar"
+                            />
+                            <div>
+                              <div>
+                                {item.user.first_name} {item.user.last_name}
+                              </div>
                               <div>
                                 {new Date(item.created_at).toLocaleDateString()}
                               </div>
+                            </div>
+                            <div>{item.errorDistance} m</div>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div
+                        className="leaderboardRow"
+                        key={index}
+                        style={{ width: 400 }}
+                      >
+                        {index + 1 === 1 ? (
+                          <div className="ms-2 leaderboardPlace gold">
+                            {index + 1}
+                          </div>
+                        ) : (
+                          <>
+                            {index + 1 === 2 ? (
+                              <div className="ms-2 leaderboardPlace silver">
+                                {index + 1}
+                              </div>
+                            ) : (
+                              <>
+                                {index + 1 === 3 ? (
+                                  <div className="ms-2 leaderboardPlace bronze">
+                                    {index + 1}
+                                  </div>
+                                ) : (
+                                  <div className="ms-2 leaderboardPlace none">
+                                    {index + 1}
+                                  </div>
+                                )}
+                              </>
                             )}
-                          </div>
-                          <div>{item.errorDistance} m</div>
-                        </div>
-                      ) : (
-                        <div
-                          className="leaderboardRow"
-                          key={index}
-                          style={{ width: 400 }}
-                        >
-                          {index + 1 === 1 ? (
-                            <div className="leaderboardPlace gold">
-                              {index + 1}
-                            </div>
-                          ) : (
-                            <>
-                              {index + 1 === 2 ? (
-                                <div className="leaderboardPlace silver">
-                                  {index + 1}
-                                </div>
-                              ) : (
-                                <>
-                                  {index + 1 === 3 ? (
-                                    <div className="leaderboardPlace bronze">
-                                      {index + 1}
-                                    </div>
-                                  ) : (
-                                    <div className="leaderboardPlace none">
-                                      {index + 1}
-                                    </div>
-                                  )}
-                                </>
-                              )}
-                            </>
-                          )}
-                          <img
-                            src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${item.user.avatar}`}
-                            alt="user avatar"
-                            className="userAvatar"
-                          />
+                          </>
+                        )}
+                        <img
+                          src={`${process.env.REACT_APP_API_URL}/uploads/avatars/default_profile.svg`}
+                          alt="user avatar"
+                          className="userAvatar"
+                        />
+                        <div style={{ color: 'black' }}>
+                          <div>Unknown</div>
                           <div>
-                            <div>
-                              {item.user.first_name} {item.user.last_name}
-                            </div>
-                            <div>{new Date(item.created_at).toLocaleDateString()}</div>
+                            {new Date(item.created_at).toLocaleDateString()}
                           </div>
-                          <div>{item.errorDistance} m</div>
                         </div>
-                      )}
-                        </>
-                      ):(
-                        <div
-                          className="leaderboardRow"
-                          key={index}
-                          style={{ width: 400 }}
-                        >
-                          {index + 1 === 1 ? (
-                            <div className="leaderboardPlace gold">
-                              {index + 1}
-                            </div>
-                          ) : (
-                            <>
-                              {index + 1 === 2 ? (
-                                <div className="leaderboardPlace silver">
-                                  {index + 1}
-                                </div>
-                              ) : (
-                                <>
-                                  {index + 1 === 3 ? (
-                                    <div className="leaderboardPlace bronze">
-                                      {index + 1}
-                                    </div>
-                                  ) : (
-                                    <div className="leaderboardPlace none">
-                                      {index + 1}
-                                    </div>
-                                  )}
-                                </>
-                              )}
-                            </>
-                          )}
-                          <img
-                            src={`${process.env.REACT_APP_API_URL}/uploads/avatars/default_profile.svg`}
-                            alt="user avatar"
-                            className="userAvatar"
-                          />
-                          <div style={{color:'black'}}>
-                            <div>
-                              Unknown
-                            </div>
-                            <div>{new Date(item.created_at).toLocaleDateString()}</div>
-                          </div>
-                          <div>{item.errorDistance} m</div>
-                        </div>
-                      )}
-                    </>
-                  ),
-                )}
+                        <div>{item.errorDistance} m</div>
+                      </div>
+                    )}
+                  </>
+                ))}
               </>
             )}
         </div>

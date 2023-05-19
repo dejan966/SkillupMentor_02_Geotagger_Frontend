@@ -6,9 +6,6 @@ import authStore from 'stores/auth.store'
 import { useQuery } from 'react-query'
 import * as API from 'api/Api'
 import { useNavigate } from 'react-router-dom'
-import { LocationType } from 'models/location'
-import { GuessType } from 'models/guess'
-import LocationBlock from '../components/location/LocationBlock'
 import LocationList from 'components/location/LocationList'
 
 const Home: FC = () => {
@@ -35,7 +32,8 @@ const Home: FC = () => {
       {authStore.user ? (
         <>
           <div className="mt-3 text-start">
-            <LocationList
+            {personalBest && (
+              <LocationList
               title="Personal best guesses"
               desc="Your personal best guesses appear here. Go on and try to beat
                 your personal records or set a new one!"
@@ -43,6 +41,7 @@ const Home: FC = () => {
               guessData={personalBest}
               loadmore
             />
+            )}
           </div>
           <div className="text-start">
             <LocationList

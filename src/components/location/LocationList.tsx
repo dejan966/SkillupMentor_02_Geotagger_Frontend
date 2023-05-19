@@ -11,9 +11,8 @@ interface Props {
   status: string
   locationData?: any
   guessData?: any
-  changePage?: (
-    upDown: string
-  )=>number
+  pageNumber?: number
+  setPageNumber?: React.Dispatch<React.SetStateAction<number>>
   loadmore?: boolean
   multiplePages?: boolean
 }
@@ -24,23 +23,24 @@ const LocationList: FC<Props> = ({
   status,
   locationData,
   guessData,
-  changePage,
+  pageNumber,
+  setPageNumber,
   loadmore,
   multiplePages,
 }) => {
-  const [pageNumber, setPageNumber] = useState(1)
   return (
     <>
-      {locationData ? (
+      <h3 className="green">{title}</h3>
+      <p>{desc}</p>
+      {status === 'error' && <p>Error fetching data</p>}
+      {status === 'loading' ? (
+        <p>Loading data...</p>
+      ) : (
         <>
-          <h3 className="green">{title}</h3>
-          <p>{desc}</p>
-          <div>
-            {status === 'error' && <p>Error fetching data</p>}
-            {status === 'loading' && <p>Loading data...</p>}
-            {locationData &&
-            locationData.data.data.length > 0 &&
-            status === 'success' ? (
+          {locationData &&
+          locationData.data.data.length > 0 &&
+          status === 'success' ? (
+            <>
               <div className="locationRow">
                 {multiplePages ? (
                   <>
@@ -60,59 +60,50 @@ const LocationList: FC<Props> = ({
                   </>
                 )}
               </div>
-            ) : (
-              <div className="mb-3">No locations available.</div>
-            )}
-          </div>
-          {loadmore || multiplePages ? (
-            <>
-              {multiplePages && !loadmore ? (
+              {loadmore || multiplePages ? (
                 <>
-                  {locationData.data.meta.last_page > 1 && (
-                    <div className="d-flex justify-content-between">
+                  {multiplePages && !loadmore ? (
+                    <>
+                      {locationData.data.meta.last_page > 1 && (
+                        <div className="d-flex justify-content-between">
+                          <Button
+                            className="btnRegister me-2"
+                            onClick={() => setPageNumber!((prev) => prev - 1)}
+                            disabled={pageNumber === 1}
+                          >
+                            Prev page
+                          </Button>
+                          <Button
+                            className="btnRegister"
+                            onClick={() => setPageNumber!((prev) => prev + 1)}
+                            disabled={
+                              pageNumber === locationData.data.meta.last_page
+                            }
+                          >
+                            Next page
+                          </Button>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="mb-3 text-center mx-auto">
                       <Button
-                        className="btnRegister me-2"
-                        onClick={() => setPageNumber(changePage!('prev'))}
-                        disabled={pageNumber === 1}
+                        href={routes.ALLLOCATIONS}
+                        className="btnLoadMore"
                       >
-                        Prev page
-                      </Button>
-                      <Button
-                        className="btnRegister"
-                        onClick={() => setPageNumber(changePage!('next'))}
-                        disabled={
-                          pageNumber === locationData.data.meta.last_page
-                        }
-                      >
-                        Next page
+                        Load more
                       </Button>
                     </div>
                   )}
                 </>
               ) : (
-                <div className="mb-3 text-center mx-auto">
-                  <Button href={routes.ALLLOCATIONS} className="btnLoadMore">
-                    Load more
-                  </Button>
-                </div>
+                <Button className="btnRegister" href={routes.SIGNUP}>
+                  Sign up
+                </Button>
               )}
             </>
           ) : (
-            <Button className="btnRegister" href={routes.SIGNUP}>
-              Sign up
-            </Button>
-          )}
-        </>
-      ) : (
-        <>
-          <h3 className="green">{title}</h3>
-          <p>{desc}</p>
-          <div>
-            {status === 'error' && <p>Error fetching data</p>}
-            {status === 'loading' && <p>Loading data...</p>}
-            {guessData &&
-            guessData.data.data.length > 0 &&
-            status === 'success' ? (
+            <>
               <div className="locationRow">
                 {multiplePages ? (
                   <>
@@ -132,11 +123,46 @@ const LocationList: FC<Props> = ({
                   </>
                 )}
               </div>
-            ) : (
-              <div className="mb-3">You havent made any guesses yet.</div>
-            )}
-          </div>
-          
+              {loadmore || multiplePages ? (
+                <>
+                  {multiplePages && !loadmore ? (
+                    <>
+                      {guessData.data.meta.last_page > 1 && (
+                        <div className="d-flex justify-content-between">
+                          <Button
+                            className="btnRegister me-2"
+                            onClick={() => setPageNumber!((prev) => prev - 1)}
+                            disabled={pageNumber === 1}
+                          >
+                            Prev page
+                          </Button>
+                          <Button
+                            className="btnRegister"
+                            onClick={() => setPageNumber!((prev) => prev + 1)}
+                            disabled={
+                              pageNumber === guessData.data.meta.last_page
+                            }
+                          >
+                            Next page
+                          </Button>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="mb-3 text-center mx-auto">
+                      <Button href={routes.ALLGUESSES} className="btnLoadMore">
+                        Load more
+                      </Button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Button className="btnRegister" href={routes.SIGNUP}>
+                  Sign up
+                </Button>
+              )}
+            </>
+          )}
         </>
       )}
     </>

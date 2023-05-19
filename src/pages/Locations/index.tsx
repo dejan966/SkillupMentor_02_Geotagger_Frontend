@@ -15,16 +15,6 @@ const LocationsDisplay: FC = () => {
       refetchOnWindowFocus: false,
     },
   )
-
-  const changePage = (upDown: string) =>{
-    if(upDown === 'next'){
-      setPageNumber((prev) => prev + 1)
-    } else if(upDown === 'prev'){
-      setPageNumber((prev) => prev - 1)
-    }
-    return pageNumber
-  }
-
   return (
     <Layout>
       <div className="mb-3">
@@ -34,7 +24,8 @@ const LocationsDisplay: FC = () => {
               pressing on a picture."
           locationData={allLocations}
           status={locationStatus}
-          changePage={changePage}
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
           multiplePages
         /> 
       </div>
