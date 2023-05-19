@@ -110,11 +110,23 @@ const LocationList: FC<Props> = ({
             guessData.data.data.length > 0 &&
             status === 'success' ? (
               <div className="locationRow">
-                {guessData?.data.data
-                  .slice(0, 3)
-                  .map((item: GuessType, index: number) => (
-                    <LocationBlock locationGuess={item} key={index} />
-                  ))}
+                {multiplePages ? (
+                  <>
+                    {guessData?.data.data.map(
+                      (item: GuessType, index: number) => (
+                        <LocationBlock locationGuess={item} key={index} />
+                      ),
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {guessData?.data.data
+                      .slice(0, 3)
+                      .map((item: GuessType, index: number) => (
+                        <LocationBlock locationGuess={item} key={index} />
+                      ))}
+                  </>
+                )}
               </div>
             ) : (
               <div className="mb-3">You havent made any guesses yet.</div>
