@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button'
 import { routes } from 'constants/routesConstants'
 import { FC, useState } from 'react'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Toast from 'react-bootstrap/Toast'
 import authStore from 'stores/auth.store'
@@ -11,7 +11,6 @@ import * as API from 'api/Api'
 import useMediaQuery from 'hooks/useMediaQuery'
 
 const Navbar: FC = () => {
-  const location = useLocation()
   const { isMobile } = useMediaQuery(1038)
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
@@ -175,7 +174,7 @@ const Navbar: FC = () => {
                     <>
                       <li className="nav-item pe-4">
                         <a
-                          className="text-decoration-none textColor"
+                          className="text-decoration-none"
                           href={routes.HOME}
                         >
                           Home
@@ -183,19 +182,19 @@ const Navbar: FC = () => {
                       </li>
                       <li className="nav-item pe-4">
                         <a
-                          className="text-decoration-none textColor"
+                          className="text-decoration-none"
                           href={routes.USERINFO}
                         >
                           Profile settings
                         </a>
                       </li>
                       <li className="nav-item pe-4">
-                        <a
-                          className="text-decoration-none textColor"
+                        <p
+                          style={{color:'#619E89'}}
                           onClick={signout}
                         >
                           Logout
-                        </a>
+                        </p>
                       </li>
                       <li className="nav-item pe-3">
                         <Link to={routes.USERLOCATIONSINFO}>

@@ -91,7 +91,6 @@ const GuessForm: FC = () => {
     ).then(
       (response) => {
         const addressFromCoordinats = response.results[0].formatted_address
-        console.log(addressFromCoordinats)
         setAddress({ location: addressFromCoordinats })
       },
       (error) => {
@@ -122,7 +121,7 @@ const GuessForm: FC = () => {
       navigate('/')
     }
   })
-  console.log(personalBestAll)
+
   return (
     <div className="grid">
       <div className="me-3">

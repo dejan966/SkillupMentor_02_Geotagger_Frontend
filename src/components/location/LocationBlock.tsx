@@ -2,7 +2,7 @@ import { routes } from 'constants/routesConstants'
 import { GuessType } from 'models/guess'
 import { LocationType } from 'models/location'
 import { FC, useState } from 'react'
-import { Button, Toast, ToastContainer } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import authStore from 'stores/auth.store'
 import SuccessPopup from '../../pages/Success'
@@ -15,28 +15,30 @@ interface Props {
 }
 
 const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
-  const [apiError, setApiError] = useState('')
-  const [showError, setShowError] = useState(false)
+  const [successMessage, setSuccessMessage] = useState('')
 
   const [isOpen, setIsOpen] = useState(false)
-  const [successDelete, setSuccessDelete] = useState(false)
+  const [response, setResponse] = useState(false)
 
   const togglePopup = () => {
     setIsOpen(!isOpen)
   }
 
-  const toggleSuccess = () => {
-    setSuccessDelete(!successDelete)
+  const toggleResponse = () => {
+    setResponse(!response)
   }
 
   const deleteLocation = async (locationId: number) => {
     const response = await API.deleteLocation(locationId)
     if (response.status === StatusCode.BAD_REQUEST) {
-      setApiError(response.data.message)
-      setShowError(true)
+      setSuccessMessage('Unable to delete the location.')
+      toggleResponse()
     } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
-      setApiError(response.data.message)
-      setShowError(true)
+      setSuccessMessage('Unable to delete the location.')
+      toggleResponse()
+    } else {
+      setSuccessMessage('The location was successfully deleted.')
+      toggleResponse()
     }
   }
 
@@ -57,20 +59,24 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
                   height="235"
                 />
               </Link>
-              <Button className="top-left">
-                <Link
-                  to={`${routes.EDITLOCATION}/${location.id}`}
-                  state={{ data: location }}
-                >
-                  <img src="/edit.svg" alt="edit" />
-                </Link>
-              </Button>
-              <Button
-                className="btnRed top-right"
-                onClick={() => setIsOpen(true)}
-              >
-                <img width={25} height={15} src="/x.svg" alt="delete" />
-              </Button>
+              {location.user.id === authStore.user.id && (
+                <>
+                  <Button className="top-left">
+                    <Link
+                      to={`${routes.EDITLOCATION}/${location.id}`}
+                      state={{ data: location }}
+                    >
+                      <img src="/edit.svg" alt="edit" />
+                    </Link>
+                  </Button>
+                  <Button
+                    className="btnRed top-right"
+                    onClick={() => setIsOpen(true)}
+                  >
+                    <img width={25} height={15} src="/x.svg" alt="delete" />
+                  </Button>
+                </>
+              )}
               {isOpen && (
                 <SuccessPopup
                   content={
@@ -87,7 +93,6 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
                           onClick={() => {
                             deleteLocation(location.id)
                             togglePopup()
-                            toggleSuccess()
                           }}
                         >
                           Delete
@@ -98,20 +103,17 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
                   }
                 />
               )}
-              {successDelete && (
+              {response && (
                 <SuccessPopup
                   content={
                     <>
-                      <p className="text fs-5">
-                        Your <span className="green">location</span> was
-                        deleted.
-                      </p>
+                      <p className="text fs-5">{successMessage}</p>
                       <div className="text-center">
                         <Button
                           href="/"
                           className="btnRegister col-md-3"
                           onClick={() => {
-                            toggleSuccess()
+                            toggleResponse()
                           }}
                         >
                           Close
@@ -156,16 +158,6 @@ const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
             <img src="/lock.svg" className="centered" alt="Lock" />
           </a>
         </div>
-      )}
-      {showError && (
-        <ToastContainer className="p-3" position="top-end">
-          <Toast onClose={() => setShowError(false)} show={showError}>
-            <Toast.Header>
-              <strong className="me-suto text-danger">Error</strong>
-            </Toast.Header>
-            <Toast.Body className="text-danger bg-light">{apiError}</Toast.Body>
-          </Toast>
-        </ToastContainer>
       )}
     </>
   )

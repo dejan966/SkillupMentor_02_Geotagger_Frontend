@@ -15,16 +15,6 @@ const GuessDisplay: FC = () => {
     },
   )
 
-  const changePage = (upDown: string) => {
-    if (upDown === 'next') {
-      setPageNumber((prev) => prev + 1)
-    } else if (upDown === 'prev') {
-      setPageNumber((prev) => prev - 1)
-    }
-    console.log(pageNumber)
-    return pageNumber
-  }
-
   return (
     <Layout>
       <div className="mb-3">

@@ -1,5 +1,5 @@
 import Layout from 'components/ui/Layout'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Button } from 'react-bootstrap'
 import { routes } from 'constants/routesConstants'
 import authStore from 'stores/auth.store'
@@ -10,7 +10,6 @@ import LocationList from 'components/location/LocationList'
 
 const Home: FC = () => {
   const navigate = useNavigate()
-
   const { data: allLocations, status: locationStatus } = useQuery(
     ['allLocations', 1],
     () => API.fetchLocations(1),
@@ -36,7 +35,7 @@ const Home: FC = () => {
               <LocationList
               title="Personal best guesses"
               desc="Your personal best guesses appear here. Go on and try to beat
-                your personal records or set a new one!"
+              your personal records or set a new one!"
               status={personalBestStatus}
               guessData={personalBest}
               loadmore

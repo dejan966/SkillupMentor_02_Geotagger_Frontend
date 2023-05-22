@@ -17,7 +17,6 @@ interface Props {
 }
 
 const UpdatePasswordForm: FC<Props> = (token) => {
-  const navigate = useNavigate()
   const { handleSubmit, errors, control } = useUpdateUserForm({})
 
   const [apiError, setApiError] = useState('')

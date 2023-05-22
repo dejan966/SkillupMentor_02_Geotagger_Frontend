@@ -1,6 +1,6 @@
 import { routes } from 'constants/routesConstants'
 import { GuessType } from 'models/guess'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Button } from 'react-bootstrap'
 import LocationBlock from './LocationBlock'
 import { LocationType } from 'models/location'
@@ -104,62 +104,80 @@ const LocationList: FC<Props> = ({
             </>
           ) : (
             <>
-              <div className="locationRow">
-                {multiplePages ? (
-                  <>
-                    {guessData?.data.data.map(
-                      (item: GuessType, index: number) => (
-                        <LocationBlock locationGuess={item} key={index} />
-                      ),
-                    )}
-                  </>
-                ) : (
-                  <>
-                    {guessData?.data.data
-                      .slice(0, 3)
-                      .map((item: GuessType, index: number) => (
-                        <LocationBlock locationGuess={item} key={index} />
-                      ))}
-                  </>
-                )}
-              </div>
-              {loadmore || multiplePages ? (
+              {guessData ? (
                 <>
-                  {multiplePages && !loadmore ? (
+                  <div className="locationRow">
+                    {multiplePages ? (
+                      <>
+                        {guessData?.data.data.map(
+                          (item: GuessType, index: number) => (
+                            <LocationBlock locationGuess={item} key={index} />
+                          ),
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {guessData?.data.data
+                          .slice(0, 3)
+                          .map((item: GuessType, index: number) => (
+                            <LocationBlock locationGuess={item} key={index} />
+                          ))}
+                      </>
+                    )}
+                  </div>
+                  {loadmore || multiplePages ? (
                     <>
-                      {guessData.data.meta.last_page > 1 && (
-                        <div className="d-flex justify-content-between">
+                      {multiplePages && !loadmore ? (
+                        <>
+                          {guessData.data.meta.last_page > 1 && (
+                            <div className="d-flex justify-content-between">
+                              <Button
+                                className="btnRegister me-2"
+                                onClick={() =>
+                                  setPageNumber!((prev) => prev - 1)
+                                }
+                                disabled={pageNumber === 1}
+                              >
+                                Prev page
+                              </Button>
+                              <Button
+                                className="btnRegister"
+                                onClick={() =>
+                                  setPageNumber!((prev) => prev + 1)
+                                }
+                                disabled={
+                                  pageNumber === guessData.data.meta.last_page
+                                }
+                              >
+                                Next page
+                              </Button>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="mb-3 text-center mx-auto">
                           <Button
-                            className="btnRegister me-2"
-                            onClick={() => setPageNumber!((prev) => prev - 1)}
-                            disabled={pageNumber === 1}
+                            href={routes.ALLGUESSES}
+                            className="btnLoadMore"
                           >
-                            Prev page
-                          </Button>
-                          <Button
-                            className="btnRegister"
-                            onClick={() => setPageNumber!((prev) => prev + 1)}
-                            disabled={
-                              pageNumber === guessData.data.meta.last_page
-                            }
-                          >
-                            Next page
+                            Load more
                           </Button>
                         </div>
                       )}
                     </>
                   ) : (
-                    <div className="mb-3 text-center mx-auto">
-                      <Button href={routes.ALLGUESSES} className="btnLoadMore">
-                        Load more
-                      </Button>
-                    </div>
+                    <Button className="btnRegister" href={routes.SIGNUP}>
+                      Sign up
+                    </Button>
                   )}
                 </>
               ) : (
-                <Button className="btnRegister" href={routes.SIGNUP}>
-                  Sign up
-                </Button>
+                <>
+                  <div>No data to display</div>
+                  <Button className="btnRegister" href={routes.SIGNUP}>
+                    Sign up
+                  </Button>
+                </>
               )}
             </>
           )}

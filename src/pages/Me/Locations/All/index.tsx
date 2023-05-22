@@ -15,7 +15,6 @@ const MyLocationsInfo: FC = () => {
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
   const [pageNumber, setPageNumber] = useState(1)
-  const navigate = useNavigate()
 
   const { data: personalBest, status: personalBestStatus } = useQuery(
     ['personalBestProfile', 1],
@@ -51,7 +50,7 @@ const MyLocationsInfo: FC = () => {
         </div>
         <div className="mb-3">
           <div>
-            <div className="mb-3 justify-content-between">My best guesses</div>
+            <h3 className="mb-3 justify-content-between green">My best guesses</h3>
             <div className="mb-3">
               {personalBestStatus === 'error' && <p>Error fetching data</p>}
               {personalBestStatus === 'loading' && <p>Loading data...</p>}
@@ -73,7 +72,7 @@ const MyLocationsInfo: FC = () => {
           </div>
         </div>
         <div>
-          <div className="mb-3">My uploads</div>
+          <h3 className="mb-3 green">My uploads</h3>
           <div className="text-start d-flex mb-3">
             {currUserLocationsStatus === 'error' && <p>Error fetching data</p>}
             {currUserLocationsStatus === 'loading' && <p>Loading data...</p>}
