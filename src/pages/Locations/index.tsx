@@ -3,7 +3,6 @@ import * as API from 'api/Api'
 import { useQuery } from 'react-query'
 import Layout from 'components/ui/Layout'
 import LocationList from 'components/location/LocationList'
-import { useLocation } from 'react-router-dom'
 
 const LocationsDisplay: FC = () => {
   const [pageNumber, setPageNumber] = useState(1)

@@ -40,6 +40,11 @@ export const updateUser = async (data: UpdateUserFields, id: number) =>
 export const passwordResetEmail = async ({ email }: UpdateUserFields) =>
   apiRequest<UpdateUserFields, string>('get', `${apiRoutes.ME}/reset-password`, { email })
 
+export const fetchTokenInfo = async (token: string) =>
+  apiRequest<string, UserType>(
+    'get',
+    `${apiRoutes.USERS_PREFIX}/${token}`,
+  )
 export const updateUserPass = async ({
   current_password,
   password,

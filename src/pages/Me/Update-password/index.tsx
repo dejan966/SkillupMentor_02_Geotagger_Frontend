@@ -12,25 +12,19 @@ const UserPasswordEdit: FC = () => {
   const queryParams = new URLSearchParams(location.search)
   const queryToken = queryParams.get('token')
 
-  const [tokenExpiration, setTokenExpiration] = useState<Date>()
   const [tokenFromDB, setTokenFromDB] = useState()
 
   useQuery(['password_token_info'], () => API.fetchTokenInfo(queryToken!), {
     onSuccess(data) {
-      setTokenExpiration(data.data.token_expiry_date)
       setTokenFromDB(data.data.token)
     },
     refetchOnWindowFocus: false,
   })
-
-  const currTime = new Date().toLocaleTimeString()
-  const tokenExpTime = new Date(tokenExpiration!).toLocaleTimeString()
-
   return (
     <>
       {queryToken ? (
         <Layout>
-          {queryToken === tokenFromDB && currTime < tokenExpTime ? (
+          {queryToken === tokenFromDB ? (
             <UpdatePasswordForm token={queryToken} />
           ) : (
             <h1>Invalid token</h1>

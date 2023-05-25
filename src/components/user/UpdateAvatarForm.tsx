@@ -16,7 +16,7 @@ interface Props {
 
 const UpdateAvatarForm: FC<Props> = ({ defaultValues }) => {
   const navigate = useNavigate()
-  const { handleSubmit, errors, control } = useUpdateUserForm({
+  const { handleSubmit } = useUpdateUserForm({
     defaultValues,
   })
 

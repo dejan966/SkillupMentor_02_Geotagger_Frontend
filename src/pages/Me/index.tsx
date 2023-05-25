@@ -1,15 +1,12 @@
 import Layout from 'components/ui/Layout'
-import { ChangeEvent, FC, useEffect, useState } from 'react'
-import { useMutation, useQuery } from 'react-query'
+import { FC, useState } from 'react'
+import { useQuery } from 'react-query'
 import { StatusCode } from 'constants/errorConstants'
 import * as API from 'api/Api'
-import useMediaQuery from 'hooks/useMediaQuery'
 import { Button, FormLabel } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
 import { routes } from 'constants/routesConstants'
 import Avatar from 'react-avatar'
-import { UserType } from 'models/auth'
-import axios from 'axios'
 import authStore from 'stores/auth.store'
 import { Link, useNavigate } from 'react-router-dom'
 import SuccessPopup from 'pages/Success'
@@ -18,7 +15,6 @@ const UserInfo: FC = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [apiError, setApiError] = useState('')
-  const [showError, setShowError] = useState(false)
   const [userData, setUserData] = useState({
     id: 1,
     first_name: '',
@@ -37,10 +33,8 @@ const UserInfo: FC = () => {
     const response = await API.signout()
     if (response.status === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
-      setShowError(true)
     } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
-      setShowError(true)
     } else {
       handleDeleteAcc(user.data.data.id)
       authStore.signout()
@@ -52,10 +46,8 @@ const UserInfo: FC = () => {
     const response = await API.deleteUser(id)
     if (response.status === StatusCode.BAD_REQUEST) {
       setApiError(response.data.message)
-      setShowError(true)
     } else if (response.status === StatusCode.INTERNAL_SERVER_ERROR) {
       setApiError(response.data.message)
-      setShowError(true)
     }
   }
 
