@@ -17,16 +17,17 @@ const LocationsDisplay: FC = () => {
   return (
     <Layout>
       <div className="mb-3">
-        <LocationList
-          title="New locations"
-          desc="New uploads from users. Try to guess all the locations by
+        <div>
+          <LocationList
+            title="New locations"
+            desc="New uploads from users. Try to guess all the locations by
               pressing on a picture."
-          locationData={allLocations}
-          status={locationStatus}
-          pageNumber={pageNumber}
-          setPageNumber={setPageNumber}
-          multiplePages
-        /> 
+            locationData={allLocations}
+            status={locationStatus}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+          />
+        </div>
       </div>
     </Layout>
   )

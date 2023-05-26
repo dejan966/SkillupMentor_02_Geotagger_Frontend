@@ -18,16 +18,17 @@ const GuessDisplay: FC = () => {
   return (
     <Layout>
       <div className="mb-3">
-        <LocationList
-          title="Personal best guesses"
-          desc="Your personal best guesses appear here. Go on and try to beat
+        <div>
+          <LocationList
+            title="Personal best guesses"
+            desc="Your personal best guesses appear here. Go on and try to beat
                 your personal records or set a new one!"
-          status={personalBestStatus}
-          guessData={personalBest}
-          pageNumber={pageNumber}
-          setPageNumber={setPageNumber}
-          multiplePages
-        />
+            status={personalBestStatus}
+            guessData={personalBest}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+          />
+        </div>
       </div>
     </Layout>
   )
