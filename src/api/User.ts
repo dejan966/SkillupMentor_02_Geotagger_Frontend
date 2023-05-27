@@ -38,12 +38,16 @@ export const updateUser = async (data: UpdateUserFields, id: number) =>
   )
 
 export const passwordResetEmail = async ({ email }: UpdateUserFields) =>
-  apiRequest<UpdateUserFields, string>('get', `${apiRoutes.ME}/reset-password`, { email })
+  apiRequest<UpdateUserFields, string>(
+    'post',
+    `${apiRoutes.ME}/reset-password`,
+    { email },
+  )
 
-export const fetchTokenInfo = async (token: string) =>
-  apiRequest<string, UserType>(
+export const fetchTokenInfo = async (user_id: number, token: string) =>
+  apiRequest<number, boolean>(
     'get',
-    `${apiRoutes.USERS_PREFIX}/${token}`,
+    `${apiRoutes.USERS_PREFIX}/${user_id}/${token}`,
   )
 export const updateUserPass = async ({
   current_password,

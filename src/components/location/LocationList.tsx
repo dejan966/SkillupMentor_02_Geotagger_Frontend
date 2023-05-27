@@ -34,7 +34,6 @@ const LocationList: FC<Props> = ({
       ) : (
         <>
           {locationData &&
-          locationData.data.data.length > 0 &&
           status === 'success' ? (
             <>
               <div className="locationRow">

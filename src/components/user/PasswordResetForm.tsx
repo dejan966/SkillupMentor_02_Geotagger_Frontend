@@ -28,6 +28,7 @@ const PasswordResetForm = () => {
   })
 
   const handleChange = async (data: UpdateUserFields) => {
+    console.log(data)
     const response = await API.passwordResetEmail(data)
     if (response.status === StatusCode.BAD_REQUEST) {
       console.log(data)

@@ -7,5 +7,4 @@ export type UserType = {
   password:string
   confirm_password:string
   avatar: string
-  password_token: string
 }

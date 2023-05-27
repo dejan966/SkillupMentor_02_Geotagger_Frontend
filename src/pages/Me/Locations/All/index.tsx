@@ -1,18 +1,15 @@
 import Layout from 'components/ui/Layout'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { useQuery } from 'react-query'
 import * as API from 'api/Api'
-import { Button, Toast, ToastContainer } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import authStore from 'stores/auth.store'
-import { GuessType } from 'models/guess'
 import LocationBlock from 'components/location/LocationBlock'
 import { LocationType } from 'models/location'
 import { routes } from 'constants/routesConstants'
+import LocationList from 'components/location/LocationList'
 
 const MyLocationsInfo: FC = () => {
-  const [apiError, setApiError] = useState('')
-  const [showError, setShowError] = useState(false)
-
   const { data: personalBest, status: personalBestStatus } = useQuery(
     ['personalBestProfile', 1],
     () => API.fetchPersonalBest(1),
@@ -47,24 +44,21 @@ const MyLocationsInfo: FC = () => {
         </div>
         <div className="mb-3">
           <div>
-            <h3 className="mb-3 justify-content-between green">My best guesses</h3>
             <div className="mb-3">
-              {personalBestStatus === 'error' && <p>Error fetching data</p>}
-              {personalBestStatus === 'loading' && <p>Loading data...</p>}
-              {personalBestStatus === 'success' && (
-                <>
-                  <div className="locationRow">
-                    {personalBest.data.data
-                      .slice(0, 4)
-                      .map((item: GuessType, index: number) => (
-                        <LocationBlock locationGuess={item} key={index} />
-                      ))}
-                  </div>
-                </>
+              {personalBest && (
+                <LocationList
+                  title="My best guesses"
+                  desc="Your personal best guesses appear here. Go on and try to beat
+              your personal records or set a new one!"
+                  status={personalBestStatus}
+                  guessData={personalBest}
+                />
               )}
             </div>
             <div className="text-center">
-              <Button href={routes.ALLGUESSES} className="btnLoadMore">Load more</Button>
+              <Button href={routes.ALLGUESSES} className="btnLoadMore">
+                Load more
+              </Button>
             </div>
           </div>
         </div>
@@ -90,16 +84,6 @@ const MyLocationsInfo: FC = () => {
           </div>
         </div>
       </div>
-      {showError && (
-        <ToastContainer className="p-3" position="top-end">
-          <Toast onClose={() => setShowError(false)} show={showError}>
-            <Toast.Header>
-              <strong className="me-suto text-danger">Error</strong>
-            </Toast.Header>
-            <Toast.Body className="text-danger bg-light">{apiError}</Toast.Body>
-          </Toast>
-        </ToastContainer>
-      )}
     </Layout>
   )
 }
