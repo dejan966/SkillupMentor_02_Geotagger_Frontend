@@ -49,6 +49,7 @@ export const fetchTokenInfo = async (user_id: number, token: string) =>
     'get',
     `${apiRoutes.USERS_PREFIX}/${user_id}/${token}`,
   )
+  
 export const updateUserPass = async ({
   current_password,
   password,

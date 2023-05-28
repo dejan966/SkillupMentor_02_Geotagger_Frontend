@@ -17,9 +17,9 @@ const UserPasswordEdit: FC = () => {
 
   useQuery(['password_token_info'], () => API.fetchTokenInfo(authStore.user?.id!, queryToken!), {
     onSuccess(data) {
+      console.log(data)
       setStatus(data.data)
     },
-    refetchOnWindowFocus: false,
   })
   return (
     <>
