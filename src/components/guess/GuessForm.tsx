@@ -1,18 +1,15 @@
 import { FC, useEffect, useState } from 'react'
 import * as API from 'api/Api'
-import { GoogleMap, LoadScriptProps, MarkerF } from '@react-google-maps/api'
 import { Form, Button, FormLabel, ToastContainer, Toast } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { GuessUserFields, useGuess } from 'hooks/react-hook-form/useGuess'
 import { StatusCode } from 'constants/errorConstants'
-import { useLoadScript } from '@react-google-maps/api'
 import { GuessType } from 'models/guess'
 import { useQuery } from 'react-query'
 import Geocode from 'react-geocode'
 import authStore from 'stores/auth.store'
-
-const libraries: LoadScriptProps['libraries'] = ['geometry']
+import MapG from 'components/location/Map'
 
 const GuessForm: FC = () => {
   Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY!)
@@ -99,16 +96,6 @@ const GuessForm: FC = () => {
     )
   }, [currentPosition])
 
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-    libraries,
-  })
-
-  const mapStyles = {
-    height: '50vh',
-    width: '100%',
-  }
-
   const onSubmit = handleSubmit(async (data: GuessUserFields) => {
     const response = await API.makeGuess(data, locationId)
     if (response.status === StatusCode.BAD_REQUEST) {
@@ -144,16 +131,7 @@ const GuessForm: FC = () => {
                 />
               </Form.Group>
               <div className="mb-3">
-                {isLoaded && (
-                  <GoogleMap
-                    mapContainerStyle={mapStyles}
-                    zoom={13}
-                    center={currentPosition}
-                    onClick={(e) => compareDistance(e)}
-                  >
-                    <MarkerF position={currentPosition} />
-                  </GoogleMap>
-                )}
+                <MapG currentPosition={currentPosition} compareDistance={compareDistance} />
               </div>
               <div className="grid">
                 <div className="col-md-5">

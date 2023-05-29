@@ -80,7 +80,7 @@ const MyLocationsInfo: FC = () => {
             )}
           </div>
           <div className="text-center">
-            <Button className="btnLoadMore">Load more</Button>
+            <Button href={routes.ALLLOCATIONS} className="btnLoadMore">Load more</Button>
           </div>
         </div>
       </div>

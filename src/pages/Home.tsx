@@ -59,7 +59,7 @@ const Home: FC = () => {
               />
             </div>
             <div className="mb-3 text-center mx-auto">
-              <Button href={routes.ALLGUESSES} className="btnLoadMore">
+              <Button href={routes.ALLLOCATIONS} className="btnLoadMore">
                 Load more
               </Button>
             </div>
