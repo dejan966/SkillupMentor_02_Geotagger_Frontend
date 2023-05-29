@@ -11,8 +11,8 @@ export interface GuessUserFields {
 export const useGuess = () => {
   const GuessSchema = Yup.object().shape({
     image_url: Yup.string().notRequired(),
-    latitude: Yup.number().notRequired(),
-    longitude: Yup.number().notRequired(),
+    latitude: Yup.number(),
+    longitude: Yup.number(),
     errorDistance: Yup.number().notRequired(),
   })
 

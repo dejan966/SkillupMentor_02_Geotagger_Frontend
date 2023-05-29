@@ -1,7 +1,6 @@
 import { StatusCode } from 'constants/errorConstants'
 import {
   CreateLocationFields,
-  UpdateLocationFields,
   useCreateUpdateLocationForm,
 } from 'hooks/react-hook-form/useCreateUpdateLocation'
 import { observer } from 'mobx-react'
@@ -11,7 +10,7 @@ import { Form } from 'react-bootstrap'
 import { Controller } from 'react-hook-form'
 import * as API from 'api/Api'
 import { useNavigate } from 'react-router-dom'
-import { useLoadScript, GoogleMap, MarkerF } from '@react-google-maps/api'
+import MapG from './Map'
 
 const CreateLocationForm: FC = () => {
   const navigate = useNavigate()
@@ -29,15 +28,6 @@ const CreateLocationForm: FC = () => {
     lat: 41.3851,
     lng: 2.1734,
   })
-
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-  })
-
-  const mapStyles = {
-    height: '50vh',
-    width: '100%',
-  }
 
   const setPosition = (e: any) => {
     setCurrentPosition({
@@ -93,7 +83,7 @@ const CreateLocationForm: FC = () => {
   }
 
   const clearImg = () => {
-    setPreview('/default_location.png')
+    setPreview('/location_placeholder.png')
   }
 
   useEffect(() => {
@@ -105,7 +95,7 @@ const CreateLocationForm: FC = () => {
       }
       reader.readAsDataURL(file)
     } else {
-      setPreview('/default_location.png')
+      setPreview('/location_placeholder.png')
     }
   }, [file])
 
@@ -150,16 +140,10 @@ const CreateLocationForm: FC = () => {
           </Button>
         </div>
         <div className="mb-3">
-          {isLoaded && (
-            <GoogleMap
-              mapContainerStyle={mapStyles}
-              zoom={13}
-              center={currentPosition}
-              onClick={(e) => setPosition(e)}
-            >
-              <MarkerF position={currentPosition} />
-            </GoogleMap>
-          )}
+          <MapG
+            currentPosition={currentPosition}
+            compareDistance={setPosition}
+          />
         </div>
         <Controller
           control={control}

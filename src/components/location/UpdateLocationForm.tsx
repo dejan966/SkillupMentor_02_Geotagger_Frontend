@@ -5,7 +5,6 @@ import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { FormLabel, Button, Toast, ToastContainer } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
 import * as API from 'api/Api'
-import { useNavigate } from 'react-router-dom'
 import { routes } from 'constants/routesConstants'
 import { LocationType } from 'models/location'
 import SuccessPopup from 'pages/Success'
@@ -18,7 +17,6 @@ interface Props {
 const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
   Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY!)
 
-  const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)
   const [address, setAddress] = useState({ location: '' })

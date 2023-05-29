@@ -16,11 +16,9 @@ import { StatusCode } from 'constants/errorConstants'
 import authStore from 'stores/auth.store'
 import Avatar from 'react-avatar'
 import { observer } from 'mobx-react'
-import useMediaQuery from 'hooks/useMediaQuery'
 
 const RegisterForm: FC = () => {
   const navigate = useNavigate()
-  const { isMobile } = useMediaQuery(1038)
   const { handleSubmit, errors, control } = useRegisterForm()
   const [apiError, setApiError] = useState('')
   const [showError, setShowError] = useState(false)

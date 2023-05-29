@@ -17,7 +17,6 @@ interface Props {
 }
 
 const UpdatePasswordForm: FC<Props> = (token) => {
-  const navigate = useNavigate()
   const { handleSubmit, errors, control } = useUpdateUserForm({})
 
   const [apiError, setApiError] = useState('')
@@ -41,16 +40,7 @@ const UpdatePasswordForm: FC<Props> = (token) => {
       setApiError(response.data.message)
       setShowError(true)
     } else {
-      const responseToken = await API.deleteToken(token.token)
-      if (responseToken.status === StatusCode.BAD_REQUEST) {
-        setApiError(responseToken.message)
-        setShowError(true)
-      } else if (responseToken.status === StatusCode.INTERNAL_SERVER_ERROR) {
-        setApiError(responseToken.message)
-        setShowError(true)
-      } else {
-        togglePopup()
-      }
+      togglePopup()
     }
   }
 
