@@ -60,8 +60,8 @@ const Navbar: FC = () => {
                 </div>
                 <div className="container-xxl d-flex justify-content-center align-items-center mb-3">
                   <ul className="navbar-nav">
-                    <div className="d-flex align-items-center">
-                      <Link to={routes.USERLOCATIONSINFO}>
+                    <Link to={routes.USERLOCATIONSINFO}>
+                      <div className="d-flex align-items-center">
                         <img
                           src={`${process.env.REACT_APP_API_URL}/uploads/avatars/${authStore.user?.avatar}`}
                           className="userAvatar"
@@ -72,8 +72,8 @@ const Navbar: FC = () => {
                             ' ' +
                             authStore.user.last_name}
                         </div>
-                      </Link>
-                    </div>
+                      </div>
+                    </Link>
                     <li className="nav-item">
                       <NavLink className="nav-link" to={routes.HOME}>
                         Home
@@ -92,6 +92,11 @@ const Navbar: FC = () => {
                       >
                         Logout
                       </NavLink>
+                      <li className="nav-item">
+                        <a href={routes.ADDNEWLOCATION} className="addLocation">
+                          +
+                        </a>
+                      </li>
                     </li>
                   </ul>
                 </div>
@@ -173,10 +178,7 @@ const Navbar: FC = () => {
                   {authStore.user ? (
                     <>
                       <li className="nav-item pe-4">
-                        <a
-                          className="text-decoration-none"
-                          href={routes.HOME}
-                        >
+                        <a className="text-decoration-none" href={routes.HOME}>
                           Home
                         </a>
                       </li>
@@ -189,10 +191,7 @@ const Navbar: FC = () => {
                         </a>
                       </li>
                       <li className="nav-item pe-4">
-                        <p
-                          style={{color:'#619E89'}}
-                          onClick={signout}
-                        >
+                        <p style={{ color: '#619E89' }} onClick={signout}>
                           Logout
                         </p>
                       </li>

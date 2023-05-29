@@ -9,21 +9,23 @@ import { FC } from 'react'
 const libraries: LoadScriptProps['libraries'] = ['geometry']
 
 interface Props {
-  currentPosition: {lat:number, lng: number}
+  currentPosition: { lat: number; lng: number }
   compareDistance: (e: any) => void
 }
 
-const MapG: FC<Props> = ({currentPosition, compareDistance}) => {
+const MapG: FC<Props> = ({ currentPosition, compareDistance }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
     libraries,
   })
+
   const mapStyles = {
     height: '50vh',
     width: '100%',
   }
+
   return (
-    <div className="mb-3">
+    <>
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={mapStyles}
@@ -34,7 +36,7 @@ const MapG: FC<Props> = ({currentPosition, compareDistance}) => {
           <MarkerF position={currentPosition} />
         </GoogleMap>
       )}
-    </div>
+    </>
   )
 }
 
