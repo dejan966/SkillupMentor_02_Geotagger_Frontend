@@ -20,6 +20,8 @@ const Home = lazy(() => import('pages/Home'))
 const UserInfo = lazy(() => import('pages/Me'))
 const UserEdit = lazy(() => import('pages/Me/Edit'))
 const UserProfile = lazy(() => import('pages/Me/Profile'))
+const UserAllGuesses = lazy(()=>import('pages/Me/Guesses'))
+const UserAllLocations = lazy(()=>import('pages/Me/Locations'))
 const UserPasswordEdit = lazy(() => import('pages/Me/Update-password'))
 const UserPasswordReset = lazy(() => import('pages/Me/Reset-password'))
 const UserAvatarEdit = lazy(() => import('pages/Me/Update-avatar'))
@@ -65,6 +67,16 @@ export const AppRoutes: AppRoute[] = [
     type: RouteType.PRIVATE,
     path: '/me/edit',
     children: <UserEdit />,
+  },
+  {
+    type: RouteType.PRIVATE,
+    path: '/me/locations',
+    children: <UserAllLocations />,
+  },
+  {
+    type: RouteType.PRIVATE,
+    path: '/me/guesses',
+    children: <UserAllGuesses />,
   },
   {
     type: RouteType.PRIVATE,
