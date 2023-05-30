@@ -9,6 +9,7 @@ import { routes } from 'constants/routesConstants'
 import { LocationType } from 'models/location'
 import SuccessPopup from 'pages/Success'
 import Geocode from 'react-geocode'
+import Layout from 'components/ui/Layout'
 
 interface Props {
   defaultValues: LocationType
@@ -101,7 +102,7 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
   }, [file])
 
   return (
-    <>
+    <Layout>
       <h3 className="mx-auto text-center">
         Edit <span style={{ color: '#619E89' }}>location</span>
       </h3>
@@ -193,7 +194,7 @@ const UpdateLocationForm: FC<Props> = ({ defaultValues }) => {
           </Toast>
         </ToastContainer>
       )}
-    </>
+    </Layout>
   )
 }
 

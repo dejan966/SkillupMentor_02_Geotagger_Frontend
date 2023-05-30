@@ -10,8 +10,8 @@ import { routes } from 'constants/routesConstants'
 import LocationList from 'components/location/LocationList'
 
 const MyLocationsInfo: FC = () => {
-  const { data: personalBest, status: personalBestStatus } = useQuery(
-    ['personalBestProfile', 1],
+  const { data: currUserPersonalBest, status: currUserPersonalBestStatus } = useQuery(
+    ['currUserPersonalBestProfile', 1],
     () => API.fetchPersonalBest(1),
     {
       keepPreviousData: true,
@@ -45,13 +45,13 @@ const MyLocationsInfo: FC = () => {
         <div className="mb-3">
           <div>
             <div className="mb-3">
-              {personalBest && (
+              {currUserPersonalBest && (
                 <LocationList
                   title="My best guesses"
                   desc="Your personal best guesses appear here. Go on and try to beat
               your personal records or set a new one!"
-                  status={personalBestStatus}
-                  guessData={personalBest}
+                  status={currUserPersonalBestStatus}
+                  guessData={currUserPersonalBest}
                 />
               )}
             </div>

@@ -304,7 +304,7 @@ const GuessForm: FC = () => {
                               alt="user avatar"
                               className="userAvatar"
                             />
-                            <div>
+                            <div style={{color:'black'}}>
                               <div>
                                 {item.user.first_name} {item.user.last_name}
                               </div>

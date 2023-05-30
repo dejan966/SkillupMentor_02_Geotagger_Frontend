@@ -11,6 +11,7 @@ import { Controller } from 'react-hook-form'
 import * as API from 'api/Api'
 import { useNavigate } from 'react-router-dom'
 import MapG from './Map'
+import Layout from 'components/ui/Layout'
 
 const CreateLocationForm: FC = () => {
   const navigate = useNavigate()
@@ -100,7 +101,7 @@ const CreateLocationForm: FC = () => {
   }, [file])
 
   return (
-    <>
+    <Layout>
       <h3 className="mx-auto text-center">
         Add a new <span style={{ color: '#619E89' }}>location</span>
       </h3>
@@ -184,7 +185,7 @@ const CreateLocationForm: FC = () => {
           </Toast>
         </ToastContainer>
       )}
-    </>
+    </Layout>
   )
 }
 
