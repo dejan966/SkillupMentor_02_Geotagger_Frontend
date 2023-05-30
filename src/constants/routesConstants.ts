@@ -9,8 +9,9 @@ export enum routes {
   ADDNEWLOCATION = '../me/mylocation/add',
   USERLOCATIONSINFO = '../me/profile',
   ALLLOCATIONS = '/locations',
+  ALLUSERLOCATIONS = '../me/locations',
   EDITLOCATION = '../../me/mylocation/edit',
   DELETELOCATION = 'me/mylocation/delete',
   MAKEGUESS = '../../guess/location',
-  ALLGUESSES = '/guesses',
+  ALLUSERGUESSES = '../me/guesses',
 }

@@ -45,8 +45,8 @@ export const deleteLocation = async (id: number) =>
     `${apiRoutes.LOCATIONS_PREFIX}/${id}`,
   )
 
-export const currUserLocations = async (id: number) =>
-  apiRequest<never, LocationType>(
+export const currUserLocations = async (pageNumber: number) =>
+  apiRequest<never, LocationType[]>(
     'get',
-    `${apiRoutes.LOCATIONS_PREFIX}/user/${id}`,
+    `${apiRoutes.LOCATIONS_PREFIX}/me?page=${pageNumber}`,
   )

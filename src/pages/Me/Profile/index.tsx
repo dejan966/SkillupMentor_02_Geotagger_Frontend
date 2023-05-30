@@ -4,8 +4,6 @@ import { useQuery } from 'react-query'
 import * as API from 'api/Api'
 import { Button } from 'react-bootstrap'
 import authStore from 'stores/auth.store'
-import LocationBlock from 'components/location/LocationBlock'
-import { LocationType } from 'models/location'
 import { routes } from 'constants/routesConstants'
 import LocationList from 'components/location/LocationList'
 
@@ -20,8 +18,8 @@ const MyLocationsInfo: FC = () => {
   )
 
   const { data: currUserLocations, status: currUserLocationsStatus } = useQuery(
-    ['currUserLocations'],
-    () => API.currUserLocations(authStore.user?.id!),
+    ['currUserLocations', 1],
+    () => API.currUserLocations(1),
     {
       refetchOnWindowFocus: false,
     },
@@ -47,7 +45,7 @@ const MyLocationsInfo: FC = () => {
             <div className="mb-3">
               {currUserPersonalBest && (
                 <LocationList
-                  title="My best guesses"
+                  title="Personal best guesses"
                   desc="Your personal best guesses appear here. Go on and try to beat
               your personal records or set a new one!"
                   status={currUserPersonalBestStatus}
@@ -56,31 +54,25 @@ const MyLocationsInfo: FC = () => {
               )}
             </div>
             <div className="text-center">
-              <Button href={routes.ALLGUESSES} className="btnLoadMore">
+              <Button href={routes.ALLUSERGUESSES} className="btnLoadMore">
                 Load more
               </Button>
             </div>
           </div>
         </div>
         <div>
-          <h3 className="mb-3 green">My uploads</h3>
-          <div className="text-start d-flex mb-3">
-            {currUserLocationsStatus === 'error' && <p>Error fetching data</p>}
-            {currUserLocationsStatus === 'loading' && <p>Loading data...</p>}
-            {currUserLocationsStatus === 'success' && (
-              <>
-                <div className="locationRow">
-                  {currUserLocations.data
-                    .slice(0, 4)
-                    .map((item: LocationType, index: number) => (
-                      <LocationBlock location={item} key={index} />
-                    ))}
-                </div>
-              </>
+          <div className="mb-3">
+            {currUserLocations && (
+              <LocationList
+              title="My uploads"
+              desc="All your uploads appear here"
+              status={currUserLocationsStatus}
+              locationData={currUserLocations}
+            />
             )}
           </div>
           <div className="text-center">
-            <Button href={routes.ALLLOCATIONS} className="btnLoadMore">Load more</Button>
+            <Button href={routes.ALLUSERLOCATIONS} className="btnLoadMore">Load more</Button>
           </div>
         </div>
       </div>

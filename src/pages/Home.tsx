@@ -43,7 +43,7 @@ const Home: FC = () => {
               )}
             </div>
             <div className="mb-3 text-center mx-auto">
-              <Button href={routes.ALLGUESSES} className="btnLoadMore">
+              <Button href={routes.ALLUSERGUESSES} className="btnLoadMore">
                 Load more
               </Button>
             </div>
