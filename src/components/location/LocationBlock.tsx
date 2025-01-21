@@ -14,7 +14,8 @@ interface Props {
   locationGuess?: GuessType
 }
 
-const LocationBlock: FC<Props> = ({ location, locationGuess }) => {
+const LocationBlock: FC<Props> = (props: Props) => {
+  const { location, locationGuess } = props
   const [successMessage, setSuccessMessage] = useState('')
 
   const [isOpen, setIsOpen] = useState(false)

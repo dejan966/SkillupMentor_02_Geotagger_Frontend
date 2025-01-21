@@ -15,15 +15,14 @@ interface Props {
   setPageNumber?: React.Dispatch<React.SetStateAction<number>>
 }
 
-const LocationList: FC<Props> = ({
-  title,
-  desc,
-  status,
-  locationData,
-  guessData,
-  pageNumber,
-  setPageNumber,
-}) => {
+const LocationList: FC<Props> = (props: Props) => {
+  const { title,
+    desc,
+    status,
+    locationData,
+    guessData,
+    pageNumber,
+    setPageNumber,} = props
   return (
     <>
       <h3 className="green">{title}</h3>
@@ -43,18 +42,18 @@ const LocationList: FC<Props> = ({
                   ),
                 )}
               </div>
-              {locationData.data.meta.last_page > 1 && (
+              {setPageNumber && locationData.data.meta.last_page > 1 && (
                 <div className="d-flex justify-content-between">
                   <Button
                     className="btnRegister me-2"
-                    onClick={() => setPageNumber!((prev) => prev - 1)}
+                    onClick={() => setPageNumber((prev) => prev - 1)}
                     disabled={pageNumber === 1}
                   >
                     Prev page
                   </Button>
                   <Button
                     className="btnRegister"
-                    onClick={() => setPageNumber!((prev) => prev + 1)}
+                    onClick={() => setPageNumber((prev) => prev + 1)}
                     disabled={pageNumber === locationData.data.meta.last_page}
                   >
                     Next page
@@ -64,27 +63,27 @@ const LocationList: FC<Props> = ({
             </>
           ) : (
             <>
-              {guessData && (
+              {guessData.status != 401 && (
                 <>
                   <div className="locationRow">
-                    {guessData?.data.data.map(
+                    {guessData && guessData?.data.data.map(
                       (item: GuessType, index: number) => (
                         <LocationBlock locationGuess={item} key={index} />
                       ),
                     )}
                   </div>
-                  {guessData.data.meta.last_page > 1 && (
+                  {setPageNumber && guessData.data.meta.last_page > 1 && (
                     <div className="d-flex justify-content-between">
                       <Button
                         className="btnRegister me-2"
-                        onClick={() => setPageNumber!((prev) => prev - 1)}
+                        onClick={() => setPageNumber((prev) => prev - 1)}
                         disabled={pageNumber === 1}
                       >
                         Prev page
                       </Button>
                       <Button
                         className="btnRegister"
-                        onClick={() => setPageNumber!((prev) => prev + 1)}
+                        onClick={() => setPageNumber((prev) => prev + 1)}
                         disabled={pageNumber === guessData.data.meta.last_page}
                       >
                         Next page
